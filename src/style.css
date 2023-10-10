@@ -1,0 +1,24 @@
+/* Roboto */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+
+/* general */
+
+:root {
+  --gap-100: 0.4rem;
+  --gap-150: 0.6rem;
+  --gap-300: 1.2rem;
+  --gap-400: 1.6rem;
+  --font-stack: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+  font-family: var(--font-stack);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  transition: all .1s ease-in-out;
+}
+
+html, body {
+  min-height: 100vh;
+}

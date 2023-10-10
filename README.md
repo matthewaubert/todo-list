@@ -15,13 +15,22 @@ Create a to-do list application with a user interface. The user should have the 
 ## Plan
 
 1. Project startup:
-   - Initialize my project to create a package.json file
-   - Install webpack
-   - Set up my directories according to convention
+   2. Initialize my project to create a package.json file
+   2. Install webpack
+   2. Set up my directories according to convention
 
-2. Set up an HTML skeleton in the dist directory with constant content (e.g. header, sidebar) and a div to hold dynamic content created by JS
+1. Set up an index.html HTML skeleton in the dist directory with constant content (e.g. header, sidebar) and a div to hold dynamic content created by JS
 
-3. Brainstorm what properties my task objects will have:
+1. Set up an index.js file, which will be the central module
+   - Keep in mind to split functionality amongst other JS modules as appropriate
+   - Keep my application logic separate from DOM-related logic
+
+1. Reference the webpack docs in order to:
+   2. Bundle my JS files
+   2. Bundle my images/assets
+   2. Bundle my CSS
+
+1. Brainstorm what properties my task objects will have:
    - title
    - dueDate
    - priority
@@ -30,29 +39,34 @@ Create a to-do list application with a user interface. The user should have the 
    - folder
    - checkList
 
-4. Brainstorm what properties my project objects will have:
+1. Brainstorm what properties my project objects will have:
    - title
    - dueDate
    - notes
    - folder
 
-5. Brainstorm what properties my folder objects will have:
+1. Brainstorm what properties my folder objects will have:
    - title
 
-6. Organize my tasks into projects. There should be a "default" project and the functionality to create new projects and reorganize task items.
+1. Organize my tasks into projects. There should be a "default" project and the functionality to create new projects and reorganize task items.
 
-7. Organize my projects into folders. There should be a "default" folder and the functionality to create new folders and reorganize projects.
+1. Organize my projects into folders. There should be a "default" folder and the functionality to create new folders and reorganize projects.
 
-8. Connect the user interface.
+1. Connect the user interface.
 
-9. Enable UI functionality to:
-   - View all projects
-   - View all to-dos in each project (i.e. filter by project)
-   - Expand a single to-do to see/edit its details
-   - Add a to-do
-   - Delete a to-do
+1. Enable UI functionality to:
+   2. View all projects
+   2. View all to-dos in each project (i.e. filter by project)
+   2. Expand a single to-do to see/edit its details
+   2. Add a to-do
+   2. Delete a to-do
 
-0. Enable local storage to allow persistent data
-   - Set up a function that saves tasks, projects, and folders to localStorage
-   - Set up a function that looks for data in localStorage when app is first loaded
+1. Enable local storage to allow persistent data
+   2. Set up a function that saves tasks, projects, and folders to localStorage
+   2. Set up a function that looks for data in localStorage when app is first loaded
    - Make sure app doesn't crash if data isn't able to be retrieved from localStorage!
+
+### Inspiration
+
+<a href="https://culturedcode.com/things/">Things</a>
+<a href="https://todoist.com/">Todoist</a>
