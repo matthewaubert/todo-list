@@ -15,9 +15,9 @@ Create a to-do list application with a user interface. The user should have the 
 ## Plan
 
 1. Project startup:
-   2. Initialize my project to create a package.json file
-   2. Install webpack
-   2. Set up my directories according to convention
+   1. Initialize my project to create a package.json file
+   1. Install webpack
+   1. Set up my directories according to convention
 
 1. Set up an index.html HTML skeleton in the dist directory with constant content (e.g. header, sidebar) and a div to hold dynamic content created by JS
 
@@ -26,9 +26,9 @@ Create a to-do list application with a user interface. The user should have the 
    - Keep my application logic separate from DOM-related logic
 
 1. Reference the webpack docs in order to:
-   2. Bundle my JS files
-   2. Bundle my images/assets
-   2. Bundle my CSS
+   1. Bundle my JS files
+   1. Bundle my images/assets
+   1. Bundle my CSS
 
 1. Brainstorm what properties my task objects will have:
    - title
@@ -55,18 +55,18 @@ Create a to-do list application with a user interface. The user should have the 
 1. Connect the user interface.
 
 1. Enable UI functionality to:
-   2. View all projects
-   2. View all to-dos in each project (i.e. filter by project)
-   2. Expand a single to-do to see/edit its details
-   2. Add a to-do
-   2. Delete a to-do
+   1. View all projects
+   1. View all to-dos in each project (i.e. filter by project)
+   1. Expand a single to-do to see/edit its details
+   1. Add a to-do
+   1. Delete a to-do
 
 1. Enable local storage to allow persistent data
-   2. Set up a function that saves tasks, projects, and folders to localStorage
-   2. Set up a function that looks for data in localStorage when app is first loaded
+   1. Set up a function that saves tasks, projects, and folders to localStorage
+   1. Set up a function that looks for data in localStorage when app is first loaded
    - Make sure app doesn't crash if data isn't able to be retrieved from localStorage!
 
 ### Inspiration
 
-<a href="https://culturedcode.com/things/">Things</a>
-<a href="https://todoist.com/">Todoist</a>
+- <a href="https://culturedcode.com/things/">Things</a>
+- <a href="https://todoist.com/">Todoist</a>

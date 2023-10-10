@@ -6,8 +6,11 @@
 :root {
   --gap-100: 0.4rem;
   --gap-150: 0.6rem;
+  --gap-200: 0.4rem;
+  --gap-250: 1.0rem;
   --gap-300: 1.2rem;
   --gap-400: 1.6rem;
+  --gap-500: 2.0rem;
   --font-stack: 'Roboto', 'Helvetica', 'Arial', sans-serif;
   font-family: var(--font-stack);
 }
@@ -21,4 +24,28 @@
 
 html, body {
   min-height: 100vh;
+}
+
+a {
+  text-decoration: none;
+}
+
+li {
+  list-style-type: none;
+}
+
+
+/* header */
+
+header {
+  display: flex;
+  justify-content: center;
+  padding: var(--gap-400) 0;
+}
+
+
+/* nav */
+
+#nav, #content {
+  padding: 0 var(--gap-400);
 }
