@@ -1,8 +1,9 @@
-import { compGetName, compGetItems, compGetNotes, compSetName, compAddItem, compDeleteItem, compSetNotes } from './composition.js';
+import { compGetId, compGetName, compGetItems, compGetNotes, compSetName, compAddItem, compDeleteItem, compSetNotes } from './composition.js';
 
 // creates Project object instances
 export default function Project(name, notes) {
   const state = {
+    id: new Date().getTime().toString(),
     name,
     notes,
     tasks: [] // array of Task object instances
@@ -10,6 +11,7 @@ export default function Project(name, notes) {
 
   return Object.assign(
     {},
+    compGetId(state),
     compGetName(state),
     compGetNotes(state),
     compGetItems(state, 'task'),

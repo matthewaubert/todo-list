@@ -1,4 +1,4 @@
-import { compGetName, compGetNotes, compSetName, compSetNotes } from './composition.js';
+import { compGetId, compGetName, compGetNotes, compSetName, compSetNotes } from './composition.js';
 
 // getters
 const compGetDueDate = state => ({
@@ -25,8 +25,9 @@ const compToggleCompleted = state => ({
 // creates Task object instances
 export default function Task(name, dueDate, priority, notes) {
   const state = {
+    id: new Date().getTime().toString(),
     name,
-    dueDate,
+    dueDate, // yyyy-mm-dd
     priority,
     notes,
     completed: false,
@@ -34,6 +35,7 @@ export default function Task(name, dueDate, priority, notes) {
 
   return Object.assign(
     {},
+    compGetId(state),
     compGetName(state),
     compGetNotes(state),
     compGetDueDate(state),

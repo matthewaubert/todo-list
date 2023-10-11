@@ -2,6 +2,10 @@
 
 /* GETTERS */
 
+const compGetId = state => ({
+  getId: () => state.id
+})
+
 const compGetName = state => ({
   getName: () => state.name
 });
@@ -42,4 +46,4 @@ const compSetNotes = state => ({
   setNotes: newNotes => state.notes = newNotes
 });
 
-export { compGetName, compGetItems, compGetNotes, compSetName, compAddItem, compDeleteItem, compSetNotes };
+export { compGetId, compGetName, compGetItems, compGetNotes, compSetName, compAddItem, compDeleteItem, compSetNotes };
