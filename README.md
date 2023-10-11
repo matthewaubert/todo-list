@@ -35,8 +35,8 @@ Create a to-do list application with a user interface. The user should have the 
    - dueDate
    - priority
    - notes
-   - project
-   - checkList
+   - completed
+   - checkList?
 
 1. Brainstorm what properties my project objects will have:
    - name

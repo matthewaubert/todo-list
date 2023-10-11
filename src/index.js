@@ -1,5 +1,6 @@
 import './style.css';
 import { createHeader, createParagraph, assemble } from './modules/helpers';
+import { Folder } from './factories/folder.js'
 
 console.log('hello, world');
 
