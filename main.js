@@ -16,7 +16,7 @@
   \*************************************************************/
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../node_modules/css-loader/dist/runtime/noSourceMaps.js */ \"./node_modules/css-loader/dist/runtime/noSourceMaps.js\");\n/* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../node_modules/css-loader/dist/runtime/api.js */ \"./node_modules/css-loader/dist/runtime/api.js\");\n/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);\n// Imports\n\n\nvar ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));\n___CSS_LOADER_EXPORT___.push([module.id, \"@import url(https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap);\"]);\n// Module\n___CSS_LOADER_EXPORT___.push([module.id, `/* Roboto */\n\n/* general */\n\n:root {\n  --gap-100: 0.4rem;\n  --gap-150: 0.6rem;\n  --gap-200: 0.4rem;\n  --gap-250: 1.0rem;\n  --gap-300: 1.2rem;\n  --gap-400: 1.6rem;\n  --gap-500: 2.0rem;\n  --font-stack: 'Roboto', 'Helvetica', 'Arial', sans-serif;\n  font-family: var(--font-stack);\n}\n\n* {\n  box-sizing: border-box;\n  margin: 0;\n  padding: 0;\n  transition: all .1s ease-in-out;\n}\n\nhtml, body {\n  min-height: 100vh;\n}\n\na {\n  text-decoration: none;\n}\n\nli {\n  list-style-type: none;\n}\n\n\n/* header */\n\nheader {\n  display: flex;\n  justify-content: center;\n  padding: var(--gap-400) 0;\n}\n\n\n/* nav */\n\n#nav, #content {\n  padding: 0 var(--gap-400);\n}`, \"\"]);\n// Exports\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);\n\n\n//# sourceURL=webpack://todo-list/./src/style.css?./node_modules/css-loader/dist/cjs.js");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../node_modules/css-loader/dist/runtime/noSourceMaps.js */ \"./node_modules/css-loader/dist/runtime/noSourceMaps.js\");\n/* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../node_modules/css-loader/dist/runtime/api.js */ \"./node_modules/css-loader/dist/runtime/api.js\");\n/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);\n/* harmony import */ var _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../node_modules/css-loader/dist/runtime/getUrl.js */ \"./node_modules/css-loader/dist/runtime/getUrl.js\");\n/* harmony import */ var _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_2__);\n// Imports\n\n\n\nvar ___CSS_LOADER_URL_IMPORT_0___ = new URL(/* asset import */ __webpack_require__(/*! folder-outline.svg */ \"./src/folder-outline.svg\"), __webpack_require__.b);\nvar ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));\n___CSS_LOADER_EXPORT___.push([module.id, \"@import url(https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap);\"]);\nvar ___CSS_LOADER_URL_REPLACEMENT_0___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_2___default()(___CSS_LOADER_URL_IMPORT_0___);\n// Module\n___CSS_LOADER_EXPORT___.push([module.id, `/* Roboto */\n\n/* general */\n\n:root {\n  --gap-100: 0.4rem;\n  --gap-150: 0.6rem;\n  --gap-200: 0.4rem;\n  --gap-250: 1.0rem;\n  --gap-300: 1.2rem;\n  --gap-400: 1.6rem;\n  --gap-500: 2.0rem;\n  --font-stack: 'Roboto', 'Helvetica', 'Arial', sans-serif;\n  font-family: var(--font-stack);\n}\n\n* {\n  box-sizing: border-box;\n  margin: 0;\n  padding: 0;\n  transition: all .1s ease-in-out;\n}\n\nhtml, body {\n  min-height: 100vh;\n}\n\na {\n  text-decoration: none;\n}\n\nli {\n  list-style-type: none;\n}\n\n\n/* header */\n\nheader {\n  display: flex;\n  justify-content: center;\n  padding: var(--gap-400) 0;\n}\n\n\n/* nav */\n\n#nav, #content {\n  padding: 0 var(--gap-500);\n}\n\n#nav {\n  display: flex;\n  flex-direction: column;\n  gap: var(--gap-300);\n}\n\n#nav ul {\n  display: flex;\n  flex-direction: column;\n  /* gap: var(--gap-100); */\n}\n\n#nav li {\n  font-size: 1.1rem;\n  padding: var(--gap-100);\n}\n\n.time > li,\nli.folder-sidebar,\nli.project-sidebar {\n  font-weight: 500;\n  display: flex;\n  align-items: center;\n  gap: var(--gap-150);\n}\n\n.time > li::before,\nli.folder-sidebar::before,\nli.project-sidebar::before {\n  content: \"\";\n  display: inline-block;\n  height: 24px;\n  width: 24px;\n  background-image: url(${___CSS_LOADER_URL_REPLACEMENT_0___});\n}\n\nli.project-sidebar {\n  font-weight: 300;\n}`, \"\"]);\n// Exports\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);\n\n\n//# sourceURL=webpack://todo-list/./src/style.css?./node_modules/css-loader/dist/cjs.js");
 
 /***/ }),
 
@@ -27,6 +27,16 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /***/ ((module) => {
 
 eval("\n\n/*\n  MIT License http://www.opensource.org/licenses/mit-license.php\n  Author Tobias Koppers @sokra\n*/\nmodule.exports = function (cssWithMappingToString) {\n  var list = [];\n\n  // return the list of modules as css string\n  list.toString = function toString() {\n    return this.map(function (item) {\n      var content = \"\";\n      var needLayer = typeof item[5] !== \"undefined\";\n      if (item[4]) {\n        content += \"@supports (\".concat(item[4], \") {\");\n      }\n      if (item[2]) {\n        content += \"@media \".concat(item[2], \" {\");\n      }\n      if (needLayer) {\n        content += \"@layer\".concat(item[5].length > 0 ? \" \".concat(item[5]) : \"\", \" {\");\n      }\n      content += cssWithMappingToString(item);\n      if (needLayer) {\n        content += \"}\";\n      }\n      if (item[2]) {\n        content += \"}\";\n      }\n      if (item[4]) {\n        content += \"}\";\n      }\n      return content;\n    }).join(\"\");\n  };\n\n  // import a list of modules into the list\n  list.i = function i(modules, media, dedupe, supports, layer) {\n    if (typeof modules === \"string\") {\n      modules = [[null, modules, undefined]];\n    }\n    var alreadyImportedModules = {};\n    if (dedupe) {\n      for (var k = 0; k < this.length; k++) {\n        var id = this[k][0];\n        if (id != null) {\n          alreadyImportedModules[id] = true;\n        }\n      }\n    }\n    for (var _k = 0; _k < modules.length; _k++) {\n      var item = [].concat(modules[_k]);\n      if (dedupe && alreadyImportedModules[item[0]]) {\n        continue;\n      }\n      if (typeof layer !== \"undefined\") {\n        if (typeof item[5] === \"undefined\") {\n          item[5] = layer;\n        } else {\n          item[1] = \"@layer\".concat(item[5].length > 0 ? \" \".concat(item[5]) : \"\", \" {\").concat(item[1], \"}\");\n          item[5] = layer;\n        }\n      }\n      if (media) {\n        if (!item[2]) {\n          item[2] = media;\n        } else {\n          item[1] = \"@media \".concat(item[2], \" {\").concat(item[1], \"}\");\n          item[2] = media;\n        }\n      }\n      if (supports) {\n        if (!item[4]) {\n          item[4] = \"\".concat(supports);\n        } else {\n          item[1] = \"@supports (\".concat(item[4], \") {\").concat(item[1], \"}\");\n          item[4] = supports;\n        }\n      }\n      list.push(item);\n    }\n  };\n  return list;\n};\n\n//# sourceURL=webpack://todo-list/./node_modules/css-loader/dist/runtime/api.js?");
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/dist/runtime/getUrl.js":
+/*!********************************************************!*\
+  !*** ./node_modules/css-loader/dist/runtime/getUrl.js ***!
+  \********************************************************/
+/***/ ((module) => {
+
+eval("\n\nmodule.exports = function (url, options) {\n  if (!options) {\n    options = {};\n  }\n  if (!url) {\n    return url;\n  }\n  url = String(url.__esModule ? url.default : url);\n\n  // If url is already wrapped in quotes, remove them\n  if (/^['\"].*['\"]$/.test(url)) {\n    url = url.slice(1, -1);\n  }\n  if (options.hash) {\n    url += options.hash;\n  }\n\n  // Should url be wrapped?\n  // See https://drafts.csswg.org/css-values-3/#urls\n  if (/[\"'() \\t\\n]|(%20)/.test(url) || options.needQuotes) {\n    return \"\\\"\".concat(url.replace(/\"/g, '\\\\\"').replace(/\\n/g, \"\\\\n\"), \"\\\"\");\n  }\n  return url;\n};\n\n//# sourceURL=webpack://todo-list/./node_modules/css-loader/dist/runtime/getUrl.js?");
 
 /***/ }),
 
@@ -116,7 +126,7 @@ eval("\n\n/* istanbul ignore next  */\nfunction styleTagTransform(css, styleElem
   \**********************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _modules_helpers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/helpers */ \"./src/modules/helpers.js\");\n/* harmony import */ var _style_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./style.css */ \"./src/style.css\");\n/* harmony import */ var _modules_app_state__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/app-state */ \"./src/modules/app-state.js\");\n\n\n\n\n// load initial app state with 1 default folder and project\nconst appState = (0,_modules_app_state__WEBPACK_IMPORTED_MODULE_2__[\"default\"])();\n\n// cache DOM\nconst nav = document.querySelector('#nav');\n\n// add event listeners\ndocument.addEventListener('DOMContentLoaded', loadSidebar);\n\n// load sidebar\nfunction loadSidebar() {\n  console.log(\"DOM fully loaded and parsed\");\n\n  // for each folder, create ul and li\n  const folders = appState.getFolders();\n  folders.forEach(folder => {\n    const ul = document.createElement('ul');\n    ul.classList.add('folder-sidebar');\n    ul.dataset.id = folder.getId();\n\n    const li = document.createElement('li');\n    li.classList.add('folder-sidebar');\n    li.innerText = folder.getName();\n    ul.appendChild(li);\n    // for each project, create li\n    const projects = folder.getProjects();\n    projects.forEach(project => {\n      const li = document.createElement('li');\n      li.classList.add('project-name-sidebar');\n      li.dataset.id = project.getId();\n      li.innerText = project.getName();\n      ul.appendChild(li);\n    });\n\n    nav.appendChild(ul);\n  });\n}\n\n// media query: show arrow at top of main content if screen under 500px wide\n\n// show main content if nav element clicked\n\n//# sourceURL=webpack://todo-list/./src/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _modules_helpers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/helpers */ \"./src/modules/helpers.js\");\n/* harmony import */ var _style_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./style.css */ \"./src/style.css\");\n/* harmony import */ var _modules_app_state__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/app-state */ \"./src/modules/app-state.js\");\n\n\n\n\n// load initial app state with 1 default folder and project\nconst appState = (0,_modules_app_state__WEBPACK_IMPORTED_MODULE_2__[\"default\"])();\n\n// cache DOM\nconst nav = document.querySelector('#nav');\n\n// add event listeners\ndocument.addEventListener('DOMContentLoaded', renderSidebar);\n\n// load sidebar\nfunction renderSidebar() {\n  console.log(\"DOM fully loaded and parsed\");\n\n  // for each folder, create ul and li\n  const folders = appState.getFolders();\n  folders.forEach(folder => {\n    const ul = renderSbFolder(folder);\n    \n    // for each project, create li\n    const projects = folder.getProjects();\n    projects.forEach(project => ul.appendChild(renderSbProject(project)));\n\n    nav.appendChild(ul);\n  });\n}\n\nfunction renderSbFolder(folder) {\n  const ul = document.createElement('ul');\n  ul.classList.add('folder-sidebar');\n  ul.dataset.id = folder.getId();\n\n  const li = document.createElement('li');\n  li.classList.add('folder-sidebar');\n  li.innerText = folder.getName();\n  ul.appendChild(li);\n\n  return ul;\n}\n\nfunction renderSbProject(project) {\n  const li = document.createElement('li');\n  li.classList.add('project-sidebar');\n  li.dataset.id = project.getId();\n  li.innerText = project.getName();\n  \n  return li;\n}\n\n// media query: show arrow at top of main content if screen under 500px wide\n\n// show main content if nav element clicked\n\n//# sourceURL=webpack://todo-list/./src/index.js?");
 
 /***/ }),
 
@@ -146,7 +156,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \*****************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (/* binding */ Folder)\n/* harmony export */ });\n/* harmony import */ var _composition_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./composition.js */ \"./src/modules/factories/composition.js\");\n\n\n// creates Folder object instances\nfunction Folder(name) {\n  const state = {\n    id: new Date().getTime().toString(),\n    name,\n    projects: [] // array of Project object instances\n  }\n\n  return Object.assign(\n    {},\n    (0,_composition_js__WEBPACK_IMPORTED_MODULE_0__.compGetId)(state),\n    (0,_composition_js__WEBPACK_IMPORTED_MODULE_0__.compGetName)(state),\n    (0,_composition_js__WEBPACK_IMPORTED_MODULE_0__.compGetItems)(state, 'project'),\n\n    (0,_composition_js__WEBPACK_IMPORTED_MODULE_0__.compSetName)(state),\n    (0,_composition_js__WEBPACK_IMPORTED_MODULE_0__.compAddItem)(state, 'project'),\n    (0,_composition_js__WEBPACK_IMPORTED_MODULE_0__.compDeleteItem)(state, 'project')\n  );\n}\n\n// const newFolder = Folder('New Folder');\n// console.log(newFolder);\n// console.log(newFolder.getName());\n// newFolder.setName('Better Folder Name');\n// console.log(newFolder.getName());\n// newFolder.addProject('project1');\n// newFolder.addProject('project2');\n// console.log(newFolder.getProjects());\n// newFolder.deleteProject('project1');\n// console.log(newFolder.getProjects());\n\n//# sourceURL=webpack://todo-list/./src/modules/factories/folder.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (/* binding */ Folder)\n/* harmony export */ });\n/* harmony import */ var _composition_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./composition.js */ \"./src/modules/factories/composition.js\");\n\n\n// creates Folder object instances\nfunction Folder(name) {\n  const state = {\n    id: 'f' + new Date().getTime().toString(),\n    name,\n    projects: [] // array of Project object instances\n  }\n\n  return Object.assign(\n    {},\n    (0,_composition_js__WEBPACK_IMPORTED_MODULE_0__.compGetId)(state),\n    (0,_composition_js__WEBPACK_IMPORTED_MODULE_0__.compGetName)(state),\n    (0,_composition_js__WEBPACK_IMPORTED_MODULE_0__.compGetItems)(state, 'project'),\n\n    (0,_composition_js__WEBPACK_IMPORTED_MODULE_0__.compSetName)(state),\n    (0,_composition_js__WEBPACK_IMPORTED_MODULE_0__.compAddItem)(state, 'project'),\n    (0,_composition_js__WEBPACK_IMPORTED_MODULE_0__.compDeleteItem)(state, 'project')\n  );\n}\n\n// const newFolder = Folder('New Folder');\n// console.log(newFolder);\n// console.log(newFolder.getName());\n// newFolder.setName('Better Folder Name');\n// console.log(newFolder.getName());\n// newFolder.addProject('project1');\n// newFolder.addProject('project2');\n// console.log(newFolder.getProjects());\n// newFolder.deleteProject('project1');\n// console.log(newFolder.getProjects());\n\n//# sourceURL=webpack://todo-list/./src/modules/factories/folder.js?");
 
 /***/ }),
 
@@ -156,7 +166,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \******************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (/* binding */ Project)\n/* harmony export */ });\n/* harmony import */ var _composition_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./composition.js */ \"./src/modules/factories/composition.js\");\n\n\n// creates Project object instances\nfunction Project(name, notes) {\n  const state = {\n    id: new Date().getTime().toString(),\n    name,\n    notes,\n    tasks: [] // array of Task object instances\n  }\n\n  return Object.assign(\n    {},\n    (0,_composition_js__WEBPACK_IMPORTED_MODULE_0__.compGetId)(state),\n    (0,_composition_js__WEBPACK_IMPORTED_MODULE_0__.compGetName)(state),\n    (0,_composition_js__WEBPACK_IMPORTED_MODULE_0__.compGetNotes)(state),\n    (0,_composition_js__WEBPACK_IMPORTED_MODULE_0__.compGetItems)(state, 'task'),\n\n    (0,_composition_js__WEBPACK_IMPORTED_MODULE_0__.compSetName)(state),\n    (0,_composition_js__WEBPACK_IMPORTED_MODULE_0__.compSetNotes)(state),\n    (0,_composition_js__WEBPACK_IMPORTED_MODULE_0__.compAddItem)(state, 'task'),\n    (0,_composition_js__WEBPACK_IMPORTED_MODULE_0__.compDeleteItem)(state, 'task')\n  );\n}\n\n//# sourceURL=webpack://todo-list/./src/modules/factories/project.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (/* binding */ Project)\n/* harmony export */ });\n/* harmony import */ var _composition_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./composition.js */ \"./src/modules/factories/composition.js\");\n\n\n// creates Project object instances\nfunction Project(name, notes) {\n  const state = {\n    id: 'p' + new Date().getTime().toString(),\n    name,\n    notes,\n    tasks: [] // array of Task object instances\n  }\n\n  return Object.assign(\n    {},\n    (0,_composition_js__WEBPACK_IMPORTED_MODULE_0__.compGetId)(state),\n    (0,_composition_js__WEBPACK_IMPORTED_MODULE_0__.compGetName)(state),\n    (0,_composition_js__WEBPACK_IMPORTED_MODULE_0__.compGetNotes)(state),\n    (0,_composition_js__WEBPACK_IMPORTED_MODULE_0__.compGetItems)(state, 'task'),\n\n    (0,_composition_js__WEBPACK_IMPORTED_MODULE_0__.compSetName)(state),\n    (0,_composition_js__WEBPACK_IMPORTED_MODULE_0__.compSetNotes)(state),\n    (0,_composition_js__WEBPACK_IMPORTED_MODULE_0__.compAddItem)(state, 'task'),\n    (0,_composition_js__WEBPACK_IMPORTED_MODULE_0__.compDeleteItem)(state, 'task')\n  );\n}\n\n//# sourceURL=webpack://todo-list/./src/modules/factories/project.js?");
 
 /***/ }),
 
@@ -167,6 +177,16 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   assemble: () => (/* binding */ assemble),\n/* harmony export */   createHeader: () => (/* binding */ createHeader),\n/* harmony export */   createParagraph: () => (/* binding */ createParagraph)\n/* harmony export */ });\n// create tab header element\nfunction createHeader(text, level) {\n  const title = document.createElement(`h${level}`);\n  title.innerText = text;\n\n  return title;\n}\n\n// create paragraph element\nfunction createParagraph(text) {\n  const paragraph = document.createElement('p');\n  paragraph.innerText = text;\n  \n  return paragraph;\n}\n\n// assemble obj of HTML elements into container div\nfunction assemble(obj, className) {\n  const container = document.createElement('div');\n  if (className) container.classList.add(className);\n\n  for (const key in obj) {\n    container.appendChild(obj[key]);\n  }\n\n  return container;\n}\n\n\n\n//# sourceURL=webpack://todo-list/./src/modules/helpers.js?");
+
+/***/ }),
+
+/***/ "./src/folder-outline.svg":
+/*!********************************!*\
+  !*** ./src/folder-outline.svg ***!
+  \********************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+eval("module.exports = __webpack_require__.p + \"080044adac55af939bab.svg\";\n\n//# sourceURL=webpack://todo-list/./src/folder-outline.svg?");
 
 /***/ })
 
@@ -196,6 +216,9 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /******/ 		return module.exports;
 /******/ 	}
 /******/ 	
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = __webpack_modules__;
+/******/ 	
 /************************************************************************/
 /******/ 	/* webpack/runtime/compat get default export */
 /******/ 	(() => {
@@ -221,6 +244,18 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /******/ 		};
 /******/ 	})();
 /******/ 	
+/******/ 	/* webpack/runtime/global */
+/******/ 	(() => {
+/******/ 		__webpack_require__.g = (function() {
+/******/ 			if (typeof globalThis === 'object') return globalThis;
+/******/ 			try {
+/******/ 				return this || new Function('return this')();
+/******/ 			} catch (e) {
+/******/ 				if (typeof window === 'object') return window;
+/******/ 			}
+/******/ 		})();
+/******/ 	})();
+/******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
 /******/ 	(() => {
 /******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
@@ -235,6 +270,55 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /******/ 			}
 /******/ 			Object.defineProperty(exports, '__esModule', { value: true });
 /******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/publicPath */
+/******/ 	(() => {
+/******/ 		var scriptUrl;
+/******/ 		if (__webpack_require__.g.importScripts) scriptUrl = __webpack_require__.g.location + "";
+/******/ 		var document = __webpack_require__.g.document;
+/******/ 		if (!scriptUrl && document) {
+/******/ 			if (document.currentScript)
+/******/ 				scriptUrl = document.currentScript.src;
+/******/ 			if (!scriptUrl) {
+/******/ 				var scripts = document.getElementsByTagName("script");
+/******/ 				if(scripts.length) {
+/******/ 					var i = scripts.length - 1;
+/******/ 					while (i > -1 && !scriptUrl) scriptUrl = scripts[i--].src;
+/******/ 				}
+/******/ 			}
+/******/ 		}
+/******/ 		// When supporting browsers where an automatic publicPath is not supported you must specify an output.publicPath manually via configuration
+/******/ 		// or pass an empty string ("") and set the __webpack_public_path__ variable from your code to use your own logic.
+/******/ 		if (!scriptUrl) throw new Error("Automatic publicPath is not supported in this browser");
+/******/ 		scriptUrl = scriptUrl.replace(/#.*$/, "").replace(/\?.*$/, "").replace(/\/[^\/]+$/, "/");
+/******/ 		__webpack_require__.p = scriptUrl;
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/jsonp chunk loading */
+/******/ 	(() => {
+/******/ 		__webpack_require__.b = document.baseURI || self.location.href;
+/******/ 		
+/******/ 		// object to store loaded and loading chunks
+/******/ 		// undefined = chunk not loaded, null = chunk preloaded/prefetched
+/******/ 		// [resolve, reject, Promise] = chunk loading, 0 = chunk loaded
+/******/ 		var installedChunks = {
+/******/ 			"main": 0
+/******/ 		};
+/******/ 		
+/******/ 		// no chunk on demand loading
+/******/ 		
+/******/ 		// no prefetching
+/******/ 		
+/******/ 		// no preloaded
+/******/ 		
+/******/ 		// no HMR
+/******/ 		
+/******/ 		// no HMR manifest
+/******/ 		
+/******/ 		// no on chunks loaded
+/******/ 		
+/******/ 		// no jsonp function
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/nonce */
