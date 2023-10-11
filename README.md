@@ -31,22 +31,21 @@ Create a to-do list application with a user interface. The user should have the 
    1. Bundle my CSS
 
 1. Brainstorm what properties my task objects will have:
-   - title
+   - name
    - dueDate
    - priority
    - notes
    - project
-   - folder
    - checkList
 
 1. Brainstorm what properties my project objects will have:
-   - title
-   - dueDate
+   - name
    - notes
-   - folder
+   - array of tasks
 
 1. Brainstorm what properties my folder objects will have:
-   - title
+   - name
+   - array of projects
 
 1. Organize my tasks into projects. There should be a "default" project and the functionality to create new projects and reorganize task items.
 
