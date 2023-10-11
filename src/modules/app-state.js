@@ -1,6 +1,7 @@
 import { compGetItems, compAddItem, compDeleteItem } from './factories/composition';
 import Folder from './factories/folder';
 import Project from './factories/project';
+import Task from './factories/task';
 
 // create AppState object: contains an array of folders and related methods
 function AppState() {
@@ -25,6 +26,9 @@ export default function initAppState() {
   
   const firstProject = Project('First Project', 'Default first project');
   firstFolder.addProject(firstProject);
+
+  const firstTask = Task('First Task', 'Default first task');
+  firstProject.addTask(firstTask);
 
   return appState;
 }
