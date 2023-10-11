@@ -110,13 +110,33 @@ eval("\n\n/* istanbul ignore next  */\nfunction styleTagTransform(css, styleElem
 
 /***/ }),
 
+/***/ "./src/factories/composition.js":
+/*!**************************************!*\
+  !*** ./src/factories/composition.js ***!
+  \**************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   compAddItem: () => (/* binding */ compAddItem),\n/* harmony export */   compDeleteItem: () => (/* binding */ compDeleteItem),\n/* harmony export */   compGetItems: () => (/* binding */ compGetItems),\n/* harmony export */   compGetName: () => (/* binding */ compGetName),\n/* harmony export */   compGetNotes: () => (/* binding */ compGetNotes),\n/* harmony export */   compSetName: () => (/* binding */ compSetName),\n/* harmony export */   compSetNotes: () => (/* binding */ compSetNotes)\n/* harmony export */ });\n// methods to be shared across factory functions for object composition\n\n/* GETTERS */\n\nconst compGetName = state => ({\n  getName: () => state.name\n});\n\n// returns array of objects dependent on this object instance (e.g. Projects, Tasks)\n// e.g. method: projectInstance.getTasks()\nconst compGetItems = (state, itemName) => {\n  const keyName = 'get' + itemName.slice(0, 1).toUpperCase() + itemName.slice(1) + 's'\n  return { [keyName]: () => state[`${itemName}s`] };\n};\n\nconst compGetNotes = state => ({\n  getNotes: () => state.notes\n});\n\n\n/* SETTERS */\n\nconst compSetName = state => ({\n  setName: newName => state.name = newName\n});\n\n// adds object to array of objects dependent on this object instance (e.g. Projects, Tasks)\n// e.g. method: projectInstance.addTask()\nconst compAddItem = (state, itemName) => {\n  const keyName = 'add' + itemName.slice(0, 1).toUpperCase() + itemName.slice(1)\n  return { [keyName]: item => state[`${itemName}s`].push(item) };\n};\n\n// removes object from array of objects dependent on this object instance (e.g. Projects, Tasks)\n// e.g. method: projectInstance.deleteTask()\nconst compDeleteItem = (state, itemName) => {\n  const keyName = 'delete' + itemName.slice(0, 1).toUpperCase() + itemName.slice(1)\n  return { [keyName]: item => state[`${itemName}s`].splice(state[`${itemName}s`].indexOf(item), 1) };\n};\n\nconst compSetNotes = state => ({\n  setNotes: newNotes => state.notes = newNotes\n});\n\n\n\n//# sourceURL=webpack://todo-list/./src/factories/composition.js?");
+
+/***/ }),
+
+/***/ "./src/factories/folder.js":
+/*!*********************************!*\
+  !*** ./src/factories/folder.js ***!
+  \*********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (/* binding */ Folder)\n/* harmony export */ });\n/* harmony import */ var _composition_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./composition.js */ \"./src/factories/composition.js\");\n\n\n// creates Folder object instances\nfunction Folder(name) {\n  const state = {\n    name,\n    projects: [] // array of Project object instances\n  }\n\n  return Object.assign(\n    {},\n    (0,_composition_js__WEBPACK_IMPORTED_MODULE_0__.compGetName)(state),\n    (0,_composition_js__WEBPACK_IMPORTED_MODULE_0__.compGetItems)(state, 'project'),\n\n    (0,_composition_js__WEBPACK_IMPORTED_MODULE_0__.compSetName)(state),\n    (0,_composition_js__WEBPACK_IMPORTED_MODULE_0__.compAddItem)(state, 'project'),\n    (0,_composition_js__WEBPACK_IMPORTED_MODULE_0__.compDeleteItem)(state, 'project')\n  );\n}\n\n// const newFolder = Folder('New Folder');\n// console.log(newFolder);\n// console.log(newFolder.getName());\n// newFolder.setName('Better Folder Name');\n// console.log(newFolder.getName());\n// newFolder.addProject('project1');\n// newFolder.addProject('project2');\n// console.log(newFolder.getProjects());\n// newFolder.deleteProject('project1');\n// console.log(newFolder.getProjects());\n\n//# sourceURL=webpack://todo-list/./src/factories/folder.js?");
+
+/***/ }),
+
 /***/ "./src/index.js":
 /*!**********************!*\
   !*** ./src/index.js ***!
   \**********************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _style_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./style.css */ \"./src/style.css\");\n/* harmony import */ var _modules_helpers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/helpers */ \"./src/modules/helpers.js\");\n\n\n\nconsole.log('hello, world');\n\n// cache DOM\n\n// add event listeners\n\n// media query: show arrow at top of main content if screen under 500px wide\n\n// show main content if nav element clicked\n\n//# sourceURL=webpack://todo-list/./src/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _style_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./style.css */ \"./src/style.css\");\n/* harmony import */ var _modules_helpers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/helpers */ \"./src/modules/helpers.js\");\n/* harmony import */ var _factories_folder_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./factories/folder.js */ \"./src/factories/folder.js\");\n\n\n\n\nconsole.log('hello, world');\n\n// cache DOM\n\n// add event listeners\n\n// media query: show arrow at top of main content if screen under 500px wide\n\n// show main content if nav element clicked\n\n//# sourceURL=webpack://todo-list/./src/index.js?");
 
 /***/ }),
 
