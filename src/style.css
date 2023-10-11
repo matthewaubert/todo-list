@@ -47,5 +47,45 @@ header {
 /* nav */
 
 #nav, #content {
-  padding: 0 var(--gap-400);
+  padding: 0 var(--gap-500);
+}
+
+#nav {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-300);
+}
+
+#nav ul {
+  display: flex;
+  flex-direction: column;
+  /* gap: var(--gap-100); */
+}
+
+#nav li {
+  font-size: 1.1rem;
+  padding: var(--gap-100);
+}
+
+.time > li,
+li.folder-sidebar,
+li.project-sidebar {
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: var(--gap-150);
+}
+
+.time > li::before,
+li.folder-sidebar::before,
+li.project-sidebar::before {
+  content: "";
+  display: inline-block;
+  height: 24px;
+  width: 24px;
+  background-image: url('folder-outline.svg');
+}
+
+li.project-sidebar {
+  font-weight: 300;
 }

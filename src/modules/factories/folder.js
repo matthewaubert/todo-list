@@ -3,7 +3,7 @@ import { compGetId, compGetName, compGetItems, compSetName, compAddItem, compDel
 // creates Folder object instances
 export default function Folder(name) {
   const state = {
-    id: new Date().getTime().toString(),
+    id: 'f' + new Date().getTime().toString(),
     name,
     projects: [] // array of Project object instances
   }

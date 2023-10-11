@@ -3,7 +3,7 @@ import { compGetId, compGetName, compGetItems, compGetNotes, compSetName, compAd
 // creates Project object instances
 export default function Project(name, notes) {
   const state = {
-    id: new Date().getTime().toString(),
+    id: 'p' + new Date().getTime().toString(),
     name,
     notes,
     tasks: [] // array of Task object instances

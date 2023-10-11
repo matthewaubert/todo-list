@@ -25,7 +25,7 @@ const compToggleCompleted = state => ({
 // creates Task object instances
 export default function Task(name, dueDate, priority, notes) {
   const state = {
-    id: new Date().getTime().toString(),
+    id: 't' + new Date().getTime().toString(),
     name,
     dueDate, // yyyy-mm-dd
     priority,
