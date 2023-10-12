@@ -11,6 +11,9 @@
   --gray-400: #9ca3af;
   --gray-500: #6B7280;
   --gray-800: #1F2937;
+  --sky-200: #BAE6FD;
+  --sky-300: #7DD3FC;
+  --sky-500: #0EA5E9;
   --gap-100: 0.4rem;
   --gap-150: 0.6rem;
   --gap-200: 0.4rem;
@@ -18,15 +21,22 @@
   --gap-300: 1.2rem;
   --gap-400: 1.6rem;
   --gap-500: 2.0rem;
+  --shadow-r: 0 0 5px rgba(0,0,0,0.1);
+  --transition-fast: all .1s ease-in-out;
+  --transition-slow: all .4s ease-in-out;
   --font-stack: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+  --font-sm: 0.9rem;
+  --font-md: 1.1rem;
+  --font-lg: 1.3rem;
   font-family: var(--font-stack);
+  color: var(--gray-800);
 }
 
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  transition: all .1s ease-in-out;
+  transition: var(--transition-fast);
 }
 
 html, body {
@@ -35,6 +45,19 @@ html, body {
 
 a {
   text-decoration: none;
+}
+
+button, dialog, form {
+  -webkit-appearance: none;
+  appearance: none;
+  border: none;
+  font-family: var(--font-stack);
+}
+
+hr {
+  border: none;
+  background-color: var(--gray-300);
+  height: 1px;
 }
 
 li {
@@ -70,7 +93,7 @@ header {
   top: 0;
   left: 0;
   transition: 0.5s;
-  z-index: 1;
+  z-index: 2;
   overflow-x: hidden;
 }
 
@@ -80,7 +103,7 @@ header {
 }
 
 #nav li {
-  font-size: 1.1rem;
+  font-size: var(--font-md);
   padding: var(--gap-100);
 }
 
@@ -112,7 +135,7 @@ li.project-nav {
 
 .task-main {
   padding: var(--gap-100);
-  font-size: 1.1rem;
+  font-size: var(--font-md);
   font-weight: 400;
   display: flex;
   align-items: center;
@@ -121,4 +144,54 @@ li.project-nav {
 
 .completed {
   color: var(--gray-300);
+}
+
+.add-item {
+  background-color: var(--sky-500);
+  border-radius: 100px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.3);
+  color: white;
+  font-size: 2.5rem;
+  font-weight: 400;
+  height: 3.5rem;
+  width: 3.5rem;
+  position: fixed;
+  bottom: var(--gap-500);
+  right: var(--gap-500);
+  transition: var(--transition-slow);
+  z-index: 1;
+}
+
+.add-task:hover {
+  cursor: pointer;
+}
+
+.add-item.rotated {
+  transform: rotate(45deg);
+}
+
+#modal-menu {
+  border: 1px solid var(--gray-300);
+  border-radius: 12px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.3);
+  height: 155px;
+  position: fixed;
+  bottom: 6.8rem;
+  right: var(--gap-500);
+  z-index: 1;
+  overflow: hidden;
+  transition: var(--transition-slow);
+}
+
+#modal-menu.hidden {
+  border: 0 solid transparent;
+  height: 0;
+}
+
+#modal-menu > p {
+  margin: var(--gap-250);
+}
+
+#modal-menu > p:hover {
+  cursor: pointer;
 }
