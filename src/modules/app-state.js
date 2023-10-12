@@ -1,3 +1,4 @@
+import { format, compareAsc } from 'date-fns'
 import { compGetItems, compAddItem, compDeleteItem } from './factories/composition';
 import Folder from './factories/folder';
 import Project from './factories/project';
@@ -27,8 +28,23 @@ export default function initAppState() {
   const firstProject = Project('First Project', 'Default first project');
   firstFolder.addProject(firstProject);
 
-  const firstTask = Task('First Task', 'Default first task');
+  const firstTask = Task(
+    'First Task',
+    format(new Date(), 'MM/dd/yyyy'),
+    1,
+    'Default first task',
+  );
+  // console.log('Task due on: ' + firstTask.getDueDate());
   firstProject.addTask(firstTask);
+
+  const secondTask = Task(
+    'Second Task',
+    format(new Date(), 'MM/dd/yyyy'),
+    2,
+    'Default second task',
+  );
+  // console.log('Task due on: ' + firstTask.getDueDate());
+  // firstProject.addTask(secondTask);
 
   return appState;
 }

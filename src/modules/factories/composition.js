@@ -31,16 +31,27 @@ const compSetName = state => ({
 // adds object to array of objects dependent on this object instance (e.g. Projects, Tasks)
 // e.g. method: projectInstance.addTask()
 const compAddItem = (state, itemName) => {
-  const keyName = 'add' + itemName.slice(0, 1).toUpperCase() + itemName.slice(1)
+  const keyName = 'add' + itemName.slice(0, 1).toUpperCase() + itemName.slice(1);
   return { [keyName]: item => state[`${itemName}s`].push(item) };
 };
 
 // removes object from array of objects dependent on this object instance (e.g. Projects, Tasks)
 // e.g. method: projectInstance.deleteTask()
 const compDeleteItem = (state, itemName) => {
-  const keyName = 'delete' + itemName.slice(0, 1).toUpperCase() + itemName.slice(1)
+  const keyName = 'delete' + itemName.slice(0, 1).toUpperCase() + itemName.slice(1);
   return { [keyName]: item => state[`${itemName}s`].splice(state[`${itemName}s`].indexOf(item), 1) };
 };
+
+// return {
+//   [keyName]: id => {
+//     // filter thru itemName array for item with id
+//     const item = state[`${itemName}s`].filter(el => el.getId() === id);
+//     // find index of item in array
+//     const index = state[`${itemName}s`].indexOf(item);
+//     // splice item from array
+//     state[`${itemName}s`].splice(index, 1);
+//   }
+// };
 
 const compSetNotes = state => ({
   setNotes: newNotes => state.notes = newNotes
