@@ -1,5 +1,6 @@
 import { format } from 'date-fns';
-import { appState, filters } from '../index';
+import appState from './app-state';
+import { filters } from '../index';
 import { setAttributes } from './helpers';
 
 // cache DOM

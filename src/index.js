@@ -2,11 +2,9 @@ import { format, compareAsc } from 'date-fns';
 import { renderNav } from './modules/nav';
 import { renderTasks, renderTask } from './modules/main-content';
 import{ setAttributes, camelize } from './modules/helpers.js';
-import initAppState from './modules/app-state';
+import appState from './modules/app-state';
 import Task from './modules/factories/task';
 
-// load initial app state with 1 default folder, project, task
-const appState = initAppState();
 // console.log(appState.getFolders()[0].getProjects()[0].getTasks()[0].getName());
 
 // need to know which property to pull from item, what the value should match
@@ -157,4 +155,4 @@ function getFormValues(formValues) {
   }, {});
 }
 
-export { appState, filters };
+export { filters };

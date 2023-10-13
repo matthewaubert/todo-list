@@ -1,4 +1,4 @@
-import { appState } from '../index.js';
+import appState from './app-state';
 
 // cache DOM
 const nav = document.querySelector('#nav');

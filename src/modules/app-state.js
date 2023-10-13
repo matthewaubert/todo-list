@@ -28,8 +28,8 @@ function AppState() {
   );
 }
 
-// export AppState instance with one default folder and project
-export default function initAppState() {
+// export AppState instance with one default folder, project, and task
+export default (function() {
   const appState = AppState();
   
   const firstFolder = Folder('First Folder', 'Default first folder');
@@ -57,4 +57,4 @@ export default function initAppState() {
   // firstProject.addTask(secondTask);
 
   return appState;
-}
+})();
