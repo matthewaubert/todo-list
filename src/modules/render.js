@@ -4,9 +4,9 @@ import { setAttributes } from './helpers';
 
 // cache DOM
 const main = document.querySelector('#main');
+const nav = document.querySelector('#nav');
 const taskProjectDropdown = document.querySelector('#task-project');
 const projectFolderDropdown = document.querySelector('#project-folder');
-const nav = document.querySelector('#nav');
 
 // initial page render
 function renderPage() {
@@ -20,7 +20,7 @@ function renderPage() {
 
 /* TASK RENDERING FUNCTIONALITY */
 
-// filter thru appState for tasks
+// initial rendering of tasks
 function renderTasks(currentFilter) {
   const allTasks = [];
 
@@ -58,13 +58,13 @@ function renderTask(task) {
   label.setAttribute('for', task.getId());
   label.innerText = task.getName();
   
-  // append checkbox and label to wrapper div
-  const div = document.createElement('div');
-  div.classList.add('task-main');
-  div.dataset.id = task.getId();
-  div.append(check, label);
+  // append checkbox and label to wrapper li
+  const li = document.createElement('li');
+  li.classList.add('task-main');
+  li.dataset.id = task.getId();
+  li.append(check, label);
 
-  return div;
+  return li;
 }
 
 // toggle completion status of task, gray out HTML el
@@ -85,6 +85,7 @@ function toggleCompleted(e) {
 
 /* MODAL RENDERING FUNCTIONALITY */
 
+// initial rendering of folders and projects to modal dropdown menu
 function renderModalDropdown() {
   const folders = appState.getFolders(); // get folders
   // render folders to modalDropdown
@@ -99,6 +100,7 @@ function renderModalDropdown() {
 
 function createDropdownOption(item) {
   const option = document.createElement('option');
+
   setAttributes(option, {
     'value': item.getId(),
     'data-id': item.getId(),
@@ -107,13 +109,14 @@ function createDropdownOption(item) {
   if (option.textContent === 'First Project' || option.textContent === 'First Folder') {
     option.setAttribute('selected', true);
   }
+  
   return option;
 }
 
 
 /* NAV RENDERING FUNCTIONALITY */
 
-// render nav
+// initial nav render
 function renderNav() {
   // for each folder, create ul and li
   const folders = appState.getFolders();
@@ -151,4 +154,4 @@ function renderNavProject(project) {
 }
 
 
-export { renderPage, renderTask };
+export { nav, taskProjectDropdown, projectFolderDropdown, renderPage, renderTask, renderNavProject, renderNavFolder, createDropdownOption };

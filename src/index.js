@@ -1,8 +1,10 @@
 import { format, compareAsc } from 'date-fns';
 import appState from './modules/app-state';
-import { renderPage, renderTask } from './modules/render';
+import { nav, taskProjectDropdown, projectFolderDropdown, renderPage, renderTask, renderNavProject, renderNavFolder, createDropdownOption } from './modules/render';
 import { camelize } from './modules/helpers';
 import Task from './modules/factories/task';
+import Project from './modules/factories/project';
+import Folder from './modules/factories/folder';
 
 // console.log(appState.getFolders()[0].getProjects()[0].getTasks()[0].getName());
 
@@ -24,8 +26,6 @@ const modalMenu = document.querySelector('#modal-menu');
 const modalOptions = document.querySelectorAll('#modal-menu > p');
 const modalBackdrop = document.querySelector('#modal-backdrop');
 const modalForms = document.querySelectorAll('.modal-form');
-const [taskForm, projectForm, folderForm] = modalForms;
-// console.dir(taskForm);
 
 // add event listeners
 document.addEventListener('DOMContentLoaded', renderPage);
@@ -33,9 +33,9 @@ addItem.addEventListener('click', toggleModalMenu);
 document.addEventListener('click', hideModalMenu);
 modalOptions.forEach(option => option.addEventListener('click', showModal));
 modalBackdrop.addEventListener('click', hideModal);
-taskForm.addEventListener('submit', createTask);
-  
-  
+modalForms.forEach(form => form.addEventListener('submit', handleFormSubmission));
+
+
 /* MODAL FUNCTIONALITY */
 
 // toggles menu with 3 options: create task, create project, create folder
@@ -76,35 +76,29 @@ function hideModal(e) {
       e.type === 'submit') {
     modalBackdrop.classList.add('hidden');
     modalForms.forEach(form => form.classList.add('hidden'));
+    console.log(e.target);
   }
 }
 
-// create new Task instance from form submission
-function createTask(e) {
+// extract form values to create correct item, hide modal, reset form
+function handleFormSubmission(e) {
   e.preventDefault();
-  // extract values from form
-  const formValues = getFormValues(e.target);
+  const formValues = getFormValues(e.target); // extract values from form
   // console.log(formValues);
 
-  // create Task obj
-  const newTask = Task(formValues.name, formValues.dueDate, formValues.priority, formValues.notes);
-  // push Task to parentProject task array
-  let parentProject;
-  appState.getFolders().forEach(folder => {
-    const correctProject = folder.getProjects().filter(project => project.getId() === formValues.project);
-    if (correctProject.length > 0) parentProject = correctProject[0];
-  });
-  parentProject.addTask(newTask);
-
-  // render task if on correct page
-  if (newTask[filters[appState.getCurrentFilter()].func]() === filters[appState.getCurrentFilter()].value) {
-    const ul = document.querySelector(`.${appState.getCurrentFilter()}`);
-    console.log(ul);
-    ul.appendChild(renderTask(newTask));
+  switch(e.target.id) {
+    case 'task-form':
+      createTask(formValues);
+      break;
+    case 'project-form':
+      createProject(formValues);
+      break;
+    case 'folder-form':
+      createFolder(formValues);
+      break;
   }
 
   hideModal(e);
-  e.target.reset();
 }
 
 // extract field values from form submission; return values as obj
@@ -120,6 +114,54 @@ function getFormValues(formValues) {
     }
     return obj;
   }, {});
+}
+
+// create new Task instance from form submission
+function createTask(formValues) {
+  const newTask = Task(formValues.name, formValues.dueDate, formValues.priority, formValues.notes);
+  // push Task to parentProject tasks array
+  let parentProject;
+  appState.getFolders().forEach(folder => {
+    const correctProject = folder.getProjects().filter(project => project.getId() === formValues.project);
+    parentProject = correctProject[0];
+  });
+  if (parentProject) parentProject.addTask(newTask);
+  // console.log(appState.getFolders()[0].getProjects()[0].getTasks());
+
+  // render task if on correct page
+  if (newTask[filters[appState.getCurrentFilter()].func]() === filters[appState.getCurrentFilter()].value) {
+    const ul = document.querySelector(`.${appState.getCurrentFilter()}`);
+    console.log(ul);
+    ul.appendChild(renderTask(newTask));
+  }
+}
+
+// create new Project instance from form submission
+function createProject(formValues) {
+  const newProject = Project(formValues.name, formValues.notes);
+  // push Project to parentFolder projects array
+  let parentFolder;
+  const correctFolder = appState.getFolders().filter(folder => folder.getId() === formValues.folder);
+  parentFolder = correctFolder[0];
+  if (parentFolder) parentFolder.addProject(newProject);
+  // console.log(appState.getFolders()[0].getProjects());
+
+  // render project in sidebar
+  const ul = document.querySelector(`[class="folder-nav"][data-id="${parentFolder.getId()}"]`);
+  ul.appendChild(renderNavProject(newProject));
+
+  taskProjectDropdown.appendChild(createDropdownOption(newProject)); // create dropdown option
+}
+
+// create new Folder instance from form submission
+function createFolder(formValues) {
+  const newFolder = Folder(formValues.name);
+  appState.addFolder(newFolder); // push Folder to appState folders array
+  // console.log(appState.getFolders());
+
+  nav.appendChild(renderNavFolder(newFolder)); // render folder in sidebar
+  
+  projectFolderDropdown.appendChild(createDropdownOption(newFolder)); // create dropdown option
 }
 
 export { filters };
