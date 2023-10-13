@@ -46,9 +46,9 @@ function showModal(e) {
 
   // relate menu button clicked with form to open
   const modals = {
-    'Add Task': 'task-form',
-    'Add Project': 'project-form',
-    'Add Folder': 'folder-form',
+    'Create Task': 'task-form',
+    'Create Project': 'project-form',
+    'Create Folder': 'folder-form',
   };
 
   // filter thru modal forms for matching id
@@ -57,9 +57,11 @@ function showModal(e) {
   correctForm.classList.remove('hidden');
 }
 
-function hideModal() {
-  modalBackdrop.classList.add('hidden');
-  modalForms.forEach(form => form.classList.add('hidden'));
+function hideModal(e) {
+  if (e.target.id === 'modal-backdrop' || e.target.classList.contains('cancel')) {
+    modalBackdrop.classList.add('hidden');
+    modalForms.forEach(form => form.classList.add('hidden'));
+  }
 }
 
 export { appState };

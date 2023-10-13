@@ -29,7 +29,7 @@ export default function initAppState() {
   firstFolder.addProject(firstProject);
 
   const firstTask = Task(
-    'First Task',
+    'First task',
     format(new Date(), 'MM/dd/yyyy'),
     1,
     'Default first task',

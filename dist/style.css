@@ -54,6 +54,10 @@ button, dialog, form {
   font-family: var(--font-stack);
 }
 
+button:hover {
+  cursor: pointer;
+}
+
 hr {
   border: none;
   background-color: var(--gray-300);
@@ -62,6 +66,10 @@ hr {
 
 li {
   list-style-type: none;
+}
+
+textarea {
+  resize: none;
 }
 
 
@@ -234,9 +242,106 @@ li.project-nav {
   width: min(80%, 500px);
   pointer-events: auto;
   transition: var(--transition-slow);
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-300);
 }
 
 .modal-form.hidden {
   pointer-events: none;
   transform: scale(0) translate(-50%, -50%);
+}
+
+.modal-form > div {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-100);
+}
+
+.modal-form label,
+.priority > div:first-child {
+  font-size: var(--font-sm);
+}
+
+.modal-form .priority {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.priority > div:first-child {
+  grid-column: 1 / -1;
+}
+
+.priority label {
+  background-color: white;
+  border: 2px solid var(--gray-500);
+  border-radius: 6px;
+  display: inline-block;
+  padding: var(--gap-200);
+  text-align: center;
+  width: 100%;
+}
+
+.priority input[type="radio"] {
+  appearance: none;
+  display: none;
+  position: absolute;
+  width: 100%;
+}
+
+.priority input[type="radio"]:checked + label {
+  background: var(--gray-500);
+  color: white;
+}
+
+#low + label {
+  border-color: green;
+  color: green;
+}
+
+#medium + label {
+  border-color: orange;
+  color: orange;
+}
+
+#high + label {
+  border-color: red;
+  color: red;
+}
+
+#low:checked + label,
+#low + label:hover {
+  background-color: green;
+  color: white;
+}
+
+#medium:checked + label,
+#medium + label:hover {
+  background-color: orange;
+  color: white;
+}
+
+#high:checked + label,
+#high + label:hover {
+  background-color: red;
+  color: white;
+}
+
+
+.submit {
+  border-radius: 12px;
+  padding: var(--gap-300);
+}
+
+.cancel {
+  background-color: white;
+  border-radius: 46px;
+  font-size: var(--font-lg);
+  height: 1.95rem;
+  width: 1.95rem;
+  right: 0;
+  top: 0;
+  position: absolute;
+  transition: var(--transition-fast);
+  vertical-align: middle;
 }
