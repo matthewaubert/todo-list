@@ -5,4 +5,9 @@ function setAttributes(elem, attributes) {
   }
 }
 
-export { setAttributes };
+// translates 'kebab-cased' string to 'camelCase'
+function camelize(string) {
+  return string.replace(/-./g, x=>x[1].toUpperCase());
+}
+
+export { setAttributes, camelize };

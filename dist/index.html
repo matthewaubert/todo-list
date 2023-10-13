@@ -36,16 +36,16 @@
     <form id="task-form" class="modal-form">
       <h2>Create a new task</h2>
       <div>
-        <label for="name">Task Name</label>
-        <input type="text" id="name" autocomplete="off" placeholder="e.g. Pay bills" required>
+        <label for="task-name">Task Name</label>
+        <input type="text" id="task-name" name="name" autocomplete="off" placeholder="e.g. Pay bills" required>
       </div>
       <div>
-        <label for="notes">Notes</label>
-        <textarea id="notes" autocomplete="off" placeholder="e.g. rent, electric, internet"></textarea>
+        <label for="task-notes">Notes</label>
+        <textarea id="task-notes" name="notes" autocomplete="off" placeholder="e.g. rent, electric, internet"></textarea>
       </div>
       <div>
-        <label for="due-date">Due Date</label>
-        <input type="date" id="due-date" required>
+        <label for="task-due-date">Due Date</label>
+        <input type="date" id="task-due-date" name="due-date" required>
       </div>
       <div class="priority">
         <div>Priority</div>
@@ -62,18 +62,26 @@
           <label for="high">High</label>
         </div>
       </div>
+      <div>
+        <label for="task-project">Project</label>
+        <select name="project" id="task-project"></select>
+      </div>
       <button type="submit" class="submit">Submit</button>
       <button type="reset" class="cancel">×</button>
     </form>
     <form id="project-form" class="modal-form hidden">
       <h2>Create a new project</h2>
       <div>
-        <label for="name">Project Name</label>
-        <input type="text" id="name" autocomplete="off" placeholder="e.g. Pay bills" required>
+        <label for="project-name">Project Name</label>
+        <input type="text" id="project-name" name="name" autocomplete="off" placeholder="e.g. Prepare Presentation" required>
       </div>
       <div>
-        <label for="notes">Notes</label>
-        <textarea id="notes" autocomplete="off" placeholder="e.g. rent, electric, internet"></textarea>
+        <label for="project-notes">Notes</label>
+        <textarea id="project-notes" name="name" autocomplete="off" placeholder="e.g. Frank asked me to prepare the presentation for our next client meeting"></textarea>
+      </div>
+      <div>
+        <label for="project-folder">Folder</label>
+        <select name="folder" id="project-folder"></select>
       </div>
       <button type="submit" class="submit">Submit</button>
       <button type="reset" class="cancel">×</button>
@@ -81,8 +89,8 @@
     <form id="folder-form" class="modal-form hidden">
       <h2>Create a new folder</h2>
       <div>
-        <label for="name">Folder Name</label>
-        <input type="text" id="name" autocomplete="off" placeholder="e.g. Pay bills" required>
+        <label for="folder-name">Folder Name</label>
+        <input type="text" id="folder-name" name="name" autocomplete="off" placeholder="e.g. Work" required>
       </div>
       <button type="submit" class="submit">Submit</button>
       <button type="reset" class="cancel">×</button>
