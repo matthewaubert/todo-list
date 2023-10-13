@@ -1,22 +1,19 @@
 import { format } from 'date-fns';
-import { appState } from '../index';
+import { appState, filters } from '../index';
 import { setAttributes } from './helpers';
 
 // cache DOM
 const main = document.querySelector('#main');
 
 // filter thru appState for tasks
-function renderTasks(filter) {
-  const filters = {
-    today: format(new Date(), 'MM/dd/yyyy'),
-  };
+function renderTasks(currentFilter) {
   const allTasks = [];
 
   appState.getFolders().forEach(folder => {
     folder.getProjects().forEach(project => {
-      if (filter) {
+      if (currentFilter) {
         allTasks.push(...project.getTasks()
-          .filter(task => task.getDueDate() === filters[filter]));
+          .filter(task => task[filters[currentFilter].func]() === filters[currentFilter].value));
       } else {
         allTasks.push(...project.getTasks());
       }
@@ -24,6 +21,7 @@ function renderTasks(filter) {
   });
 
   const ul = document.createElement('ul');
+  ul.classList.add(appState.getCurrentFilter());
 
   // console.log(allTasks[0].getName());
   allTasks.forEach(task => ul.appendChild(renderTask(task)));
@@ -69,4 +67,4 @@ function toggleCompleted(e) {
   e.target.parentNode.classList.toggle('completed');
 }
 
-export { renderTasks };
+export { renderTasks, renderTask };

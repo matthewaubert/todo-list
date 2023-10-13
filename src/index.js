@@ -1,14 +1,25 @@
 import { format, compareAsc } from 'date-fns';
 import { renderNav } from './modules/nav';
-import { renderTasks } from './modules/main-content';
+import { renderTasks, renderTask } from './modules/main-content';
 import{ setAttributes, camelize } from './modules/helpers.js';
 import initAppState from './modules/app-state';
 import Task from './modules/factories/task';
 
 // load initial app state with 1 default folder, project, task
 const appState = initAppState();
-let currentPage = 'today';
 // console.log(appState.getFolders()[0].getProjects()[0].getTasks()[0].getName());
+
+// need to know which property to pull from item, what the value should match
+const filters = {
+  all: {
+    func: 'getCompletionStatus',
+    value: false
+  },
+  today: {
+    func: 'getDueDate',
+    value: format(new Date(), 'MM/dd/yyyy')
+  },
+};
 
 // cache DOM
 const addItem = document.querySelector('.add-item');
@@ -32,7 +43,7 @@ taskForm.addEventListener('submit', createTask);
 function renderPage() {
   console.log("DOM fully loaded and parsed");
 
-  renderTasks('today');
+  renderTasks();
   renderNav();
   renderModalDropdown();
 }
@@ -106,7 +117,6 @@ function hideModal(e) {
 // create new Task instance from form submission
 function createTask(e) {
   e.preventDefault();
-  console.log(e);
   // extract values from form
   const formValues = getFormValues(e.target);
   // console.log(formValues);
@@ -121,8 +131,12 @@ function createTask(e) {
   });
   parentProject.addTask(newTask);
 
-  // render task
-  // renderTasks(currentPage);
+  // render task if on correct page
+  if (newTask[filters[appState.getCurrentFilter()].func]() === filters[appState.getCurrentFilter()].value) {
+    const ul = document.querySelector(`.${appState.getCurrentFilter()}`);
+    console.log(ul);
+    ul.appendChild(renderTask(newTask));
+  }
 
   // hideModal(e);
   // e.target.reset();
@@ -143,4 +157,4 @@ function getFormValues(formValues) {
   }, {});
 }
 
-export { appState };
+export { appState, filters };

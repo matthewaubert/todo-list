@@ -4,7 +4,7 @@
 
 const compGetId = state => ({
   getId: () => state.id
-})
+});
 
 const compGetName = state => ({
   getName: () => state.name

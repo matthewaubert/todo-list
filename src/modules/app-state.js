@@ -4,17 +4,27 @@ import Folder from './factories/folder';
 import Project from './factories/project';
 import Task from './factories/task';
 
+const compGetCurrentFilter = state => ({
+  getCurrentFilter: () => state.currentFilter
+});
+const compSetCurrentFilter = state => ({
+  compSetCurrentFilter: newPage => state.currentFilter = newPage
+});
+
 // create AppState object: contains an array of folders and related methods
 function AppState() {
   const state = {
-    folders: [] // array of Folder object instances
+    folders: [], // array of Folder object instances
+    currentFilter: 'all'
   }
 
   return Object.assign(
     {},
     compGetItems(state, 'folder'),
     compAddItem(state, 'folder'),
-    compDeleteItem(state, 'folder')
+    compDeleteItem(state, 'folder'),
+    compGetCurrentFilter(state),
+    compSetCurrentFilter(state)
   );
 }
 
