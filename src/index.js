@@ -1,8 +1,7 @@
 import { format, compareAsc } from 'date-fns';
-import { renderNav } from './modules/nav';
-import { renderTasks, renderTask } from './modules/main-content';
-import{ setAttributes, camelize } from './modules/helpers.js';
 import appState from './modules/app-state';
+import { renderPage, renderTask } from './modules/render';
+import { camelize } from './modules/helpers';
 import Task from './modules/factories/task';
 
 // console.log(appState.getFolders()[0].getProjects()[0].getTasks()[0].getName());
@@ -26,8 +25,6 @@ const modalOptions = document.querySelectorAll('#modal-menu > p');
 const modalBackdrop = document.querySelector('#modal-backdrop');
 const modalForms = document.querySelectorAll('.modal-form');
 const [taskForm, projectForm, folderForm] = modalForms;
-const taskProjectDropdown = taskForm.querySelector('#task-project');
-const projectFolderDropdown = projectForm.querySelector('#project-folder');
 // console.dir(taskForm);
 
 // add event listeners
@@ -37,39 +34,9 @@ document.addEventListener('click', hideModalMenu);
 modalOptions.forEach(option => option.addEventListener('click', showModal));
 modalBackdrop.addEventListener('click', hideModal);
 taskForm.addEventListener('submit', createTask);
-
-function renderPage() {
-  console.log("DOM fully loaded and parsed");
-
-  renderTasks();
-  renderNav();
-  renderModalDropdown();
-}
-
-function renderModalDropdown() {
-  const folders = appState.getFolders(); // get folders
-  // render folders to modalDropdown
-  folders.forEach(folder => projectFolderDropdown.appendChild(createDropdownOption(folder)));
-
-  // get projects
-  const projects = [];
-  folders.forEach(folder => projects.push(...folder.getProjects()));
-  // render dropdown option for each project and append to taskProjectDropdown
-  projects.forEach(project => taskProjectDropdown.appendChild(createDropdownOption(project)));
-}
-
-function createDropdownOption(item) {
-  const option = document.createElement('option');
-  setAttributes(option, {
-    'value': item.getId(),
-    'data-id': item.getId(),
-  });
-  option.textContent = item.getName();
-  if (option.textContent === 'First Project' || option.textContent === 'First Folder') {
-    option.setAttribute('selected', true);
-  }
-  return option;
-}
+  
+  
+/* MODAL FUNCTIONALITY */
 
 // toggles menu with 3 options: create task, create project, create folder
 function toggleModalMenu() {
@@ -136,8 +103,8 @@ function createTask(e) {
     ul.appendChild(renderTask(newTask));
   }
 
-  // hideModal(e);
-  // e.target.reset();
+  hideModal(e);
+  e.target.reset();
 }
 
 // extract field values from form submission; return values as obj
