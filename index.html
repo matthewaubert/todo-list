@@ -25,58 +25,67 @@
 
   <button class="add-item">+</button>
   <div id="modal-menu" class="hidden">
-    <p>Add Task</p>
+    <p>Create Task</p>
     <hr>
-    <p>Add Project</p>
+    <p>Create Project</p>
     <hr>
-    <p>Add Folder</p>
+    <p>Create Folder</p>
   </div>
 
-  <div id="modal-backdrop" class="hidden">
-    <form id="task-form" class="modal-form hidden">
-      <ul>
-        <li>
-          <h2>Add a new task</h2>
-        </li>
-        <li>
-          <label for="title">Book Title</label>
-          <input type="text" id="title" autocomplete="off" placeholder="Title" required>
-        </li>
-        <li>
-          <label for="author">Book Author</label>
-          <input type="text" id="author" autocomplete="off" placeholder="Author" required>
-        </li>
-        <li>
-          <label for="pages">Number of pages</label>
-          <input type="number" id="pages"  autocomplete="off" placeholder="Pages" min="1" required>
-        </li>
-        <li>
-          <button type="submit" id="submit">Submit</button>
-        </li>
-        <button type="reset" id="cancel">×</button>
-      </ul>
+  <div id="modal-backdrop" class="">
+    <form id="task-form" class="modal-form">
+      <h2>Create a new task</h2>
+      <div>
+        <label for="name">Task Name</label>
+        <input type="text" id="name" autocomplete="off" placeholder="e.g. Pay bills" required>
+      </div>
+      <div>
+        <label for="notes">Notes</label>
+        <textarea id="notes" autocomplete="off" placeholder="e.g. rent, electric, internet"></textarea>
+      </div>
+      <div>
+        <label for="due-date">Due Date</label>
+        <input type="date" id="due-date" required>
+      </div>
+      <div class="priority">
+        <div>Priority</div>
+        <div>
+          <input type="radio" id="low" name="priority" value="1">
+          <label for="low">Low</label>
+        </div>
+        <div>
+          <input type="radio" id="medium" name="priority" value="2">
+          <label for="medium">Medium</label>
+        </div>
+        <div>
+          <input type="radio" id="high" name="priority" value="3">
+          <label for="high">High</label>
+        </div>
+      </div>
+      <button type="submit" class="submit">Submit</button>
+      <button type="reset" class="cancel">×</button>
     </form>
     <form id="project-form" class="modal-form hidden">
-      <ul>
-        <li>
-          <h2>Add a new project</h2>
-        </li>
-        <li>
-          <button type="submit" id="submit">Submit</button>
-        </li>
-        <button type="reset" id="cancel">×</button>
-      </ul>
+      <h2>Create a new project</h2>
+      <div>
+        <label for="name">Project Name</label>
+        <input type="text" id="name" autocomplete="off" placeholder="e.g. Pay bills" required>
+      </div>
+      <div>
+        <label for="notes">Notes</label>
+        <textarea id="notes" autocomplete="off" placeholder="e.g. rent, electric, internet"></textarea>
+      </div>
+      <button type="submit" class="submit">Submit</button>
+      <button type="reset" class="cancel">×</button>
     </form>
     <form id="folder-form" class="modal-form hidden">
-      <ul>
-        <li>
-          <h2>Add a new folder</h2>
-        </li>
-        <li>
-          <button type="submit" id="submit">Submit</button>
-        </li>
-        <button type="reset" id="cancel">×</button>
-      </ul>
+      <h2>Create a new folder</h2>
+      <div>
+        <label for="name">Folder Name</label>
+        <input type="text" id="name" autocomplete="off" placeholder="e.g. Pay bills" required>
+      </div>
+      <button type="submit" class="submit">Submit</button>
+      <button type="reset" class="cancel">×</button>
     </form>
   </div>
 </body>
