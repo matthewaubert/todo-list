@@ -1,0 +1,242 @@
+/* Roboto */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+
+/* general */
+
+:root {
+  --gray-050: #f8fafc;
+  --gray-100: #f1f5f9;
+  --gray-200: #e5e7eb;
+  --gray-300: #d1d5db;
+  --gray-400: #9ca3af;
+  --gray-500: #6b7280;
+  --gray-800: #1F2937;
+  --sky-200: #BAE6FD;
+  --sky-300: #7DD3FC;
+  --sky-500: #0EA5E9;
+  --gap-100: 0.4rem;
+  --gap-150: 0.6rem;
+  --gap-200: 0.4rem;
+  --gap-250: 1.0rem;
+  --gap-300: 1.2rem;
+  --gap-400: 1.6rem;
+  --gap-500: 2.0rem;
+  --shadow-r: 0 0 5px rgba(0,0,0,0.1);
+  --transition-fast: all .1s ease-in-out;
+  --transition-slow: all .4s ease-in-out;
+  --font-stack: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+  --font-sm: 0.9rem;
+  --font-md: 1.1rem;
+  --font-lg: 1.3rem;
+  font-family: var(--font-stack);
+  color: var(--gray-800);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  transition: var(--transition-fast);
+}
+
+html, body {
+  min-height: 100vh;
+}
+
+a {
+  text-decoration: none;
+}
+
+button, dialog, form {
+  -webkit-appearance: none;
+  appearance: none;
+  border: none;
+  font-family: var(--font-stack);
+}
+
+hr {
+  border: none;
+  background-color: var(--gray-300);
+  height: 1px;
+}
+
+li {
+  list-style-type: none;
+}
+
+
+/* header */
+
+header {
+  display: flex;
+  justify-content: center;
+  padding: var(--gap-400) 0;
+}
+
+
+/* nav */
+
+#main,
+#nav ul {
+  padding: 0 var(--gap-500);
+}
+
+#nav {
+  background-color: var(--gray-100);
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-300);
+  height: 100%;
+  width: 0;
+  padding-top: 4rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  transition: 0.5s;
+  z-index: 2;
+  overflow-x: hidden;
+}
+
+#nav ul {
+  display: flex;
+  flex-direction: column;
+}
+
+#nav li {
+  font-size: var(--font-md);
+  padding: var(--gap-100);
+}
+
+.time > li,
+li.folder-nav,
+li.project-nav {
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: var(--gap-150);
+}
+
+.time > li::before,
+li.folder-nav::before,
+li.project-nav::before {
+  content: "";
+  display: inline-block;
+  height: 24px;
+  width: 24px;
+  background-image: url('folder-outline.svg');
+}
+
+li.project-nav {
+  font-weight: 300;
+}
+
+
+/* main */
+
+.task-main {
+  padding: var(--gap-100);
+  font-size: var(--font-md);
+  font-weight: 400;
+  display: flex;
+  align-items: center;
+  gap: var(--gap-150);
+}
+
+.completed {
+  color: var(--gray-300);
+}
+
+.add-item {
+  background-color: var(--sky-500);
+  border-radius: 100px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.3);
+  color: white;
+  font-size: 2.5rem;
+  font-weight: 400;
+  height: 3.5rem;
+  width: 3.5rem;
+  position: fixed;
+  bottom: var(--gap-500);
+  right: var(--gap-500);
+  transition: var(--transition-slow);
+  z-index: 1;
+}
+
+.add-task:hover {
+  cursor: pointer;
+}
+
+.add-item.rotated {
+  transform: rotate(45deg);
+}
+
+#modal-menu {
+  border: 1px solid var(--gray-300);
+  border-radius: 12px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.3);
+  height: 157px;
+  position: fixed;
+  bottom: 6.8rem;
+  right: var(--gap-500);
+  overflow: hidden;
+  transform-origin: bottom;
+  transition: var(--transition-slow);
+  z-index: 1;
+}
+
+#modal-menu.hidden {
+  /* transform: scaleY(0); */
+  border: 0px solid transparent;
+  height: 0;
+  pointer-events: none;
+}
+
+#modal-menu > p {
+  margin: var(--gap-250);
+}
+
+#modal-menu > p:hover {
+  cursor: pointer;
+}
+
+
+/* modal */
+
+#modal-backdrop {
+  background-color: rgba(0,0,0,0.3);
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  opacity: 1;
+  pointer-events: auto;
+  z-index: 2;
+  transition: var(--transition-slow);
+}
+
+#modal-backdrop.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.modal-form {
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.3);
+  padding: var(--gap-400);
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: scale(1) translate(-50%, -50%);
+  transform-origin: 0 0;
+  overflow: hidden;
+  width: min(80%, 500px);
+  pointer-events: auto;
+  transition: var(--transition-slow);
+}
+
+.modal-form.hidden {
+  pointer-events: none;
+  transform: scale(0) translate(-50%, -50%);
+}

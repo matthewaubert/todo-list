@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>To-Do List</title>
+  <link rel="stylesheet" href="style.css"></link>
   <script src="main.js" defer></script>
 </head>
 <body>
@@ -21,6 +22,7 @@
   </nav>
 
   <main id="main"></main>
+
   <button class="add-item">+</button>
   <div id="modal-menu" class="hidden">
     <p>Add Task</p>
@@ -28,6 +30,54 @@
     <p>Add Project</p>
     <hr>
     <p>Add Folder</p>
+  </div>
+
+  <div id="modal-backdrop" class="hidden">
+    <form id="task-form" class="modal-form hidden">
+      <ul>
+        <li>
+          <h2>Add a new task</h2>
+        </li>
+        <li>
+          <label for="title">Book Title</label>
+          <input type="text" id="title" autocomplete="off" placeholder="Title" required>
+        </li>
+        <li>
+          <label for="author">Book Author</label>
+          <input type="text" id="author" autocomplete="off" placeholder="Author" required>
+        </li>
+        <li>
+          <label for="pages">Number of pages</label>
+          <input type="number" id="pages"  autocomplete="off" placeholder="Pages" min="1" required>
+        </li>
+        <li>
+          <button type="submit" id="submit">Submit</button>
+        </li>
+        <button type="reset" id="cancel">×</button>
+      </ul>
+    </form>
+    <form id="project-form" class="modal-form hidden">
+      <ul>
+        <li>
+          <h2>Add a new project</h2>
+        </li>
+        <li>
+          <button type="submit" id="submit">Submit</button>
+        </li>
+        <button type="reset" id="cancel">×</button>
+      </ul>
+    </form>
+    <form id="folder-form" class="modal-form hidden">
+      <ul>
+        <li>
+          <h2>Add a new folder</h2>
+        </li>
+        <li>
+          <button type="submit" id="submit">Submit</button>
+        </li>
+        <button type="reset" id="cancel">×</button>
+      </ul>
+    </form>
   </div>
 </body>
 </html>
