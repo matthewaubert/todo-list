@@ -69,12 +69,12 @@ function renderTask(task) {
 
 // toggle completion status of task, gray out HTML el
 function toggleCompleted(e) {
-  // console.log(e.target.id);
+  console.log(e.target.id);
 
   appState.getFolders().forEach(folder => {
     folder.getProjects().forEach(project => {
       const targetTask = project.getTasks().filter(task => task.getId() === e.target.id)[0];
-      targetTask.toggleCompleted();
+      if (targetTask) targetTask.toggleCompleted();
       // console.log(targetTask.getCompletionStatus());
     });
   });
@@ -154,4 +154,4 @@ function renderNavProject(project) {
 }
 
 
-export { taskProjectDropdown, projectFolderDropdown, renderPage, renderTask, renderNavProject, renderNavFolder, createDropdownOption };
+export { renderPage, renderTask, renderNavProject, renderNavFolder, createDropdownOption, taskProjectDropdown, projectFolderDropdown };

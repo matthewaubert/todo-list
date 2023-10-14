@@ -1,6 +1,6 @@
 import { format, compareAsc } from 'date-fns';
 import appState from './modules/app-state';
-import { taskProjectDropdown, projectFolderDropdown, renderPage, renderTask, renderNavProject, renderNavFolder, createDropdownOption } from './modules/render';
+import { renderPage, renderTask, renderNavProject, renderNavFolder, createDropdownOption, taskProjectDropdown, projectFolderDropdown } from './modules/render';
 import { camelize } from './modules/helpers';
 import Task from './modules/factories/task';
 import Project from './modules/factories/project';
@@ -76,7 +76,7 @@ function showModal(e) {
   // filter thru modal forms for matching id
   const correctForm = Array.from(modalForms)
     .filter(form => form.id === modals[e.target.innerText])[0];
-  console.log(correctForm);
+  // console.log(correctForm);
   correctForm.classList.remove('hidden');
 }
 
@@ -86,8 +86,11 @@ function hideModal(e) {
       e.target.classList.contains('cancel') ||
       e.type === 'submit') {
     modalBackdrop.classList.add('hidden');
-    modalForms.forEach(form => form.classList.add('hidden'));
-    console.log(e.target);
+    modalForms.forEach(form => {
+      form.classList.add('hidden');
+      form.reset();
+    });
+    // console.log(e.target);
   }
 }
 
@@ -95,7 +98,7 @@ function hideModal(e) {
 function handleFormSubmission(e) {
   e.preventDefault();
   const formValues = getFormValues(e.target); // extract values from form
-  // console.log(formValues);
+  console.log(formValues);
 
   switch(e.target.id) {
     case 'task-form':
