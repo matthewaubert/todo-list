@@ -1,6 +1,6 @@
 import { format, compareAsc } from 'date-fns';
 import appState from './modules/app-state';
-import { nav, taskProjectDropdown, projectFolderDropdown, renderPage, renderTask, renderNavProject, renderNavFolder, createDropdownOption } from './modules/render';
+import { taskProjectDropdown, projectFolderDropdown, renderPage, renderTask, renderNavProject, renderNavFolder, createDropdownOption } from './modules/render';
 import { camelize } from './modules/helpers';
 import Task from './modules/factories/task';
 import Project from './modules/factories/project';
@@ -21,6 +21,8 @@ const filters = {
 };
 
 // cache DOM
+const nav = document.querySelector('#nav');
+const navArrows = document.querySelectorAll('.nav-arrow');
 const addItem = document.querySelector('.add-item');
 const modalMenu = document.querySelector('#modal-menu');
 const modalOptions = document.querySelectorAll('#modal-menu > p');
@@ -28,12 +30,21 @@ const modalBackdrop = document.querySelector('#modal-backdrop');
 const modalForms = document.querySelectorAll('.modal-form');
 
 // add event listeners
+navArrows.forEach(navArrow => navArrow.addEventListener('click', toggleNav));
 document.addEventListener('DOMContentLoaded', renderPage);
 addItem.addEventListener('click', toggleModalMenu);
 document.addEventListener('click', hideModalMenu);
 modalOptions.forEach(option => option.addEventListener('click', showModal));
 modalBackdrop.addEventListener('click', hideModal);
 modalForms.forEach(form => form.addEventListener('submit', handleFormSubmission));
+
+
+/* NAV FUNCTIONALITY */
+
+function toggleNav() {
+  nav.classList.toggle('hidden');
+  navArrows.forEach(navArrow => navArrow.classList.toggle('rotated'));
+}
 
 
 /* MODAL FUNCTIONALITY */
@@ -160,8 +171,9 @@ function createFolder(formValues) {
   // console.log(appState.getFolders());
 
   nav.appendChild(renderNavFolder(newFolder)); // render folder in sidebar
-  
+
   projectFolderDropdown.appendChild(createDropdownOption(newFolder)); // create dropdown option
 }
+
 
 export { filters };

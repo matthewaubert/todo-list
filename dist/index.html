@@ -9,10 +9,20 @@
 </head>
 <body>
   <header>
+    <button class="nav-arrow">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <path d="M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z" />
+      </svg>
+    </button>
     <h1>Task</h1>
   </header>
 
-  <nav id="nav">
+  <nav id="nav" class="hidden">
+    <button class="nav-arrow">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <path d="M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z" />
+      </svg>
+    </button>
     <ul class="time">
       <li>Today</li>
       <li>This Week</li>
@@ -32,7 +42,7 @@
     <p>Create Folder</p>
   </div>
 
-  <div id="modal-backdrop" class="">
+  <div id="modal-backdrop" class="hidden">
     <form id="task-form" class="modal-form hidden">
       <h2>Create a new task</h2>
       <div>
@@ -69,7 +79,7 @@
       <button type="submit" class="submit">Submit</button>
       <button type="reset" class="cancel">×</button>
     </form>
-    <form id="project-form" class="modal-form">
+    <form id="project-form" class="modal-form hidden">
       <h2>Create a new project</h2>
       <div>
         <label for="project-name">Project Name</label>

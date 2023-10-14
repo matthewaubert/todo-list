@@ -154,4 +154,4 @@ function renderNavProject(project) {
 }
 
 
-export { nav, taskProjectDropdown, projectFolderDropdown, renderPage, renderTask, renderNavProject, renderNavFolder, createDropdownOption };
+export { taskProjectDropdown, projectFolderDropdown, renderPage, renderTask, renderNavProject, renderNavFolder, createDropdownOption };
