@@ -21,7 +21,8 @@
   --gap-300: 1.2rem;
   --gap-400: 1.6rem;
   --gap-500: 2.0rem;
-  --shadow-r: 0 0 5px rgba(0,0,0,0.1);
+  --shadow-1: 0 0 5px rgba(0,0,0,0.1);
+  --shadow-2: 0 0 5px rgba(0,0,0,0.3);
   --transition-fast: all .1s ease-in-out;
   --transition-slow: all .4s ease-in-out;
   --font-stack: 'Roboto', 'Helvetica', 'Arial', sans-serif;
@@ -91,18 +92,23 @@ header {
 
 #nav {
   background-color: var(--gray-100);
+  box-shadow: var(--shadow-2);
   display: flex;
   flex-direction: column;
   gap: var(--gap-300);
   height: 100%;
-  width: 0;
-  padding-top: 4rem;
+  width: 100%;
+  padding-top: 5.5rem;
   position: fixed;
   top: 0;
   left: 0;
-  transition: 0.5s;
+  transition: all .6s ease-in-out;
   z-index: 2;
   overflow-x: hidden;
+}
+
+#nav.hidden {
+  width: 0;
 }
 
 #nav ul {
@@ -138,6 +144,43 @@ li.project-nav {
   font-weight: 300;
 }
 
+.nav-arrow {
+  background-color: transparent;
+  border-radius: 100px;
+  font-size: 2.5rem;
+  font-weight: 400;
+  opacity: 1;
+  position: absolute;
+  transition: var(--transition-slow);
+  display: grid;
+  place-content: center;
+}
+
+.nav-arrow > svg {
+  fill: var(--gray-500);
+  height: 2.3rem;
+}
+
+header > .nav-arrow {
+  top: 1.7rem;
+  left: var(--gap-400);
+}
+
+nav > .nav-arrow {
+  top: 1.7rem;
+  right: var(--gap-400);
+  opacity: 0;
+}
+
+header > .nav-arrow.rotated {
+  opacity: 0;
+}
+
+nav > .nav-arrow.rotated {
+  transform: rotate(180deg);
+  opacity: 1;
+}
+
 
 /* main */
 
@@ -157,7 +200,7 @@ li.project-nav {
 .add-item {
   background-color: var(--sky-500);
   border-radius: 100px;
-  box-shadow: 0 0 5px rgba(0,0,0,0.3);
+  box-shadow: var(--shadow-2);
   color: white;
   font-size: 2.5rem;
   font-weight: 400;
@@ -170,10 +213,6 @@ li.project-nav {
   z-index: 1;
 }
 
-.add-task:hover {
-  cursor: pointer;
-}
-
 .add-item.rotated {
   transform: rotate(45deg);
 }
@@ -181,7 +220,7 @@ li.project-nav {
 #modal-menu {
   border: 1px solid var(--gray-300);
   border-radius: 12px;
-  box-shadow: 0 0 5px rgba(0,0,0,0.3);
+  box-shadow: var(--shadow-2);
   height: 157px;
   position: fixed;
   bottom: 6.8rem;
@@ -231,7 +270,7 @@ li.project-nav {
 .modal-form {
   background-color: white;
   border-radius: 12px;
-  box-shadow: 0 0 5px rgba(0,0,0,0.3);
+  box-shadow: var(--shadow-2);
   padding: var(--gap-400);
   position: fixed;
   top: 50%;
