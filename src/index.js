@@ -1,28 +1,21 @@
-import { format, compareAsc } from 'date-fns';
 import appState from './modules/app-state';
-import { renderPage, renderTask, renderNavProject, renderNavFolder, createDropdownOption, taskProjectDropdown, projectFolderDropdown } from './modules/render';
 import { camelize } from './modules/helpers';
 import Task from './modules/factories/task';
 import Project from './modules/factories/project';
 import Folder from './modules/factories/folder';
+import {
+  renderPage,
+  renderTasks, renderTask, clearTasks,
+  renderNavProject, renderNavFolder,
+  createDropdownOption, taskProjectDropdown, projectFolderDropdown
+} from './modules/render';
 
 // console.log(appState.getFolders()[0].getProjects()[0].getTasks()[0].getName());
-
-// need to know which property to pull from item, what the value should match
-const filters = {
-  all: {
-    func: 'getCompletionStatus',
-    value: false
-  },
-  today: {
-    func: 'getDueDate',
-    value: format(new Date(), 'MM/dd/yyyy')
-  },
-};
 
 // cache DOM
 const nav = document.querySelector('#nav');
 const navArrows = document.querySelectorAll('.nav-arrow');
+const navFilters = nav.querySelectorAll('li');
 const addItem = document.querySelector('.add-item');
 const modalMenu = document.querySelector('#modal-menu');
 const modalOptions = document.querySelectorAll('#modal-menu > p');
@@ -30,8 +23,9 @@ const modalBackdrop = document.querySelector('#modal-backdrop');
 const modalForms = document.querySelectorAll('.modal-form');
 
 // add event listeners
-navArrows.forEach(navArrow => navArrow.addEventListener('click', toggleNav));
 document.addEventListener('DOMContentLoaded', renderPage);
+navArrows.forEach(navArrow => navArrow.addEventListener('click', toggleNav));
+navFilters.forEach(navFilter => navFilter.addEventListener('click', loadFilter));
 addItem.addEventListener('click', toggleModalMenu);
 document.addEventListener('click', hideModalMenu);
 modalOptions.forEach(option => option.addEventListener('click', showModal));
@@ -44,6 +38,16 @@ modalForms.forEach(form => form.addEventListener('submit', handleFormSubmission)
 function toggleNav() {
   nav.classList.toggle('hidden');
   navArrows.forEach(navArrow => navArrow.classList.toggle('rotated'));
+}
+
+function loadFilter(e) {
+  clearTasks(); // clear tasks
+  // delete checked tasks
+
+  appState.setCurrentFilter(e.target.dataset.id); // change appState.currentFilter
+  renderTasks(e.target.dataset.id); // render tasks according to filter
+
+  toggleNav(); // hide nav
 }
 
 
@@ -143,7 +147,7 @@ function createTask(formValues) {
   // console.log(appState.getFolders()[0].getProjects()[0].getTasks());
 
   // render task if on correct page
-  if (newTask[filters[appState.getCurrentFilter()].func]() === filters[appState.getCurrentFilter()].value) {
+  if (appState.getFilters()[appState.getCurrentFilter()](newTask)) {
     const ul = document.querySelector(`.${appState.getCurrentFilter()}`);
     console.log(ul);
     ul.appendChild(renderTask(newTask));
@@ -177,6 +181,3 @@ function createFolder(formValues) {
 
   projectFolderDropdown.appendChild(createDropdownOption(newFolder)); // create dropdown option
 }
-
-
-export { filters };

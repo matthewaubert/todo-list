@@ -1,4 +1,4 @@
-import { format, compareAsc } from 'date-fns'
+import { format, parse, differenceInCalendarWeeks, differenceInCalendarMonths } from 'date-fns'
 import { compGetItems, compAddItem, compDeleteItem } from './factories/composition';
 import Folder from './factories/folder';
 import Project from './factories/project';
@@ -8,14 +8,34 @@ const compGetCurrentFilter = state => ({
   getCurrentFilter: () => state.currentFilter
 });
 const compSetCurrentFilter = state => ({
-  compSetCurrentFilter: newPage => state.currentFilter = newPage
+  setCurrentFilter: newPage => state.currentFilter = newPage
+});
+const compGetFilters = state => ({
+  getFilters: () => state.filters
 });
 
 // create AppState object: contains an array of folders and related methods
 function AppState() {
   const state = {
     folders: [], // array of Folder object instances
-    currentFilter: 'all'
+    currentFilter: 'all',
+    filters: { // need to know which property to pull from item, what the value should match
+      all: task => task.getCompletionStatus() === false,
+      today: task => format(new Date(), 'MM/dd/yyyy') === task.getDueDate(),
+      week: task => {
+        return differenceInCalendarWeeks(
+          new Date(),
+          parse(task.getDueDate(), 'MM/dd/yyyy', new Date())
+        ) === 0;
+      },
+      month: task => {
+        return differenceInCalendarMonths(
+          new Date(),
+          parse(task.getDueDate(), 'MM/dd/yyyy', new Date())
+        ) === 0;
+      },
+      // project: task => {}
+    }
   }
 
   return Object.assign(
@@ -24,7 +44,8 @@ function AppState() {
     compAddItem(state, 'folder'),
     compDeleteItem(state, 'folder'),
     compGetCurrentFilter(state),
-    compSetCurrentFilter(state)
+    compSetCurrentFilter(state),
+    compGetFilters(state)
   );
 }
 

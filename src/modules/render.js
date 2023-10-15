@@ -1,5 +1,4 @@
 import appState from './app-state';
-import { filters } from '../index';
 import { setAttributes } from './helpers';
 
 // cache DOM
@@ -24,19 +23,21 @@ function renderPage() {
 function renderTasks(currentFilter) {
   const allTasks = [];
 
-  appState.getFolders().forEach(folder => {
-    folder.getProjects().forEach(project => {
-      if (currentFilter) {
+  if (currentFilter) {
+    appState.getFolders().forEach(folder => {
+      folder.getProjects().forEach(project => {
         allTasks.push(...project.getTasks()
-          .filter(task => task[filters[currentFilter].func]() === filters[currentFilter].value));
-      } else {
-        allTasks.push(...project.getTasks());
-      }
+          .filter(task => appState.getFilters()[currentFilter](task)));
+      });
     });
-  });
+  } else {
+    appState.getFolders().forEach(folder => {
+      folder.getProjects().forEach(project => allTasks.push(...project.getTasks()));
+    });
+  }
 
   const ul = document.createElement('ul');
-  ul.classList.add(appState.getCurrentFilter());
+  ul.dataset.id = appState.getCurrentFilter();
 
   // console.log(allTasks[0].getName());
   allTasks.forEach(task => ul.appendChild(renderTask(task)));
@@ -65,6 +66,13 @@ function renderTask(task) {
   li.append(check, label);
 
   return li;
+}
+
+// remove all children of #main
+function clearTasks() {
+  while (main.lastElementChild) {
+    main.removeChild(main.lastElementChild);
+  }
 }
 
 // toggle completion status of task, gray out HTML el
@@ -154,4 +162,4 @@ function renderNavProject(project) {
 }
 
 
-export { renderPage, renderTask, renderNavProject, renderNavFolder, createDropdownOption, taskProjectDropdown, projectFolderDropdown };
+export { renderPage, renderTasks, renderTask, clearTasks, renderNavProject, renderNavFolder, createDropdownOption, taskProjectDropdown, projectFolderDropdown };
