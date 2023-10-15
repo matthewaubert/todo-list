@@ -3,12 +3,7 @@ import { camelize } from './modules/helpers';
 import Task from './modules/factories/task';
 import Project from './modules/factories/project';
 import Folder from './modules/factories/folder';
-import {
-  renderPage,
-  renderTasks, renderTask, clearTasks,
-  renderNavItem, renderNavFolder,
-  createDropdownOption, taskProjectDropdown, projectFolderDropdown
-} from './modules/render';
+import renderController from './modules/render-controller';
 
 // console.log(appState.getFolders()[0].getProjects()[0].getTasks()[0].getName());
 
@@ -23,7 +18,7 @@ const modalBackdrop = document.querySelector('#modal-backdrop');
 const modalForms = document.querySelectorAll('.modal-form');
 
 // add event listeners
-document.addEventListener('DOMContentLoaded', renderPage);
+document.addEventListener('DOMContentLoaded', renderController.renderPage);
 navArrows.forEach(navArrow => navArrow.addEventListener('click', toggleNav));
 navFilters.forEach(navFilter => navFilter.addEventListener('click', loadFilter));
 addItem.addEventListener('click', toggleModalMenu);
@@ -45,7 +40,7 @@ function loadFilter(e) {
   // DELETE CHECKED TASKS
 
   appState.setCurrentFilter(e.target.dataset.name); // change appState.currentFilter
-  renderTasks(e.target.dataset); // render tasks according to filter
+  renderController.renderTasks(e.target.dataset); // renderController.render tasks according to filter
 
   toggleNav(); // hide nav
 }
@@ -146,11 +141,11 @@ function createTask(formValues) {
   if (parentProject) parentProject.addTask(newTask);
   // console.log(appState.getFolders()[0].getProjects()[0].getTasks());
 
-  // render task if on correct page
+  // renderController.render task if on correct page
   if (appState.getFilters()[appState.getCurrentFilter()](newTask)) {
     const ul = document.querySelector(`ul[data-name=${appState.getCurrentFilter()}]`);
     // console.log(ul);
-    ul.appendChild(renderTask(newTask));
+    ul.appendChild(renderController.renderTask(newTask));
   }
 }
 
@@ -164,11 +159,11 @@ function createProject(formValues) {
   if (parentFolder) parentFolder.addProject(newProject);
   // console.log(appState.getFolders()[0].getProjects());
 
-  // render project in sidebar
+  // renderController.render project in sidebar
   const ul = document.querySelector(`[class="folder-nav"][data-id="${parentFolder.getId()}"]`);
-  ul.appendChild(renderNavItem(newProject, 'project'));
+  ul.appendChild(renderController.renderNavItem(newProject, 'project'));
 
-  taskProjectDropdown.appendChild(createDropdownOption(newProject)); // create dropdown option
+  renderController.taskProjectDropdown.appendChild(createDropdownOption(newProject)); // create dropdown option
 }
 
 // create new Folder instance from form submission
@@ -177,9 +172,9 @@ function createFolder(formValues) {
   appState.addFolder(newFolder); // push Folder to appState folders array
   // console.log(appState.getFolders());
 
-  nav.appendChild(renderNavFolder(newFolder)); // render folder in sidebar
+  nav.appendChild(renderController.renderNavFolder(newFolder)); // renderController.render folder in sidebar
 
-  projectFolderDropdown.appendChild(createDropdownOption(newFolder)); // create dropdown option
+  renderController.projectFolderDropdown.appendChild(createDropdownOption(newFolder)); // create dropdown option
 }
 
 
