@@ -1,4 +1,5 @@
 import appState from './app-state';
+import { loadFilter } from '../index'
 import { setAttributes } from './helpers';
 
 // cache DOM
@@ -20,16 +21,18 @@ function renderPage() {
 /* TASK RENDERING FUNCTIONALITY */
 
 // initial rendering of tasks
-function renderTasks(currentFilter) {
+function renderTasks(dataset) {
   const allTasks = [];
 
-  if (currentFilter) {
+  // if want to filter which projects to render
+  if (dataset) {
     appState.getFolders().forEach(folder => {
       folder.getProjects().forEach(project => {
         allTasks.push(...project.getTasks()
-          .filter(task => appState.getFilters()[currentFilter](task)));
+          .filter(task => appState.getFilters()[dataset.name](task, dataset.id, project, folder)));
       });
     });
+  // no filter, renders all projects
   } else {
     appState.getFolders().forEach(folder => {
       folder.getProjects().forEach(project => allTasks.push(...project.getTasks()));
@@ -37,7 +40,7 @@ function renderTasks(currentFilter) {
   }
 
   const ul = document.createElement('ul');
-  ul.dataset.id = appState.getCurrentFilter();
+  ul.dataset.name = appState.getCurrentFilter();
 
   // console.log(allTasks[0].getName());
   allTasks.forEach(task => ul.appendChild(renderTask(task)));
@@ -127,39 +130,36 @@ function createDropdownOption(item) {
 // initial nav render
 function renderNav() {
   // for each folder, create ul and li
-  const folders = appState.getFolders();
-  folders.forEach(folder => {
+  appState.getFolders().forEach(folder => {
     const ul = renderNavFolder(folder);
-    
     // for each project, create li
-    const projects = folder.getProjects();
-    projects.forEach(project => ul.appendChild(renderNavProject(project)));
-
+    folder.getProjects().forEach(project => ul.appendChild(renderNavItem(project, 'project')));
     nav.appendChild(ul);
   });
 }
 
+// render nav ul with 1 li for folder
 function renderNavFolder(folder) {
   const ul = document.createElement('ul');
   ul.classList.add('folder-nav');
   ul.dataset.id = folder.getId();
 
-  const li = document.createElement('li');
-  li.classList.add('folder-nav');
-  li.innerText = folder.getName();
-  ul.appendChild(li);
+  ul.appendChild(renderNavItem(folder, 'folder'));
 
   return ul;
 }
 
-function renderNavProject(project) {
+// render nav li for folder or project
+function renderNavItem(item, type) {
   const li = document.createElement('li');
-  li.classList.add('project-nav');
-  li.dataset.id = project.getId();
-  li.innerText = project.getName();
+  li.classList.add(`${type}-nav`);
+  li.dataset.id = item.getId();
+  li.dataset.name = type;
+  li.innerText = item.getName();
+  li.addEventListener('click', loadFilter);
   
   return li;
 }
 
 
-export { renderPage, renderTasks, renderTask, clearTasks, renderNavProject, renderNavFolder, createDropdownOption, taskProjectDropdown, projectFolderDropdown };
+export { renderPage, renderTasks, renderTask, clearTasks, renderNavItem, renderNavFolder, createDropdownOption, taskProjectDropdown, projectFolderDropdown };

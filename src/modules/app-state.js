@@ -34,7 +34,8 @@ function AppState() {
           parse(task.getDueDate(), 'MM/dd/yyyy', new Date())
         ) === 0;
       },
-      // project: task => {}
+      project: (task, targetId, project) => project.getId() === targetId,
+      folder: (task, targetId, project, folder) => folder.getId() === targetId
     }
   }
 

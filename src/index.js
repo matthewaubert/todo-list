@@ -6,7 +6,7 @@ import Folder from './modules/factories/folder';
 import {
   renderPage,
   renderTasks, renderTask, clearTasks,
-  renderNavProject, renderNavFolder,
+  renderNavItem, renderNavFolder,
   createDropdownOption, taskProjectDropdown, projectFolderDropdown
 } from './modules/render';
 
@@ -42,10 +42,10 @@ function toggleNav() {
 
 function loadFilter(e) {
   clearTasks(); // clear tasks
-  // delete checked tasks
+  // DELETE CHECKED TASKS
 
-  appState.setCurrentFilter(e.target.dataset.id); // change appState.currentFilter
-  renderTasks(e.target.dataset.id); // render tasks according to filter
+  appState.setCurrentFilter(e.target.dataset.name); // change appState.currentFilter
+  renderTasks(e.target.dataset); // render tasks according to filter
 
   toggleNav(); // hide nav
 }
@@ -166,7 +166,7 @@ function createProject(formValues) {
 
   // render project in sidebar
   const ul = document.querySelector(`[class="folder-nav"][data-id="${parentFolder.getId()}"]`);
-  ul.appendChild(renderNavProject(newProject));
+  ul.appendChild(renderNavItem(newProject, 'project'));
 
   taskProjectDropdown.appendChild(createDropdownOption(newProject)); // create dropdown option
 }
@@ -181,3 +181,6 @@ function createFolder(formValues) {
 
   projectFolderDropdown.appendChild(createDropdownOption(newFolder)); // create dropdown option
 }
+
+
+export { loadFilter }
