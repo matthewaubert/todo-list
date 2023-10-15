@@ -29,7 +29,7 @@ function renderTasks(dataset) {
     appState.getFolders().forEach(folder => {
       folder.getProjects().forEach(project => {
         allTasks.push(...project.getTasks()
-          .filter(task => appState.getFilters()[dataset.name](task, dataset.id, project, folder)));
+          .filter(task => appState.getFilters()[dataset.name](task, dataset.id)));
       });
     });
   // no filter, renders all projects
@@ -41,6 +41,7 @@ function renderTasks(dataset) {
 
   const ul = document.createElement('ul');
   ul.dataset.name = appState.getCurrentFilter();
+  if (dataset) ul.dataset.id = dataset.id;
 
   // console.log(allTasks[0].getName());
   allTasks.forEach(task => ul.appendChild(renderTask(task)));

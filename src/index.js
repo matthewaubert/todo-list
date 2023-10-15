@@ -140,8 +140,8 @@ function createTask(formValues) {
   // push Task to parentProject tasks array
   let parentProject;
   appState.getFolders().forEach(folder => {
-    const correctProject = folder.getProjects().filter(project => project.getId() === formValues.project);
-    parentProject = correctProject[0];
+    const correctProject = folder.getProjects().find(project => project.getId() === formValues.project);
+    if (correctProject) parentProject = correctProject;
   });
   if (parentProject) parentProject.addTask(newTask);
   // console.log(appState.getFolders()[0].getProjects()[0].getTasks());

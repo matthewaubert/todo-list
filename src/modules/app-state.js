@@ -35,8 +35,29 @@ function AppState() {
           parse(task.getDueDate(), 'yyyy-MM-dd', new Date())
         ) === 0;
       },
-      project: (task, targetId, project) => project.getId() === targetId,
-      folder: (task, targetId, project, folder) => folder.getId() === targetId
+      task: (task, targetId) => task.getId() === targetId,
+      project: function(targetTask, targetId) {
+        let returnValue = false;
+        state.folders.forEach(folder => {
+          folder.getProjects().forEach(project => {
+            project.getTasks().forEach(task => {
+              if (this.task(task, targetTask.getId()) && project.getId() === targetId) returnValue = true;
+            });
+          });
+        });
+        return returnValue;
+      },
+      folder: function(targetTask, targetId) {
+        let returnValue = false;
+        state.folders.forEach(folder => {
+          folder.getProjects().forEach(project => {
+            project.getTasks().forEach(task => {
+              if (this.task(task, targetTask.getId()) && folder.getId() === targetId) returnValue = true;
+            });
+          });
+        });
+        return returnValue;
+      }
     }
   }
 
