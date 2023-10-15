@@ -148,8 +148,8 @@ function createTask(formValues) {
 
   // render task if on correct page
   if (appState.getFilters()[appState.getCurrentFilter()](newTask)) {
-    const ul = document.querySelector(`.${appState.getCurrentFilter()}`);
-    console.log(ul);
+    const ul = document.querySelector(`ul[data-name=${appState.getCurrentFilter()}]`);
+    // console.log(ul);
     ul.appendChild(renderTask(newTask));
   }
 }

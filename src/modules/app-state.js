@@ -1,4 +1,4 @@
-import { format, parse, differenceInCalendarWeeks, differenceInCalendarMonths } from 'date-fns'
+import { format, parse, differenceInCalendarWeeks, differenceInCalendarMonths } from 'date-fns';
 import { compGetItems, compAddItem, compDeleteItem } from './factories/composition';
 import Folder from './factories/folder';
 import Project from './factories/project';
@@ -21,17 +21,18 @@ function AppState() {
     currentFilter: 'all',
     filters: { // need to know which property to pull from item, what the value should match
       all: task => task.getCompletionStatus() === false,
-      today: task => format(new Date(), 'MM/dd/yyyy') === task.getDueDate(),
+      today: task => format(new Date(), 'yyyy-MM-dd') === task.getDueDate(),
       week: task => {
+        // console.log(task.getDueDate());
         return differenceInCalendarWeeks(
           new Date(),
-          parse(task.getDueDate(), 'MM/dd/yyyy', new Date())
+          parse(task.getDueDate(), 'yyyy-MM-dd', new Date())
         ) === 0;
       },
       month: task => {
         return differenceInCalendarMonths(
           new Date(),
-          parse(task.getDueDate(), 'MM/dd/yyyy', new Date())
+          parse(task.getDueDate(), 'yyyy-MM-dd', new Date())
         ) === 0;
       },
       project: (task, targetId, project) => project.getId() === targetId,
@@ -62,7 +63,7 @@ export default (function() {
 
   const firstTask = Task(
     'First task',
-    format(new Date(), 'MM/dd/yyyy'),
+    format(new Date(), 'yyyy-MM-dd'),
     1,
     'Default first task',
   );
@@ -71,7 +72,7 @@ export default (function() {
 
   const secondTask = Task(
     'Second Task',
-    format(new Date(), 'MM/dd/yyyy'),
+    format(new Date(), 'yyyy-MM-dd'),
     2,
     'Default second task',
   );
