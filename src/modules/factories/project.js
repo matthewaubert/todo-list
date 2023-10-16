@@ -1,4 +1,4 @@
-import { compGetId, compGetName, compGetItems, compGetNotes, compSetName, compAddItem, compDeleteItem, compSetNotes } from './composition.js';
+import { compGetId, compGetName, compGetItems, compGetNotes, compGetItemType, compSetName, compAddItem, compDeleteItem, compSetNotes } from './composition.js';
 
 const compGetFolder = state => ({
   getFolder: () => state.folder
@@ -25,6 +25,7 @@ export default function Project(name, notes, folder) {
     compGetNotes(state),
     compGetItems(state, 'task'),
     compGetFolder(state),
+    compGetItemType('project'),
 
     compSetName(state),
     compSetNotes(state),

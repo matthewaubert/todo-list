@@ -7,8 +7,10 @@ export default (function() {
   // cache DOM
   const main = document.querySelector('#main');
   const nav = document.querySelector('#nav');
-  const taskProjectDropdowns = document.querySelectorAll('.task-project');
-  const projectFolderDropdowns = document.querySelectorAll('.project-folder');
+  const dropdowns = {
+    project: document.querySelectorAll('.task-project'),
+    folder: document.querySelectorAll('.project-folder'),
+  }
   
   // initial page render
   function renderPage() {
@@ -18,6 +20,58 @@ export default (function() {
     renderModalDropdown();
     renderNav();
   }
+
+
+  /* ITEM RENDERING LOGIC */
+
+  const renderItem = {
+    task: task => {
+      const ul = document.querySelector(`ul[data-name=${appState.currentFilter}]`);
+      const parentProject = appState.getProjectById(task.getProject());
+      // render task if on correct page (i.e. passes filters)
+      switch(appState.currentFilter) {
+        case 'project': // if project filter, check for matching id
+          if (ul.dataset.id === parentProject.getId()) {
+            ul.appendChild(renderTask(task));
+          }
+          break;
+        case 'folder': // if folder filter, check for matching id
+          const parentFolder = appState.getFolderById(parentProject.getFolder());
+          if (ul.dataset.id === parentFolder.getId()) {
+            ul.appendChild(renderTask(task));
+          }
+          break;
+        default: // all other filters, check if task passes filter
+          if (appState.filters[appState.currentFilter](task)) {
+            ul.appendChild(renderTask(task));
+          }
+      }
+    },
+    project: project => {
+      // render project in sidebar
+      const ul = document.querySelector(`[class="folder-nav"][data-id="${parentFolder.getId()}"]`);
+      ul.appendChild(renderNavItem(project, 'project'));
+    
+      renderDropdownOptions(project); // render dropdown option
+    },
+    folder: folder => {
+      nav.appendChild(renderNavFolder(folder)); // render folder in sidebar
+
+      renderDropdownOptions(folder); // render dropdown option
+    }
+  }
+
+  // const deleteItem = {
+  //   task: () => {
+
+  //   },
+  //   project: () => {
+
+  //   },
+  //   folder: () => {
+
+  //   }
+  // };
 
 
   /* TASK RENDERING FUNCTIONALITY */
@@ -108,18 +162,19 @@ export default (function() {
   // initial rendering of folders and projects to modal dropdown menu
   function renderModalDropdown() {
     // render folders to modalDropdowns
-    appState.getFolders().forEach(folder => {
-      projectFolderDropdowns.forEach(dropdown => dropdown.appendChild(createDropdownOption(folder)));
-    });
-
+    appState.getFolders().forEach(folder => renderDropdownOptions(folder));
     // render dropdown option for each project and append to taskProjectDropdowns
-    appState.getProjects().forEach(project => {
-      taskProjectDropdowns.forEach(dropdown => dropdown.appendChild(createDropdownOption(project)));
+    appState.getProjects().forEach(project => renderDropdownOptions(project));
+  }
+
+  function renderDropdownOptions(item) {
+    dropdowns[item.getItemType()].forEach(dropdown => {
+      dropdown.appendChild(renderDropdownOption(item))
     });
   }
 
   // creates an option element in the modal menu for a project or folder 
-  function createDropdownOption(item) {
+  function renderDropdownOption(item) {
     const option = document.createElement('option');
 
     setAttributes(option, {
@@ -171,6 +226,6 @@ export default (function() {
     return li;
   }
 
-  return { renderPage, renderTasks, renderTask, clearTasks, renderNavItem, renderNavFolder, createDropdownOption, taskProjectDropdowns, projectFolderDropdowns };
+  return { renderPage, renderItem, renderTasks, clearTasks, renderNavItem };
 
 })();

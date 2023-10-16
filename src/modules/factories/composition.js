@@ -21,6 +21,10 @@ const compGetNotes = state => ({
   getNotes: () => state.notes
 });
 
+const compGetItemType = itemType => ({
+  getItemType: () => itemType
+});
+
 
 /* SETTERS */
 
@@ -57,4 +61,4 @@ const compSetNotes = state => ({
   setNotes: newNotes => state.notes = newNotes
 });
 
-export { compGetId, compGetName, compGetItems, compGetNotes, compSetName, compAddItem, compDeleteItem, compSetNotes };
+export { compGetId, compGetName, compGetItems, compGetNotes, compGetItemType, compSetName, compAddItem, compDeleteItem, compSetNotes };

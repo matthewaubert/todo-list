@@ -1,4 +1,4 @@
-import { compGetId, compGetName, compGetNotes, compSetName, compSetNotes } from './composition.js';
+import { compGetId, compGetName, compGetNotes, compGetItemType, compSetName, compSetNotes } from './composition.js';
 
 // getters
 const compGetDueDate = state => ({
@@ -49,6 +49,7 @@ export default function Task(name, dueDate, priority, notes, project) {
     compGetPriority(state),
     compGetProject(state),
     compGetCompletionStatus(state),
+    compGetItemType('task'),
 
     compSetName(state),
     compSetNotes(state),

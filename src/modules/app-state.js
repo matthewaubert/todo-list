@@ -112,6 +112,18 @@ class AppState {
     this._folders.splice(this._folders.indexOf(folder), 1);
   }
 
+  getItemTypeById(targetId) {
+    const idLetter = targetId.slice(0, 1);
+    switch (idLetter) {
+      case 'f':
+        return 'folder';
+      case 'p':
+        return 'project';
+      case 't':
+        return 'task';
+    }
+  }
+
   // getProjectFolder(childProject) {
   //   let parentFolder;
   //   this.getFolders().forEach(folder => {

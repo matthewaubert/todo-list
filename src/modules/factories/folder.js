@@ -1,4 +1,4 @@
-import { compGetId, compGetName, compGetItems, compSetName, compAddItem, compDeleteItem } from './composition.js';
+import { compGetId, compGetName, compGetItems, compSetName, compAddItem, compDeleteItem, compGetItemType } from './composition.js';
 
 // creates Folder object instances
 export default function Folder(name) {
@@ -13,10 +13,11 @@ export default function Folder(name) {
     compGetId(state),
     compGetName(state),
     compGetItems(state, 'project'),
+    compGetItemType('folder'),
 
     compSetName(state),
     compAddItem(state, 'project'),
-    compDeleteItem(state, 'project')
+    compDeleteItem(state, 'project'),
   );
 }
 

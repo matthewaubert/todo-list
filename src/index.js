@@ -41,7 +41,7 @@ function loadFilter(e) {
   // DELETE CHECKED TASKS
 
   appState.currentFilter = e.target.dataset.name; // change appState.currentFilter
-  renderController.renderTasks(e.target.dataset); // renderController.render tasks according to filter
+  renderController.renderTasks(e.target.dataset); // render tasks according to filter
   h1.innerText = e.target.innerText; // change header
 
   toggleNav(); // hide nav
@@ -85,18 +85,8 @@ function showEditModal(form, targetId) {
   // console.log(form.elements);
 
   // get target task, project, or folder
-  let item;
-  switch(form.id) {
-    case 'edit-task-form':
-      item = appState.getTaskById(targetId);
-      break;
-    case 'edit-project-form':
-      item = appState.getProjectById(targetId);
-      break;
-    case 'edit-folder-form':
-      item = appState.getFolderById(targetId);
-      break;
-  }
+  const item = appState.getItemById(targetId);
+
   setFormValues(form, item);
 }
 
@@ -120,19 +110,8 @@ function handleFormSubmission(e) {
   const formValues = getFormValues(e.target); // extract values from form
   // console.log(formValues);
 
-  switch(e.target.id) {
-    case 'task-form':
-      createTask(formValues);
-      break;
-    case 'project-form':
-      createProject(formValues);
-      break;
-    case 'folder-form':
-      createFolder(formValues);
-      break;
-    default:
-      editItem(formValues, e.target.dataset.id);
-  }
+  const itemName = e.target.id.split('-')[0];
+  createItem[itemName](formValues, e.target.dataset.id);
 
   hideModal(e);
 }
@@ -170,83 +149,51 @@ function setFormValues(form, item) {
   });
 }
 
-// create new Task instance from form submission
-function createTask(formValues) {
-  const newTask = Task(formValues.name, formValues.dueDate, formValues.priority, formValues.notes, formValues.project);
-  // push Task to parentProject tasks array
-  const parentProject = appState.getProjectById(formValues.project);
-  if (parentProject) parentProject.addTask(newTask);
-  // console.log(appState.getTasks());
+const createItem = {
+  // create new Task instance from form submission
+  task: formValues => {
+    const newTask = Task(formValues.name, formValues.dueDate, formValues.priority, formValues.notes, formValues.project);
+    // push Task to parentProject tasks array
+    const parentProject = appState.getProjectById(formValues.project);
+    if (parentProject) parentProject.addTask(newTask);
+    // console.log(appState.getTasks());
+  
+    renderController.renderItem.task(newTask);
+  },
+  // create new Project instance from form submission
+  project: formValues => {
+    const newProject = Project(formValues.name, formValues.notes, formValues.folder);
+    // push Project to parentFolder projects array
+    let parentFolder = appState.getFolderById(formValues.folder);
+    if (parentFolder) parentFolder.addProject(newProject);
+    // console.log(appState.getProjects());
 
-  const ul = document.querySelector(`ul[data-name=${appState.currentFilter}]`);
-  // render task if on correct page (i.e. passes filters)
-  switch(appState.currentFilter) {
-    case 'project': // if project filter, check for matching id
-      if (ul.dataset.id === parentProject.getId()) {
-        ul.appendChild(renderController.renderTask(newTask));
-      }
-      break;
-    case 'folder': // if folder filter, check for matching id
-      const parentFolder = appState.getFolderById(parentProject.getFolder());
-      if (ul.dataset.id === parentFolder.getId()) {
-        ul.appendChild(renderController.renderTask(newTask));
-      }
-      break;
-    default: // all other filters, check if task passes filter
-      if (appState.filters[appState.currentFilter](newTask)) {
-        ul.appendChild(renderController.renderTask(newTask));
-      }
+    renderController.renderItem.project(newProject);
+  },
+  // create new Folder instance from form submission
+  folder: formValues => {
+    const newFolder = Folder(formValues.name);
+    appState.addFolder(newFolder); // push Folder to appState folders array
+    // console.log(appState.getFolders());
+  
+    renderController.renderItem.folder(newFolder);
+  },
+  edit: (formValues, itemId) => {
+    console.log(formValues);
+    // get item by id
+    const item = appState.getItemById(itemId);
+  
+    // iterate over formValues
+    for (const value in formValues) {
+      // run appropriate 'set' funcs on item
+      const funcName = value.charAt(0).toUpperCase() + value.slice(1);
+      item[`set${funcName}`](formValues[value]);
+    }
+  
+    // delete el from DOM
+    renderController.renderItem[item.getType()](item); // render item
   }
-}
-
-// create new Project instance from form submission
-function createProject(formValues) {
-  const newProject = Project(formValues.name, formValues.notes, formValues.folder);
-  // push Project to parentFolder projects array
-  let parentFolder = appState.getFolderById(formValues.folder);
-  if (parentFolder) parentFolder.addProject(newProject);
-  // console.log(appState.getProjects());
-
-  // renderController.render project in sidebar
-  const ul = document.querySelector(`[class="folder-nav"][data-id="${parentFolder.getId()}"]`);
-  ul.appendChild(renderController.renderNavItem(newProject, 'project'));
-
-  // create dropdown option
-  renderController.taskProjectDropdowns.forEach(dropdown => {
-    dropdown.appendChild(renderController.createDropdownOption(newProject))
-  });
-}
-
-// create new Folder instance from form submission
-function createFolder(formValues) {
-  const newFolder = Folder(formValues.name);
-  appState.addFolder(newFolder); // push Folder to appState folders array
-  // console.log(appState.getFolders());
-
-  nav.appendChild(renderController.renderNavFolder(newFolder)); // renderController.render folder in sidebar
-
-  // create dropdown option
-  renderController.projectFolderDropdowns.forEach(dropdown => {
-    dropdown.appendChild(renderController.createDropdownOption(newFolder));
-  });
-}
-
-function editItem(formValues, itemId) {
-  console.log(formValues);
-  // get item by id
-  const item = appState.getItemById(itemId);
-
-  // iterate over formValues
-  for (const value in formValues) {
-    // run appropriate 'set' funcs on item
-    const funcName = value.charAt(0).toUpperCase() + value.slice(1);
-    item[`set${funcName}`](formValues[value]);
-  }
-  console.log(window.createTask);
-
-  // delete el from DOM
-  // render item
-}
+};
 
 
 export { loadFilter, showModal }
