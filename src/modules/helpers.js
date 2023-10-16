@@ -10,4 +10,15 @@ function camelize(string) {
   return string.replace(/-./g, x=>x[1].toUpperCase());
 }
 
-export { setAttributes, camelize };
+// create svg from viewBox and dPath
+function createSvg(viewBox, dPath) {
+  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+  svg.setAttribute('viewBox', viewBox);
+  path.setAttribute('d', dPath);
+  svg.appendChild(path);
+
+  return svg;
+}
+
+export { setAttributes, camelize, createSvg };

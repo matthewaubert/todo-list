@@ -91,6 +91,19 @@ class AppState {
 
     return selectedTask;
   }
+  // redirect to appropriate get__ById func
+  getItemById(targetId) {
+    // look for item by id starting letter
+    const idLetter = targetId.slice(0, 1);
+    switch (idLetter) {
+      case 'f':
+        return this.getFolderById(targetId);
+      case 'p':
+        return this.getProjectById(targetId);
+      case 't':
+        return this.getTaskById(targetId);
+    }
+  }
 
   addFolder(newFolder) {
     this._folders.push(newFolder);
@@ -99,16 +112,16 @@ class AppState {
     this._folders.splice(this._folders.indexOf(folder), 1);
   }
 
-  getProjectFolder(childProject) {
-    let parentFolder;
-    this.getFolders().forEach(folder => {
-      folder.getProjects().forEach(project => {
-        if (project.getId() === childProject.getId()) parentFolder = folder;
-      });
-    });
+  // getProjectFolder(childProject) {
+  //   let parentFolder;
+  //   this.getFolders().forEach(folder => {
+  //     folder.getProjects().forEach(project => {
+  //       if (project.getId() === childProject.getId()) parentFolder = folder;
+  //     });
+  //   });
 
-    return parentFolder;
-  }
+  //   return parentFolder;
+  // }
 
 }
 
@@ -119,7 +132,11 @@ export default (function() {
   const firstFolder = Folder('First Folder', 'Default first folder');
   appState.addFolder(firstFolder);
   
-  const firstProject = Project('First Project', 'Default first project');
+  const firstProject = Project(
+    'First Project',
+    'Default first project',
+    firstFolder.getId()
+  );
   firstFolder.addProject(firstProject);
 
   const firstTask = Task(
@@ -127,6 +144,7 @@ export default (function() {
     format(new Date(), 'yyyy-MM-dd'),
     1,
     'Default first task',
+    firstProject.getId(),
   );
   // console.log('Task due on: ' + firstTask.getDueDate());
   firstProject.addTask(firstTask);

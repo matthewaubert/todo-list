@@ -1,14 +1,14 @@
 import appState from './app-state';
-import { loadFilter } from '../index'
-import { setAttributes } from './helpers';
+import { loadFilter, showModal } from '../index'
+import { createSvg, setAttributes } from './helpers';
 
 export default (function() {
   
   // cache DOM
   const main = document.querySelector('#main');
   const nav = document.querySelector('#nav');
-  const taskProjectDropdown = document.querySelector('#task-project');
-  const projectFolderDropdown = document.querySelector('#project-folder');
+  const taskProjectDropdowns = document.querySelectorAll('.task-project');
+  const projectFolderDropdowns = document.querySelectorAll('.project-folder');
   
   // initial page render
   function renderPage() {
@@ -29,13 +29,13 @@ export default (function() {
     // if want to filter which projects to render
     if (dataset) {
       switch(dataset.name) {
-        case 'folder':
-          const folder = appState.getFolderById(dataset.id);
-          folder.getProjects().forEach(project => allTasks.push(...project.getTasks()));
-          break;
         case 'project':
           const project = appState.getProjectById(dataset.id);
           allTasks.push(...project.getTasks());
+          break;
+        case 'folder':
+          const folder = appState.getFolderById(dataset.id);
+          folder.getProjects().forEach(project => allTasks.push(...project.getTasks()));
           break;
         default:
           allTasks.push(...appState.getTasks(appState.currentFilter, dataset.name));
@@ -44,7 +44,7 @@ export default (function() {
     } else {
       allTasks.push(...appState.getTasks());
     }
-    console.log(allTasks);
+    // console.log(allTasks);
     
     const ul = document.createElement('ul');
     ul.dataset.name = appState.currentFilter;
@@ -70,12 +70,17 @@ export default (function() {
     const label = document.createElement('label');
     label.setAttribute('for', task.getId());
     label.innerText = task.getName();
-    
+
+    // create edit svg
+    const svg = createSvg('0 0 24 24', 'M5,3C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V12H19V19H5V5H12V3H5M17.78,4C17.61,4 17.43,4.07 17.3,4.2L16.08,5.41L18.58,7.91L19.8,6.7C20.06,6.44 20.06,6 19.8,5.75L18.25,4.2C18.12,4.07 17.95,4 17.78,4M15.37,6.12L8,13.5V16H10.5L17.87,8.62L15.37,6.12Z');
+    svg.dataset.for = 'edit-task-form';
+    svg.addEventListener('click', showModal);
+
     // append checkbox and label to wrapper li
     const li = document.createElement('li');
     li.classList.add('task-main');
     li.dataset.id = task.getId();
-    li.append(check, label);
+    li.append(check, label, svg);
 
     return li;
   }
@@ -102,14 +107,14 @@ export default (function() {
 
   // initial rendering of folders and projects to modal dropdown menu
   function renderModalDropdown() {
-    // render folders to modalDropdown
+    // render folders to modalDropdowns
     appState.getFolders().forEach(folder => {
-      projectFolderDropdown.appendChild(createDropdownOption(folder));
+      projectFolderDropdowns.forEach(dropdown => dropdown.appendChild(createDropdownOption(folder)));
     });
 
-    // render dropdown option for each project and append to taskProjectDropdown
+    // render dropdown option for each project and append to taskProjectDropdowns
     appState.getProjects().forEach(project => {
-      taskProjectDropdown.appendChild(createDropdownOption(project));
+      taskProjectDropdowns.forEach(dropdown => dropdown.appendChild(createDropdownOption(project)));
     });
   }
 
@@ -166,6 +171,6 @@ export default (function() {
     return li;
   }
 
-  return { renderPage, renderTasks, renderTask, clearTasks, renderNavItem, renderNavFolder, createDropdownOption, taskProjectDropdown, projectFolderDropdown };
+  return { renderPage, renderTasks, renderTask, clearTasks, renderNavItem, renderNavFolder, createDropdownOption, taskProjectDropdowns, projectFolderDropdowns };
 
 })();

@@ -6,7 +6,7 @@ export default function Folder(name) {
     id: 'f' + new Date().getTime().toString(),
     name,
     projects: [] // array of Project object instances
-  }
+  };
 
   return Object.assign(
     {},
