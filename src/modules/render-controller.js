@@ -25,6 +25,7 @@ export default (function() {
   /* ITEM RENDERING LOGIC */
 
   const renderItem = {
+    // logic to render elements to the DOM after Task instance creation
     task: task => {
       const ul = document.querySelector(`ul[data-name=${appState.currentFilter}]`);
       const parentProject = appState.getProjectById(task.getProject());
@@ -47,6 +48,7 @@ export default (function() {
           }
       }
     },
+    // logic to render elements to the DOM after Project instance creation
     project: project => {
       // render project in sidebar
       const ul = document.querySelector(`[class="folder-nav"][data-id="${parentFolder.getId()}"]`);
@@ -54,6 +56,7 @@ export default (function() {
     
       renderDropdownOptions(project); // render dropdown option
     },
+    // logic to render elements to the DOM after Folder instance creation
     folder: folder => {
       nav.appendChild(renderNavFolder(folder)); // render folder in sidebar
 
@@ -61,17 +64,11 @@ export default (function() {
     }
   }
 
-  // const deleteItem = {
-  //   task: () => {
-
-  //   },
-  //   project: () => {
-
-  //   },
-  //   folder: () => {
-
-  //   }
-  // };
+  // remove all renderings of item in DOM
+  function removeItem(item) {
+    const elements = document.querySelectorAll(`[data-id=${item.getId()}]`);
+    elements.forEach(el => el.remove());
+  }
 
 
   /* TASK RENDERING FUNCTIONALITY */
@@ -226,6 +223,6 @@ export default (function() {
     return li;
   }
 
-  return { renderPage, renderItem, renderTasks, clearTasks, renderNavItem };
+  return { renderPage, renderItem, removeItem, renderTasks, clearTasks, renderNavItem };
 
 })();

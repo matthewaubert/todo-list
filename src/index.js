@@ -81,7 +81,7 @@ function showModal(e) {
 }
 
 function showEditModal(form, targetId) {
-  form.dataset.id = targetId;
+  form.dataset.for = targetId;
   // console.log(form.elements);
 
   // get target task, project, or folder
@@ -111,7 +111,7 @@ function handleFormSubmission(e) {
   // console.log(formValues);
 
   const itemName = e.target.id.split('-')[0];
-  createItem[itemName](formValues, e.target.dataset.id);
+  createItem[itemName](formValues, e.target.dataset.for);
 
   hideModal(e);
 }
@@ -190,8 +190,8 @@ const createItem = {
       item[`set${funcName}`](formValues[value]);
     }
   
-    // delete el from DOM
-    renderController.renderItem[item.getType()](item); // render item
+    renderController.removeItem(item); // delete related els from DOM
+    renderController.renderItem[item.getItemType()](item); // render item
   }
 };
 
