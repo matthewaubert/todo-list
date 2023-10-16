@@ -28,10 +28,23 @@ export default (function() {
 
     // if want to filter which projects to render
     if (dataset) {
-      allTasks.push(...appState.getTasks(appState.currentFilter, dataset.name));
+      switch(dataset.name) {
+        case 'folder':
+          const folder = appState.getFolderById(dataset.id);
+          folder.getProjects().forEach(project => allTasks.push(...project.getTasks()));
+          break;
+        case 'project':
+          const project = appState.getProjectById(dataset.id);
+          allTasks.push(...project.getTasks());
+          break;
+        default:
+          allTasks.push(...appState.getTasks(appState.currentFilter, dataset.name));
+          break;
+      }
     } else {
       allTasks.push(...appState.getTasks());
     }
+    console.log(allTasks);
     
     const ul = document.createElement('ul');
     ul.dataset.name = appState.currentFilter;

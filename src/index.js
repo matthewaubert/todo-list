@@ -138,20 +138,20 @@ function createTask(formValues) {
   // console.log(appState.getTasks());
 
   const ul = document.querySelector(`ul[data-name=${appState.currentFilter}]`);
-  // renderController.render task if on correct page
+  // render task if on correct page (i.e. passes filters)
   switch(appState.currentFilter) {
-    case 'folder':
-      const parentFolder = appState.getProjectParent(parentProject);
-      if (ul.dataset.id === parentFolder.getId()) {
-        ul.appendChild(renderController.renderTask(newTask));
-      }
-      break;
-    case 'project':
+    case 'project': // if project filter, check for matching id
       if (ul.dataset.id === parentProject.getId()) {
         ul.appendChild(renderController.renderTask(newTask));
       }
       break;
-    default:
+    case 'folder': // if folder filter, check for matching id
+      const parentFolder = appState.getProjectFolder(parentProject);
+      if (ul.dataset.id === parentFolder.getId()) {
+        ul.appendChild(renderController.renderTask(newTask));
+      }
+      break;
+    default: // all other filters, check if task passes filter
       if (appState.filters[appState.currentFilter](newTask)) {
         ul.appendChild(renderController.renderTask(newTask));
       }
@@ -170,7 +170,7 @@ function createProject(formValues) {
   const ul = document.querySelector(`[class="folder-nav"][data-id="${parentFolder.getId()}"]`);
   ul.appendChild(renderController.renderNavItem(newProject, 'project'));
 
-  renderController.taskProjectDropdown.appendChild(createDropdownOption(newProject)); // create dropdown option
+  renderController.taskProjectDropdown.appendChild(renderController.createDropdownOption(newProject)); // create dropdown option
 }
 
 // create new Folder instance from form submission
@@ -181,7 +181,7 @@ function createFolder(formValues) {
 
   nav.appendChild(renderController.renderNavFolder(newFolder)); // renderController.render folder in sidebar
 
-  renderController.projectFolderDropdown.appendChild(createDropdownOption(newFolder)); // create dropdown option
+  renderController.projectFolderDropdown.appendChild(renderController.createDropdownOption(newFolder)); // create dropdown option
 }
 
 

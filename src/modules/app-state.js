@@ -23,12 +23,6 @@ class AppState {
           parse(task.getDueDate(), 'yyyy-MM-dd', new Date())
         ) === 0;
       },
-      project: targetId => {
-        // ...
-      },
-      folder: task => {
-        // ...
-      }
     }
   }
 
@@ -37,7 +31,7 @@ class AppState {
     return this._folders;
   }
   // get folder from AppState that matches id
-  getFolderByID(targetId) {
+  getFolderById(targetId) {
     return this._folders
       .find(folder => folder.getId() === targetId);
   }
@@ -105,7 +99,7 @@ class AppState {
     this._folders.splice(this._folders.indexOf(folder), 1);
   }
 
-  getProjectParent(childProject) {
+  getProjectFolder(childProject) {
     let parentFolder;
     this.getFolders().forEach(folder => {
       folder.getProjects().forEach(project => {
