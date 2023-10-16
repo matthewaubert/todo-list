@@ -14,7 +14,7 @@
         <path d="M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z" />
       </svg>
     </button>
-    <h1>Task</h1>
+    <h1>All Tasks</h1>
   </header>
 
   <nav id="nav" class="hidden">
@@ -35,14 +35,15 @@
 
   <button class="add-item">+</button>
   <div id="modal-menu" class="hidden">
-    <p>Create Task</p>
+    <p data-for="task-form">Create Task</p>
     <hr>
-    <p>Create Project</p>
+    <p data-for="project-form">Create Project</p>
     <hr>
-    <p>Create Folder</p>
+    <p data-for="folder-form">Create Folder</p>
   </div>
 
   <div id="modal-backdrop" class="hidden">
+    <!-- create forms -->
     <form id="task-form" class="modal-form hidden">
       <h2>Create a new task</h2>
       <div>
@@ -60,21 +61,21 @@
       <div class="priority">
         <div>Priority</div>
         <div>
-          <input type="radio" id="low" name="priority" value="1">
+          <input type="radio" id="low" class="low" name="priority" value="1">
           <label for="low">Low</label>
         </div>
         <div>
-          <input type="radio" id="medium" name="priority" value="2">
+          <input type="radio" id="medium" class="medium" name="priority" value="2">
           <label for="medium">Medium</label>
         </div>
         <div>
-          <input type="radio" id="high" name="priority" value="3">
+          <input type="radio" id="high" class="high" name="priority" value="3">
           <label for="high">High</label>
         </div>
       </div>
       <div>
         <label for="task-project">Project</label>
-        <select name="project" id="task-project"></select>
+        <select name="project" id="task-project" class="task-project"></select>
       </div>
       <button type="submit" class="submit">Submit</button>
       <button type="reset" class="cancel">×</button>
@@ -91,7 +92,7 @@
       </div>
       <div>
         <label for="project-folder">Folder</label>
-        <select name="folder" id="project-folder"></select>
+        <select name="folder" id="project-folder" class="project-folder"></select>
       </div>
       <button type="submit" class="submit">Submit</button>
       <button type="reset" class="cancel">×</button>
@@ -101,6 +102,70 @@
       <div>
         <label for="folder-name">Folder Name</label>
         <input type="text" id="folder-name" name="name" autocomplete="off" placeholder="e.g. Work" required>
+      </div>
+      <button type="submit" class="submit">Submit</button>
+      <button type="reset" class="cancel">×</button>
+    </form>
+
+    <!-- edit forms -->
+    <form id="edit-task-form" class="modal-form hidden">
+      <h2>Edit task</h2>
+      <div>
+        <label for="edit-task-name">Task Name</label>
+        <input type="text" id="edit-task-name" name="name" autocomplete="off" placeholder="e.g. Pay bills" required>
+      </div>
+      <div>
+        <label for="edit-task-notes">Notes</label>
+        <textarea id="edit-task-notes" name="notes" autocomplete="off" placeholder="e.g. rent, electric, internet"></textarea>
+      </div>
+      <div>
+        <label for="edit-task-due-date">Due Date</label>
+        <input type="date" id="edit-task-due-date" name="due-date" required>
+      </div>
+      <div class="priority">
+        <div>Priority</div>
+        <div>
+          <input type="radio" id="edit-low" class="low" name="priority" value="1">
+          <label for="edit-low">Low</label>
+        </div>
+        <div>
+          <input type="radio" id="edit-medium" class="medium" name="priority" value="2">
+          <label for="edit-medium">Medium</label>
+        </div>
+        <div>
+          <input type="radio" id="edit-high" class="high" name="priority" value="3">
+          <label for="edit-high">High</label>
+        </div>
+      </div>
+      <div>
+        <label for="task-project">Project</label>
+        <select name="project" id="edit-task-project" class="task-project"></select>
+      </div>
+      <button type="submit" class="edit-submit">Submit</button>
+      <button type="reset" class="cancel">×</button>
+    </form>
+    <form id="edit-project-form" class="modal-form hidden">
+      <h2>Edit project</h2>
+      <div>
+        <label for="edit-project-name">Project Name</label>
+        <input type="text" id="edit-project-name" name="name" autocomplete="off" placeholder="e.g. Prepare Presentation" required>
+      </div>
+      <div>
+        <label for="edit-project-notes">Notes</label>
+        <textarea id="edit-project-notes" name="notes" autocomplete="off" placeholder="e.g. Frank asked me to prepare the presentation for our next client meeting"></textarea>
+      </div>
+      <div>
+        <label for="edit-project-folder">Folder</label>
+        <select name="folder" id="edit-project-folder" class="project-folder"></select>
+      </div>
+      <button type="submit" class="submit">Submit</button>
+      <button type="reset" class="cancel">×</button>
+    </form>
+    <form id="edit-folder-form" class="modal-form hidden">
+      <h2>Edit folder</h2>
+      <div>
+        <label for="edit-folder-name">Folder Name</label>
+        <input type="text" id="edit-folder-name" name="name" autocomplete="off" placeholder="e.g. Work" required>
       </div>
       <button type="submit" class="submit">Submit</button>
       <button type="reset" class="cancel">×</button>

@@ -193,6 +193,18 @@ nav > .nav-arrow.rotated {
   gap: var(--gap-150);
 }
 
+.task-main label {
+  flex: 1;
+}
+
+.task-main svg {
+  height: 1.25rem;
+}
+
+.task-main svg > path {
+  pointer-events: none;
+}
+
 .completed {
   color: var(--gray-300);
 }
@@ -329,44 +341,43 @@ nav > .nav-arrow.rotated {
 }
 
 .priority input[type="radio"]:checked + label {
-  background: var(--gray-500);
   color: white;
 }
 
-#low + label {
+.low + label {
   border-color: green;
   color: green;
 }
 
-#medium + label {
+.medium + label {
   border-color: orange;
   color: orange;
 }
 
-#high + label {
+.high + label {
   border-color: red;
   color: red;
 }
 
-#low:checked + label,
-#low + label:hover {
+.low:checked + label,
+.low + label:hover {
   background-color: green;
   color: white;
 }
 
-#medium:checked + label,
-#medium + label:hover {
+.medium:checked + label,
+.medium + label:hover {
   background-color: orange;
   color: white;
 }
 
-#high:checked + label,
-#high + label:hover {
+.high:checked + label,
+.high + label:hover {
   background-color: red;
   color: white;
 }
 
-
+.edit-submit,
 .submit {
   border-radius: 12px;
   padding: var(--gap-300);
