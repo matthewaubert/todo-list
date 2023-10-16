@@ -28,23 +28,15 @@ export default (function() {
 
     // if want to filter which projects to render
     if (dataset) {
-      appState.getFolders().forEach(folder => {
-        folder.getProjects().forEach(project => {
-          allTasks.push(...project.getTasks()
-            .filter(task => appState.getFilters()[dataset.name](task, dataset.id)));
-        });
-      });
-    // no filter, renders all projects
+      allTasks.push(...appState.getTasks(appState.currentFilter, dataset.name));
     } else {
-      appState.getFolders().forEach(folder => {
-        folder.getProjects().forEach(project => allTasks.push(...project.getTasks()));
-      });
+      allTasks.push(...appState.getTasks());
     }
-
+    
     const ul = document.createElement('ul');
-    ul.dataset.name = appState.getCurrentFilter();
-    if (dataset) ul.dataset.id = dataset.id;
-
+    ul.dataset.name = appState.currentFilter;
+    if (dataset && dataset.hasOwnProperty('id')) ul.dataset.id = dataset.id;
+    
     // console.log(allTasks[0].getName());
     allTasks.forEach(task => ul.appendChild(renderTask(task)));
     main.appendChild(ul);
@@ -52,6 +44,7 @@ export default (function() {
 
   // return a div containing a checkbox and label relating to the input task
   function renderTask(task) {
+    console.log(`current task: ${task.getId()}`);
     // create checkbox
     const check = document.createElement('input');
     setAttributes(check, {
@@ -85,13 +78,8 @@ export default (function() {
   function toggleCompleted(e) {
     console.log(e.target.id);
 
-    appState.getFolders().forEach(folder => {
-      folder.getProjects().forEach(project => {
-        const targetTask = project.getTasks().filter(task => task.getId() === e.target.id)[0];
-        if (targetTask) targetTask.toggleCompleted();
-        // console.log(targetTask.getCompletionStatus());
-      });
-    });
+    const targetTask = appState.getTaskById(e.target.id);
+    if (targetTask) targetTask.toggleCompleted();
 
     e.target.parentNode.classList.toggle('completed');
   }
@@ -101,17 +89,18 @@ export default (function() {
 
   // initial rendering of folders and projects to modal dropdown menu
   function renderModalDropdown() {
-    const folders = appState.getFolders(); // get folders
     // render folders to modalDropdown
-    folders.forEach(folder => projectFolderDropdown.appendChild(createDropdownOption(folder)));
+    appState.getFolders().forEach(folder => {
+      projectFolderDropdown.appendChild(createDropdownOption(folder));
+    });
 
-    // get projects
-    const projects = [];
-    folders.forEach(folder => projects.push(...folder.getProjects()));
     // render dropdown option for each project and append to taskProjectDropdown
-    projects.forEach(project => taskProjectDropdown.appendChild(createDropdownOption(project)));
+    appState.getProjects().forEach(project => {
+      taskProjectDropdown.appendChild(createDropdownOption(project));
+    });
   }
 
+  // creates an option element in the modal menu for a project or folder 
   function createDropdownOption(item) {
     const option = document.createElement('option');
 

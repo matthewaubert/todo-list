@@ -5,7 +5,7 @@ import Project from './modules/factories/project';
 import Folder from './modules/factories/folder';
 import renderController from './modules/render-controller';
 
-// console.log(appState.getFolders()[0].getProjects()[0].getTasks()[0].getName());
+// console.log(appState.getTasks()[0].getName());
 
 // cache DOM
 const nav = document.querySelector('#nav');
@@ -36,10 +36,10 @@ function toggleNav() {
 }
 
 function loadFilter(e) {
-  clearTasks(); // clear tasks
+  renderController.clearTasks(); // clear tasks
   // DELETE CHECKED TASKS
 
-  appState.setCurrentFilter(e.target.dataset.name); // change appState.currentFilter
+  appState.currentFilter = e.target.dataset.name; // change appState.currentFilter
   renderController.renderTasks(e.target.dataset); // renderController.render tasks according to filter
 
   toggleNav(); // hide nav
@@ -74,7 +74,7 @@ function showModal(e) {
 
   // filter thru modal forms for matching id
   const correctForm = Array.from(modalForms)
-    .filter(form => form.id === modals[e.target.innerText])[0];
+    .find(form => form.id === modals[e.target.innerText]);
   // console.log(correctForm);
   correctForm.classList.remove('hidden');
 }
@@ -133,19 +133,28 @@ function getFormValues(formValues) {
 function createTask(formValues) {
   const newTask = Task(formValues.name, formValues.dueDate, formValues.priority, formValues.notes);
   // push Task to parentProject tasks array
-  let parentProject;
-  appState.getFolders().forEach(folder => {
-    const correctProject = folder.getProjects().find(project => project.getId() === formValues.project);
-    if (correctProject) parentProject = correctProject;
-  });
+  const parentProject = appState.getProjectById(formValues.project);
   if (parentProject) parentProject.addTask(newTask);
-  // console.log(appState.getFolders()[0].getProjects()[0].getTasks());
+  // console.log(appState.getTasks());
 
+  const ul = document.querySelector(`ul[data-name=${appState.currentFilter}]`);
   // renderController.render task if on correct page
-  if (appState.getFilters()[appState.getCurrentFilter()](newTask)) {
-    const ul = document.querySelector(`ul[data-name=${appState.getCurrentFilter()}]`);
-    // console.log(ul);
-    ul.appendChild(renderController.renderTask(newTask));
+  switch(appState.currentFilter) {
+    case 'folder':
+      const parentFolder = appState.getProjectParent(parentProject);
+      if (ul.dataset.id === parentFolder.getId()) {
+        ul.appendChild(renderController.renderTask(newTask));
+      }
+      break;
+    case 'project':
+      if (ul.dataset.id === parentProject.getId()) {
+        ul.appendChild(renderController.renderTask(newTask));
+      }
+      break;
+    default:
+      if (appState.filters[appState.currentFilter](newTask)) {
+        ul.appendChild(renderController.renderTask(newTask));
+      }
   }
 }
 
@@ -153,11 +162,9 @@ function createTask(formValues) {
 function createProject(formValues) {
   const newProject = Project(formValues.name, formValues.notes);
   // push Project to parentFolder projects array
-  let parentFolder;
-  const correctFolder = appState.getFolders().filter(folder => folder.getId() === formValues.folder);
-  parentFolder = correctFolder[0];
+  let parentFolder = appState.getFolderById(formValues.folder);
   if (parentFolder) parentFolder.addProject(newProject);
-  // console.log(appState.getFolders()[0].getProjects());
+  // console.log(appState.getProjects());
 
   // renderController.render project in sidebar
   const ul = document.querySelector(`[class="folder-nav"][data-id="${parentFolder.getId()}"]`);

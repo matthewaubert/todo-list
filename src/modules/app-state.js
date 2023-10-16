@@ -1,25 +1,13 @@
 import { format, parse, differenceInCalendarWeeks, differenceInCalendarMonths } from 'date-fns';
-import { compGetItems, compAddItem, compDeleteItem } from './factories/composition';
 import Folder from './factories/folder';
 import Project from './factories/project';
 import Task from './factories/task';
 
-const compGetCurrentFilter = state => ({
-  getCurrentFilter: () => state.currentFilter
-});
-const compSetCurrentFilter = state => ({
-  setCurrentFilter: newPage => state.currentFilter = newPage
-});
-const compGetFilters = state => ({
-  getFilters: () => state.filters
-});
-
-// create AppState object: contains an array of folders and related methods
-function AppState() {
-  const state = {
-    folders: [], // array of Folder object instances
-    currentFilter: 'all',
-    filters: { // need to know which property to pull from item, what the value should match
+class AppState {
+  constructor() {
+    this._folders = [];
+    this.currentFilter = 'all';
+    this.filters = {
       all: task => task.getCompletionStatus() === false,
       today: task => format(new Date(), 'yyyy-MM-dd') === task.getDueDate(),
       week: task => {
@@ -35,46 +23,104 @@ function AppState() {
           parse(task.getDueDate(), 'yyyy-MM-dd', new Date())
         ) === 0;
       },
-      task: (task, targetId) => task.getId() === targetId,
-      project: function(targetTask, targetId) {
-        let returnValue = false;
-        state.folders.forEach(folder => {
-          folder.getProjects().forEach(project => {
-            project.getTasks().forEach(task => {
-              if (this.task(task, targetTask.getId()) && project.getId() === targetId) returnValue = true;
-            });
-          });
-        });
-        return returnValue;
+      project: targetId => {
+        // ...
       },
-      folder: function(targetTask, targetId) {
-        let returnValue = false;
-        state.folders.forEach(folder => {
-          folder.getProjects().forEach(project => {
-            project.getTasks().forEach(task => {
-              if (this.task(task, targetTask.getId()) && folder.getId() === targetId) returnValue = true;
-            });
-          });
-        });
-        return returnValue;
+      folder: task => {
+        // ...
       }
     }
   }
 
-  return Object.assign(
-    {},
-    compGetItems(state, 'folder'),
-    compAddItem(state, 'folder'),
-    compDeleteItem(state, 'folder'),
-    compGetCurrentFilter(state),
-    compSetCurrentFilter(state),
-    compGetFilters(state)
-  );
+  // get all folders from AppState; accepts optional filter
+  getFolders() {
+    return this._folders;
+  }
+  // get folder from AppState that matches id
+  getFolderByID(targetId) {
+    return this._folders
+      .find(folder => folder.getId() === targetId);
+  }
+
+  // get all projects from AppState instance
+  getProjects() {
+    const selectedProjects = [];
+    this.getFolders().forEach(folder => {
+      selectedProjects.push(...folder.getProjects());
+    });
+
+    return selectedProjects;
+  }
+  // get project from AppState that matches id
+  getProjectById(targetId) {
+    let selectedProject;
+    this.getFolders().forEach(folder => {
+      const foundProject = folder.getProjects()
+        .find(project => project.getId() === targetId);
+      if (foundProject) selectedProject = foundProject;
+    });
+
+    return selectedProject;
+  }
+
+  // get tasks from AppState; accepts optional filter, comparison value
+  getTasks(filter, targetValue) {
+    const selectedTasks = [];
+    if (filter) {
+      this.getFolders().forEach(folder => {
+        folder.getProjects().forEach(project => {
+          selectedTasks.push(...project.getTasks()
+            .filter(task => this.filters[filter](task, targetValue))
+          );
+        });
+      });
+    } else {
+      this.getFolders().forEach(folder => {
+        folder.getProjects().forEach(project => {
+          selectedTasks.push(...project.getTasks());
+        });
+      });
+    }
+
+    return selectedTasks;
+  }
+  // get task from AppState that matches id
+  getTaskById(targetId) {
+    let selectedTask;
+    this.getFolders().forEach(folder => {
+      folder.getProjects().forEach(project => {
+        const foundTask = project.getTasks()
+          .find(task => task.getId() === targetId);
+        if (foundTask) selectedTask = foundTask;
+      });
+    });
+
+    return selectedTask;
+  }
+
+  addFolder(newFolder) {
+    this._folders.push(newFolder);
+  }
+  deleteFolder(folder) {
+    this._folders.splice(this._folders.indexOf(folder), 1);
+  }
+
+  getProjectParent(childProject) {
+    let parentFolder;
+    this.getFolders().forEach(folder => {
+      folder.getProjects().forEach(project => {
+        if (project.getId() === childProject.getId()) parentFolder = folder;
+      });
+    });
+
+    return parentFolder;
+  }
+
 }
 
 // export AppState instance with one default folder, project, and task
 export default (function() {
-  const appState = AppState();
+  const appState = new AppState();
   
   const firstFolder = Folder('First Folder', 'Default first folder');
   appState.addFolder(firstFolder);
@@ -91,12 +137,12 @@ export default (function() {
   // console.log('Task due on: ' + firstTask.getDueDate());
   firstProject.addTask(firstTask);
 
-  const secondTask = Task(
-    'Second Task',
-    format(new Date(), 'yyyy-MM-dd'),
-    2,
-    'Default second task',
-  );
+  // const secondTask = Task(
+  //   'Second Task',
+  //   format(new Date(), 'yyyy-MM-dd'),
+  //   2,
+  //   'Default second task',
+  // );
   // console.log('Task due on: ' + firstTask.getDueDate());
   // firstProject.addTask(secondTask);
 
