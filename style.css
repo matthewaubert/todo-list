@@ -22,7 +22,8 @@
   --gap-400: 1.6rem;
   --gap-500: 2.0rem;
   --shadow-1: 0 0 5px rgba(0,0,0,0.1);
-  --shadow-2: 0 0 5px rgba(0,0,0,0.3);
+  --shadow-2: 0 0 5px rgba(0,0,0,0.2);
+  --shadow-3: 0 0 5px rgba(0,0,0,0.3);
   --transition-fast: all .1s ease-in-out;
   --transition-slow: all .4s ease-in-out;
   --font-stack: 'Roboto', 'Helvetica', 'Arial', sans-serif;
@@ -48,7 +49,9 @@ a {
   text-decoration: none;
 }
 
-button, dialog, form {
+button, dialog, form, textarea,
+input[type="text"], select {
+  -moz-appearance: none;
   -webkit-appearance: none;
   appearance: none;
   border: none;
@@ -57,6 +60,14 @@ button, dialog, form {
 
 button:hover {
   cursor: pointer;
+}
+
+h1 {
+  font-size: 2rem;
+}
+
+h2 {
+  font-size: 1.5rem;
 }
 
 hr {
@@ -96,7 +107,7 @@ header {
 
 #nav {
   background-color: var(--gray-100);
-  box-shadow: var(--shadow-2);
+  box-shadow: var(--shadow-3);
   display: flex;
   flex-direction: column;
   gap: var(--gap-300);
@@ -210,7 +221,7 @@ nav > .nav-arrow.rotated {
 .add-item {
   background-color: var(--sky-500);
   border-radius: 100px;
-  box-shadow: var(--shadow-2);
+  box-shadow: var(--shadow-3);
   color: white;
   font-size: 2.5rem;
   font-weight: 400;
@@ -230,7 +241,7 @@ nav > .nav-arrow.rotated {
 #modal-menu {
   border: 1px solid var(--gray-300);
   border-radius: 12px;
-  box-shadow: var(--shadow-2);
+  box-shadow: var(--shadow-3);
   height: 157px;
   position: fixed;
   bottom: 6.8rem;
@@ -280,7 +291,7 @@ nav > .nav-arrow.rotated {
 .modal-form {
   background-color: white;
   border-radius: 12px;
-  box-shadow: var(--shadow-2);
+  box-shadow: var(--shadow-3);
   padding: var(--gap-400);
   position: fixed;
   top: 50%;
@@ -312,6 +323,37 @@ nav > .nav-arrow.rotated {
   font-size: var(--font-sm);
 }
 
+.modal-form input,
+.modal-form textarea,
+.modal-form select {
+  background-color: var(--gray-100);
+  border: 1px solid var(--gray-300);
+  border-radius: 6px;
+  font-family: var(--font-stack);
+  font-size: var(--font-md);
+  padding: var(--gap-200);
+  transition: var(--transition-fast);
+}
+
+.modal-form textarea {
+  height: 4.75rem;
+}
+
+.modal-form input:hover,
+.modal-form textarea:hover,
+.modal-form select:hover {
+  box-shadow: var(--shadow-2);
+}
+
+.modal-form input[type="date"]:hover,
+.modal-form select:hover {
+  cursor: pointer;
+}
+
+.modal-form select {
+  background: no-repeat right/1.75rem url(./chevron-down.svg) var(--gray-100);
+}
+
 .modal-form .priority {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -332,10 +374,20 @@ nav > .nav-arrow.rotated {
 }
 
 .priority input[type="radio"] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
   appearance: none;
   display: none;
   position: absolute;
   width: 100%;
+}
+
+.priority input[type="radio"] + label:hover {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  box-shadow: var(--shadow-2);
+  cursor: pointer;
 }
 
 .priority input[type="radio"]:checked + label {
@@ -377,19 +429,34 @@ nav > .nav-arrow.rotated {
 
 .edit-submit,
 .submit {
+  background-color: var(--gray-200);
+  border: 1px solid var(--gray-300);
   border-radius: 12px;
+  font-size: var(--font-md);
   padding: var(--gap-300);
+}
+
+.edit-submit:hover,
+.submit:hover {
+  border: 1px solid var(--gray-300);
+  box-shadow: var(--shadow-2);
+  filter: brightness(96%);
 }
 
 .cancel {
   background-color: white;
+  /* border: 1px solid transparent; */
   border-radius: 46px;
   font-size: var(--font-lg);
   height: 1.95rem;
   width: 1.95rem;
-  right: 0;
-  top: 0;
+  right: var(--gap-100);
+  top: var(--gap-100);
   position: absolute;
   transition: var(--transition-fast);
   vertical-align: middle;
+}
+
+.cancel:hover {
+  background-color: var(--gray-200);
 }
