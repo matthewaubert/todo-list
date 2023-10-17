@@ -69,6 +69,10 @@ li {
   list-style-type: none;
 }
 
+svg > path {
+  pointer-events: none;
+}
+
 textarea {
   resize: none;
 }
