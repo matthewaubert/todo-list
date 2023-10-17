@@ -156,6 +156,7 @@ export default (function() {
   //   format(new Date(), 'yyyy-MM-dd'),
   //   2,
   //   'Default second task',
+  //   firstProject.getId(),
   // );
   // console.log('Task due on: ' + firstTask.getDueDate());
   // firstProject.addTask(secondTask);
