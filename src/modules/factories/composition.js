@@ -35,15 +35,20 @@ const compSetName = state => ({
 // adds object to array of objects dependent on this object instance (e.g. Projects, Tasks)
 // e.g. method: projectInstance.addTask()
 const compAddItem = (state, itemName) => {
-  const keyName = 'add' + itemName.slice(0, 1).toUpperCase() + itemName.slice(1);
+  const keyName = 'add' + itemName.charAt(0).toUpperCase() + itemName.slice(1);
   return { [keyName]: item => state[`${itemName}s`].push(item) };
 };
 
 // removes object from array of objects dependent on this object instance (e.g. Projects, Tasks)
 // e.g. method: projectInstance.deleteTask()
 const compDeleteItem = (state, itemName) => {
-  const keyName = 'delete' + itemName.slice(0, 1).toUpperCase() + itemName.slice(1);
-  return { [keyName]: item => state[`${itemName}s`].splice(state[`${itemName}s`].indexOf(item), 1) };
+  const keyName = 'delete' + itemName.charAt(0).toUpperCase() + itemName.slice(1);
+  return {
+    [keyName]: item => {
+      state[`${itemName}s`].splice(state[`${itemName}s`].indexOf(item), 1);
+      console.log(`${itemName} deleted`);
+    }
+  };
 };
 
 // return {

@@ -40,7 +40,7 @@ function loadFilter(e) {
   if (!e.target.dataset.for) {
     // console.dir(this);
     renderController.clearTasks(); // clear tasks
-    // DELETE CHECKED TASKS
+    deleteItem.checkedTasks(); // delete checked tasks
 
     appState.currentFilter = this.dataset.name; // change appState.currentFilter
     // console.log(appState.currentFilter);
@@ -200,8 +200,15 @@ const createItem = {
 };
 
 const deleteItem = {
-  task: function() {
-    // ...
+  checkedTasks: function() {
+    const tasks = appState.getTasks('checked'); // get all checked tasks
+    // for each checked task
+    tasks.forEach(task => {
+      renderController.removeItem(task.getId()); // remove all renderings of task in DOM
+
+      const parentProject = appState.getProjectById(task.getProject()); // find parent project
+      parentProject.deleteTask(task); // delete task from parent project
+    });
   },
   project: function() {
     // get project by id
@@ -215,8 +222,7 @@ const deleteItem = {
     // get parent folder from appState
     const folderId = project.getFolder();
     const folder = appState.getFolderById(folderId);
-    // delete project from folder
-    folder.deleteProject(projectId);
+    folder.deleteProject(project); // delete project from folder
   },
   folder: function() {
     // get folder by id
@@ -230,8 +236,7 @@ const deleteItem = {
     });
     renderController.removeItem(folderId);
 
-    // delete folder from appState
-    appState.deleteFolder(folderId);
+    appState.deleteFolder(folder); // delete folder from appState
   }
 }
 

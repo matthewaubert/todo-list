@@ -89,7 +89,7 @@ export default (function() {
           folder.getProjects().forEach(project => allTasks.push(...project.getTasks()));
           break;
         default:
-          allTasks.push(...appState.getTasks(appState.currentFilter, dataset.name));
+          allTasks.push(...appState.getTasks(appState.currentFilter));
           break;
       }
     } else {

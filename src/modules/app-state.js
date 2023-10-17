@@ -9,6 +9,7 @@ class AppState {
     this.currentFilter = 'all';
     this.filters = {
       all: task => task.getCompletionStatus() === false,
+      checked: task => task.getCompletionStatus() === true,
       today: task => format(new Date(), 'yyyy-MM-dd') === task.getDueDate(),
       week: task => {
         // console.log(task.getDueDate());
@@ -57,15 +58,14 @@ class AppState {
     return selectedProject;
   }
 
-  // get tasks from AppState; accepts optional filter, comparison value
-  getTasks(filter, targetValue) {
+  // get tasks from AppState; accepts optional filter name
+  getTasks(filterName) {
     const selectedTasks = [];
-    if (filter) {
+    if (filterName) {
       this.getFolders().forEach(folder => {
         folder.getProjects().forEach(project => {
           selectedTasks.push(...project.getTasks()
-            .filter(task => this.filters[filter](task, targetValue))
-          );
+            .filter(task => this.filters[filterName](task)));
         });
       });
     } else {
@@ -108,9 +108,9 @@ class AppState {
   addFolder(newFolder) {
     this._folders.push(newFolder);
   }
-  deleteFolder(folderId) {
-    const folder = this.getFolderById(folderId); // find folder by id
+  deleteFolder(folder) {
     this._folders.splice(this._folders.indexOf(folder), 1); // remove folder from _folders array
+    console.log('folder deleted');
   }
 
   getItemTypeById(targetId) {
@@ -124,17 +124,6 @@ class AppState {
         return 'task';
     }
   }
-
-  // getProjectFolder(childProject) {
-  //   let parentFolder;
-  //   this.getFolders().forEach(folder => {
-  //     folder.getProjects().forEach(project => {
-  //       if (project.getId() === childProject.getId()) parentFolder = folder;
-  //     });
-  //   });
-
-  //   return parentFolder;
-  // }
 
 }
 
