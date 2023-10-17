@@ -37,17 +37,16 @@ function toggleNav() {
 }
 
 function loadFilter(e) {
-  // console.dir(this);
-  renderController.clearTasks(); // clear tasks
-  // DELETE CHECKED TASKS
+  if (!e.target.dataset.for) {
+    // console.dir(this);
+    renderController.clearTasks(); // clear tasks
+    // DELETE CHECKED TASKS
 
-  appState.currentFilter = this.dataset.name; // change appState.currentFilter
-  // console.log(appState.currentFilter);
-  renderController.renderTasks(this.dataset); // render tasks according to filter
-  h1.innerText = this.innerText; // change header
+    appState.currentFilter = this.dataset.name; // change appState.currentFilter
+    // console.log(appState.currentFilter);
+    renderController.renderTasks(this.dataset); // render tasks according to filter
+    h1.innerText = this.innerText; // change header
 
-  if (e.target.dataset.for !== 'edit-folder-form' &&
-      e.target.dataset.for !== 'edit-project-form') {
     toggleNav(); // hide nav
   }
 }
@@ -195,10 +194,46 @@ const createItem = {
       item[`set${funcName}`](formValues[value]);
     }
   
-    renderController.removeItem(item); // delete related els from DOM
+    renderController.removeItem(itemId); // delete related els from DOM
     renderController.renderItem[item.getItemType()](item); // render item
   }
 };
 
+const deleteItem = {
+  task: function() {
+    // ...
+  },
+  project: function() {
+    // get project by id
+    const projectId = this.parentNode.dataset.id;
+    const project = appState.getProjectById(projectId);
+    
+    // remove all renderings of project and children in DOM
+    project.getTasks().forEach(task => renderController.removeItem(task.getId()));
+    renderController.removeItem(projectId);
+    
+    // get parent folder from appState
+    const folderId = project.getFolder();
+    const folder = appState.getFolderById(folderId);
+    // delete project from folder
+    folder.deleteProject(projectId);
+  },
+  folder: function() {
+    // get folder by id
+    const folderId = this.parentNode.dataset.id;
+    const folder = appState.getFolderById(folderId);
 
-export { loadFilter, showModal }
+    // remove all renderings of folder and children from DOM
+    folder.getProjects().forEach(project => {
+      project.getTasks().forEach(task => renderController.removeItem(task.getId()));
+      renderController.removeItem(project.getId());
+    });
+    renderController.removeItem(folderId);
+
+    // delete folder from appState
+    appState.deleteFolder(folderId);
+  }
+}
+
+
+export { loadFilter, showModal, deleteItem }

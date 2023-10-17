@@ -1,5 +1,5 @@
 import appState from './app-state';
-import { loadFilter, showModal } from '../index'
+import { loadFilter, showModal, deleteItem } from '../index'
 import { createSvg, setAttributes } from './helpers';
 
 export default (function() {
@@ -65,8 +65,8 @@ export default (function() {
   }
 
   // remove all renderings of item in DOM
-  function removeItem(item) {
-    const elements = document.querySelectorAll(`[data-id=${item.getId()}]`);
+  function removeItem(itemId) {
+    const elements = document.querySelectorAll(`[data-id=${itemId}]`);
     elements.forEach(el => el.remove());
   }
 
@@ -225,13 +225,13 @@ export default (function() {
     const p = document.createElement('p');
     p.innerText = item.getName();
 
-    // add data to edit svg
+    // add data and event listener to edit svg
     svg.edit.dataset.for = `edit-${type}-form`;
     svg.edit.addEventListener('click', showModal);
 
-    // create edit svg
-    // trash.dataset.for = `edit-${type}-form`;
-    // trash.addEventListener('click', showModal);
+    // add data and event listener to trash svg
+    svg.trash.dataset.for = 'edit-trash';
+    svg.trash.addEventListener('click', deleteItem[type]);
 
     // create wrapper li, add data, add event listener, append elements
     const li = document.createElement('li');
