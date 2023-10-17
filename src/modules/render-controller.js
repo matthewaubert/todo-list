@@ -51,7 +51,7 @@ export default (function() {
     // logic to render elements to the DOM after Project instance creation
     project: project => {
       // render project in sidebar
-      const ul = document.querySelector(`[class="folder-nav"][data-id="${parentFolder.getId()}"]`);
+      const ul = document.querySelector(`[class="folder-nav"][data-id="${project.getFolder()}"]`);
       ul.appendChild(renderNavItem(project, 'project'));
     
       renderDropdownOptions(project); // render dropdown option

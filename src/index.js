@@ -196,6 +196,13 @@ const createItem = {
   
     renderController.removeItem(itemId); // delete related els from DOM
     renderController.renderItem[item.getItemType()](item); // render item
+
+    // if item is a folder, render child projects
+    if (item.getItemType() === 'folder') {
+      item.getProjects().forEach(project => {
+        renderController.renderItem.project(project)
+      });
+    }
   }
 };
 
