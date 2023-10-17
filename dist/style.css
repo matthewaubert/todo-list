@@ -199,11 +199,6 @@ nav > .nav-arrow.rotated {
   height: 1.25rem;
 }
 
-.task-main svg > path,
-.folder-nav svg > path {
-  pointer-events: none;
-}
-
 .completed {
   color: var(--gray-300);
 }

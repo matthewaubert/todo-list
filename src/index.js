@@ -37,12 +37,14 @@ function toggleNav() {
 }
 
 function loadFilter(e) {
+  // console.dir(this);
   renderController.clearTasks(); // clear tasks
   // DELETE CHECKED TASKS
 
-  appState.currentFilter = e.target.dataset.name; // change appState.currentFilter
-  renderController.renderTasks(e.target.dataset); // render tasks according to filter
-  h1.innerText = e.target.innerText; // change header
+  appState.currentFilter = this.dataset.name; // change appState.currentFilter
+  // console.log(appState.currentFilter);
+  renderController.renderTasks(this.dataset); // render tasks according to filter
+  h1.innerText = this.innerText; // change header
 
   if (e.target.dataset.for !== 'edit-folder-form' &&
       e.target.dataset.for !== 'edit-project-form') {
@@ -67,19 +69,19 @@ function hideModalMenu(e) {
 }
 
 // shows modal backdrop, modal dialogue depending which was selected in modal menu
-function showModal(e) {
+function showModal() {
   modalBackdrop.classList.remove('hidden');
   // console.log(e.target);
 
   // filter thru modal forms for matching id
   const correctForm = Array.from(modalForms)
-    .find(form => form.id === e.target.dataset.for);
+    .find(form => form.id === this.dataset.for);
   // console.log(correctForm);
   correctForm.classList.remove('hidden');
 
   // if it's an edit form
-  if (e.target.dataset.for.includes('edit-')) {
-    showEditModal(correctForm, e.target.parentNode.dataset.id)
+  if (this.dataset.for.includes('edit-')) {
+    showEditModal(correctForm, this.parentNode.dataset.id);
   }
 }
 
