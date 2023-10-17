@@ -121,27 +121,24 @@ header {
   padding: var(--gap-100);
 }
 
-.time > li,
-li.folder-nav,
-li.project-nav {
+#nav li {
   font-weight: 500;
   display: flex;
   align-items: center;
   gap: var(--gap-150);
 }
 
-.time > li::before,
-li.folder-nav::before,
-li.project-nav::before {
-  content: "";
-  display: inline-block;
-  height: 24px;
-  width: 24px;
-  background-image: url('folder-outline.svg');
+#nav li.project-nav {
+  font-weight: 300;
 }
 
-li.project-nav {
-  font-weight: 300;
+#nav li > svg:first-child {
+  height: 1.5rem;
+  width: 1.5rem;
+}
+
+.folder-nav li > p {
+  flex: 1;
 }
 
 .nav-arrow {
@@ -197,11 +194,13 @@ nav > .nav-arrow.rotated {
   flex: 1;
 }
 
-.task-main svg {
+.task-main svg,
+.folder-nav svg {
   height: 1.25rem;
 }
 
-.task-main svg > path {
+.task-main svg > path,
+.folder-nav svg > path {
   pointer-events: none;
 }
 

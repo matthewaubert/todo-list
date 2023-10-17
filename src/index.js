@@ -44,7 +44,10 @@ function loadFilter(e) {
   renderController.renderTasks(e.target.dataset); // render tasks according to filter
   h1.innerText = e.target.innerText; // change header
 
-  toggleNav(); // hide nav
+  if (e.target.dataset.for !== 'edit-folder-form' &&
+      e.target.dataset.for !== 'edit-project-form') {
+    toggleNav(); // hide nav
+  }
 }
 
 
