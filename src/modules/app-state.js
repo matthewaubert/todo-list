@@ -151,15 +151,15 @@ export default (function() {
   // console.log('Task due on: ' + firstTask.getDueDate());
   firstProject.addTask(firstTask);
 
-  const secondTask = Task(
-    'Second Task',
-    format(new Date(), 'yyyy-MM-dd'),
-    2,
-    'Default second task',
-    firstProject.getId(),
-  );
-  console.log('Task due on: ' + firstTask.getDueDate());
-  firstProject.addTask(secondTask);
+  // const secondTask = Task(
+  //   'Second Task',
+  //   format(new Date(), 'yyyy-MM-dd'),
+  //   2,
+  //   'Default second task',
+  //   firstProject.getId(),
+  // );
+  // console.log('Task due on: ' + firstTask.getDueDate());
+  // firstProject.addTask(secondTask);
 
   return appState;
 })();

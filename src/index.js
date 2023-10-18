@@ -11,7 +11,6 @@ import renderController from './modules/render-controller';
 const nav = document.querySelector('#nav');
 const navArrows = document.querySelectorAll('.nav-arrow');
 const navFilters = nav.querySelectorAll('li');
-const h1 = document.querySelector('h1');
 const addItem = document.querySelector('.add-item');
 const modalMenu = document.querySelector('#modal-menu');
 const modalOptions = document.querySelectorAll('#modal-menu > p');
@@ -43,9 +42,13 @@ function loadFilter(e) {
     deleteItem.checkedTasks(); // delete checked tasks
 
     appState.currentFilter = this.dataset.name; // change appState.currentFilter
-    // console.log(appState.currentFilter);
     renderController.renderTasks(this.dataset); // render tasks according to filter
-    h1.innerText = this.innerText; // change header
+    renderController.renderHeader(this); // render header according to filter
+
+    // remove background from all other lis
+    const currentNavFilters = nav.querySelectorAll('li');
+    currentNavFilters.forEach(navFilter => navFilter.classList.remove('selected'));
+    this.classList.add('selected'); // darken selected li background
 
     toggleNav(); // hide nav
   }

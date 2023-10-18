@@ -8,6 +8,7 @@ export default (function() {
   // cache DOM
   const main = document.querySelector('#main');
   const nav = document.querySelector('#nav');
+  const h1 = document.querySelector('h1');
   const dropdowns = {
     project: document.querySelectorAll('.task-project'),
     folder: document.querySelectorAll('.project-folder'),
@@ -258,6 +259,18 @@ export default (function() {
     return li;
   }
 
-  return { renderPage, renderItem, removeItem, renderTasks, clearTasks };
+  function renderHeader(selectedFilter) {
+    if (appState.currentFilter === 'all') {
+      h1.innerText = 'All ';
+      const span = document.createElement('span');
+      span.innerText = 'Tasks';
+      h1.appendChild(span);
+    } else {
+      h1.innerText = selectedFilter.innerText;
+    }
+  }
+
+
+  return { renderPage, renderItem, removeItem, renderTasks, clearTasks, renderHeader };
 
 })();
