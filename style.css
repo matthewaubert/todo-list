@@ -118,8 +118,8 @@ h1 > span {
 }
 
 header > img {
-  height: 2rem;
-  width: 2rem;
+  height: 1.8rem;
+  width: 1.8rem;
 }
 
 
@@ -174,11 +174,13 @@ header > img {
   font-weight: 300;
 }
 
+#nav li.selected,
 #nav li:hover,
 #main li:hover {
   background-color: var(--gray-200);
 }
 
+#nav li.selected,
 #nav li:hover {
   cursor: pointer;
   filter: brightness(95%);
