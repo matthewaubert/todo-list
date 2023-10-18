@@ -51,17 +51,6 @@ const compDeleteItem = (state, itemName) => {
   };
 };
 
-// return {
-//   [keyName]: id => {
-//     // filter thru itemName array for item with id
-//     const item = state[`${itemName}s`].filter(el => el.getId() === id);
-//     // find index of item in array
-//     const index = state[`${itemName}s`].indexOf(item);
-//     // splice item from array
-//     state[`${itemName}s`].splice(index, 1);
-//   }
-// };
-
 const compSetNotes = state => ({
   setNotes: newNotes => state.notes = newNotes
 });

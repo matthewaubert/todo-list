@@ -1,8 +1,8 @@
 import appState from './modules/app-state';
 import { camelize } from './modules/helpers';
-import Task from './modules/factories/task';
-import Project from './modules/factories/project';
-import Folder from './modules/factories/folder';
+import Task from './modules/classes/task';
+import Project from './modules/classes/project';
+import Folder from './modules/classes/folder';
 import renderController from './modules/render-controller';
 
 // console.log(appState.getTasks()[0].getName());
@@ -159,7 +159,7 @@ function setFormValues(form, item) {
 const createItem = {
   // create new Task instance from form submission
   task: formValues => {
-    const newTask = Task(formValues.name, formValues.dueDate, formValues.priority, formValues.notes, formValues.project);
+    const newTask = new Task(formValues.name, formValues.dueDate, formValues.priority, formValues.notes, formValues.project);
     // push Task to parentProject tasks array
     const parentProject = appState.getProjectById(formValues.project);
     if (parentProject) parentProject.addTask(newTask);
@@ -169,7 +169,7 @@ const createItem = {
   },
   // create new Project instance from form submission
   project: formValues => {
-    const newProject = Project(formValues.name, formValues.notes, formValues.folder);
+    const newProject = new Project(formValues.name, formValues.notes, formValues.folder);
     // push Project to parentFolder projects array
     let parentFolder = appState.getFolderById(formValues.folder);
     if (parentFolder) parentFolder.addProject(newProject);
@@ -179,7 +179,7 @@ const createItem = {
   },
   // create new Folder instance from form submission
   folder: formValues => {
-    const newFolder = Folder(formValues.name);
+    const newFolder = new Folder(formValues.name);
     appState.addFolder(newFolder); // push Folder to appState folders array
     // console.log(appState.getFolders());
   

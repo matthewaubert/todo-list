@@ -37,7 +37,7 @@ export default function Task(name, dueDate, priority, notes, project) {
     priority,
     notes,
     completed: false,
-    project,
+    project, // parent project id
   };
 
   return Object.assign(

@@ -1,7 +1,7 @@
 import { format, parse, differenceInCalendarWeeks, differenceInCalendarMonths } from 'date-fns';
-import Folder from './factories/folder';
-import Project from './factories/project';
-import Task from './factories/task';
+import Folder from './classes/folder';
+import Project from './classes/project';
+import Task from './classes/task';
 
 class AppState {
   constructor() {
@@ -131,17 +131,17 @@ class AppState {
 export default (function() {
   const appState = new AppState();
   
-  const firstFolder = Folder('First Folder', 'Default first folder');
+  const firstFolder = new Folder('First Folder', 'Default first folder');
   appState.addFolder(firstFolder);
   
-  const firstProject = Project(
+  const firstProject = new Project(
     'First Project',
     'Default first project',
     firstFolder.getId()
   );
   firstFolder.addProject(firstProject);
 
-  const firstTask = Task(
+  const firstTask = new Task(
     'First task',
     format(new Date(), 'yyyy-MM-dd'),
     1,
@@ -151,7 +151,7 @@ export default (function() {
   // console.log('Task due on: ' + firstTask.getDueDate());
   firstProject.addTask(firstTask);
 
-  // const secondTask = Task(
+  // const secondTask = new Task(
   //   'Second Task',
   //   format(new Date(), 'yyyy-MM-dd'),
   //   2,

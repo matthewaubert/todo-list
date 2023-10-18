@@ -3,7 +3,6 @@ import { compGetId, compGetName, compGetItems, compGetNotes, compGetItemType, co
 const compGetFolder = state => ({
   getFolder: () => state.folder
 });
-
 const compSetFolder = state => ({
   setFolder: newFolder => state.folder = newFolder
 });
@@ -14,7 +13,7 @@ export default function Project(name, notes, folder) {
     id: 'p' + new Date().getTime().toString(),
     name,
     notes,
-    folder,
+    folder, // parent folder id
     tasks: [], // array of Task object instances
   };
 
