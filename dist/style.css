@@ -21,9 +21,10 @@
   --green: #16a34a;
   --yellow: #eab308;
   --red: #ef4444;
+  --gap-050: 0.2rem;
   --gap-100: 0.4rem;
   --gap-150: 0.6rem;
-  --gap-200: 0.4rem;
+  --gap-200: 0.8rem;
   --gap-250: 1.0rem;
   --gap-300: 1.2rem;
   --gap-400: 1.6rem;
@@ -243,7 +244,6 @@ nav > .nav-arrow.rotated {
 
 #main li {
   font-weight: 400;
-  padding: 0.4rem;
 }
 
 .task-main input[type="checkbox"]:hover,
@@ -291,15 +291,11 @@ nav > .nav-arrow.rotated {
   border-radius: 6px;
   color: var(--gray-500);
   font-size: var(--font-sm);
-  padding: var(--gap-100);
+  padding: var(--gap-050) var(--gap-100);
 }
 
 .task-main:hover .date {
   background-color: var(--gray-300);
-  border-radius: 6px;
-  color: var(--gray-500);
-  font-size: var(--font-sm);
-  padding: var(--gap-100);
 }
 
 .task-main svg,
@@ -581,4 +577,30 @@ nav > .nav-arrow.rotated {
 
 .cancel:hover {
   background-color: var(--gray-200);
+}
+
+
+/* nav media query */
+
+@media only screen and (min-width: 825px) {
+
+  body {
+    display: grid;
+    grid-template-columns: calc(15rem + 9vw) 1fr;
+    grid-template-rows: calc(1.6rem + 2.375rem + 1.6rem) 1fr;
+  }
+
+  #nav,
+  #nav.hidden {
+    width: 100%;
+    position: relative;
+    grid-column: 1 / 2;
+    grid-row: 1 / -1;
+  }
+
+  .nav-arrow {
+    pointer-events: none;
+    display: none;
+  }
+
 }
