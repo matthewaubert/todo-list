@@ -18,6 +18,9 @@
   --sky-500: #0EA5E9;
   --sky-600: #0284c7;
   --sky-700: #0369a1;
+  --green: #16a34a;
+  --yellow: #eab308;
+  --red: #ef4444;
   --gap-100: 0.4rem;
   --gap-150: 0.6rem;
   --gap-200: 0.4rem;
@@ -60,6 +63,7 @@ input, select {
   -webkit-appearance: none;
   appearance: none;
   border: none;
+  color: var(--gray-700);
   font-family: var(--font-stack);
 }
 
@@ -258,8 +262,8 @@ nav > .nav-arrow.rotated {
 }
 
 .task-main input[type="checkbox"]:checked {
-  background-color: var(--sky-600);
-  border: 2px solid var(--sky-600);
+  background-color: var(--sky-500);
+  border: 2px solid var(--sky-500);
 }
 
 .task-main input[type="checkbox"]::before {
@@ -282,13 +286,45 @@ nav > .nav-arrow.rotated {
   flex: 1;
 }
 
+.task-main .date {
+  background-color: var(--gray-100);
+  border-radius: 6px;
+  color: var(--gray-500);
+  font-size: var(--font-sm);
+  padding: var(--gap-100);
+}
+
+.task-main:hover .date {
+  background-color: var(--gray-300);
+  border-radius: 6px;
+  color: var(--gray-500);
+  font-size: var(--font-sm);
+  padding: var(--gap-100);
+}
+
 .task-main svg,
 .folder-nav svg {
   height: 1.25rem;
 }
 
-.completed {
-  color: var(--gray-400);
+.task-main svg.priority1 {
+  fill: var(--green);
+}
+
+.task-main svg.priority2 {
+  fill: var(--yellow);
+}
+
+.task-main svg.priority3 {
+  fill: var(--red);
+}
+
+.task-main svg[class]:hover {
+  cursor: default;
+}
+
+.task-main.completed > * {
+  filter: opacity(50%);
 }
 
 .add-item {
@@ -481,35 +517,35 @@ nav > .nav-arrow.rotated {
 }
 
 .low + label {
-  border-color: green;
-  color: green;
+  border-color: var(--green);
+  color: var(--green);
 }
 
 .medium + label {
-  border-color: orange;
-  color: orange;
+  border-color: var(--yellow);
+  color: var(--yellow);
 }
 
 .high + label {
-  border-color: red;
-  color: red;
+  border-color: var(--red);
+  color: var(--red);
 }
 
 .low:checked + label,
 .low + label:hover {
-  background-color: green;
+  background-color: var(--green);
   color: white;
 }
 
 .medium:checked + label,
 .medium + label:hover {
-  background-color: orange;
+  background-color: var(--yellow);
   color: white;
 }
 
 .high:checked + label,
 .high + label:hover {
-  background-color: red;
+  background-color: var(--red);
   color: white;
 }
 
