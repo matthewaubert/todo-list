@@ -258,6 +258,6 @@ export default (function() {
     return li;
   }
 
-  return { renderPage, renderItem, removeItem, renderTasks, clearTasks, renderNavItem };
+  return { renderPage, renderItem, removeItem, renderTasks, clearTasks };
 
 })();

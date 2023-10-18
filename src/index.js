@@ -248,4 +248,4 @@ const deleteItem = {
 }
 
 
-export { loadFilter, showModal, deleteItem }
+export { loadFilter, showModal, deleteItem };
