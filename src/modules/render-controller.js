@@ -1,6 +1,6 @@
 import { format, parse } from 'date-fns';
 import appState from './app-state';
-import { loadFilter, showModal, deleteItem } from '../index'
+import { loadFilter, showModal, deleteItem, toggleCompleted } from '../index'
 import { createSvg, setAttributes } from './helpers';
 
 export default (function() {
@@ -112,12 +112,12 @@ export default (function() {
   function renderTask(task) {
     console.log(`current task: ${task.getId()}`);
     // create checkbox
-    const check = document.createElement('input');
-    setAttributes(check, {
+    const checkbox = document.createElement('input');
+    setAttributes(checkbox, {
       'type': 'checkbox',
       'id': task.getId()
     });
-    check.addEventListener('change', toggleCompleted);
+    checkbox.addEventListener('change', toggleCompleted);
     
     // create label
     const label = document.createElement('label');
@@ -146,7 +146,13 @@ export default (function() {
     const li = document.createElement('li');
     li.classList.add('task-main');
     li.dataset.id = task.getId();
-    li.append(check, label, date, svg.flag, svg.edit);
+    li.append(checkbox, label, date, svg.flag, svg.edit);
+
+    // if task is checked
+    if (task.getCompletionStatus()) {
+      li.classList.add('completed');
+      checkbox.checked = true;
+    }
 
     return li;
   }
@@ -156,16 +162,6 @@ export default (function() {
     while (main.lastElementChild) {
       main.removeChild(main.lastElementChild);
     }
-  }
-
-  // toggle completion status of task, gray out HTML el
-  function toggleCompleted(e) {
-    console.log(e.target.id);
-
-    const targetTask = appState.getTaskById(e.target.id);
-    if (targetTask) targetTask.toggleCompleted();
-
-    e.target.parentNode.classList.toggle('completed');
   }
 
 

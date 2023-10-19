@@ -59,7 +59,6 @@ function toggleNav() {
 
 function loadFilter(e) {
   if (!e.target.dataset.for) {
-    // console.dir(this);
     renderController.clearTasks(); // clear tasks
     deleteItem.checkedTasks(); // delete checked tasks
 
@@ -79,7 +78,7 @@ function loadFilter(e) {
 
 /* MODAL FUNCTIONALITY */
 
-// toggles menu with 3 options: create task, create project, create folder
+// toggle menu with 3 options: create task, create project, create folder
 function toggleModalMenu() {
   addItemBtn.classList.toggle('rotated'); // rotate addItemBtn button 45deg
   modalMenu.classList.toggle('hidden'); // toggle modal menu
@@ -92,18 +91,16 @@ function hideModalMenu(e) {
   }
 }
 
-// shows modal backdrop, modal dialogue depending which was selected in modal menu
+// show modal backdrop, modal dialogue depending which was selected
 function showModal() {
   modalBackdrop.classList.remove('hidden');
-  // console.log(e.target);
 
   // filter thru modal forms for matching id
   const correctForm = Array.from(modalForms)
     .find(form => form.id === this.dataset.for);
-  // console.log(correctForm);
   correctForm.classList.remove('hidden');
 
-  // if it's an edit form
+  // if it's an edit form, show edit modal
   if (this.dataset.for.includes('edit-')) {
     showEditModal(correctForm, this.parentNode.dataset.id);
   }
@@ -111,15 +108,12 @@ function showModal() {
 
 function showEditModal(form, targetId) {
   form.dataset.for = targetId;
-  // console.log(form.elements);
-
-  // get target task, project, or folder
-  const item = appState.getItemById(targetId);
+  const item = appState.getItemById(targetId); // get target task, project, or folder
 
   setFormValues(form, item);
 }
 
-// hides modal backdrop and modal dialogues
+// hide modal backdrop and modal dialogues
 function hideModal(e) {
   if (e.target.id === 'modal-backdrop' ||
       e.target.classList.contains('cancel') ||
@@ -137,7 +131,6 @@ function hideModal(e) {
 function handleFormSubmission(e) {
   e.preventDefault();
   const formValues = getFormValues(e.target); // extract values from form
-  // console.log(formValues);
 
   const itemName = e.target.id.split('-')[0];
   createItem[itemName](formValues, e.target.dataset.for);
@@ -160,24 +153,24 @@ function getFormValues(formValues) {
   }, {});
 }
 
+// set each form field to appropriate value from item object
 function setFormValues(form, item) {
-  // set each field to appropriate value from item
   Array.from(form.elements).forEach(field => {
-    // if not a button
+    // don't do anything with buttons
     if (field.tagName !== 'BUTTON') {
+      // handle radio inputs differently
       if (field.type === 'radio') {
-        // console.log(field.value == item.getPriority());
         if (field.value == item.getPriority()) {
           field.checked = true;
         }
       } else {
         field.value = item[camelize(`get-${field.name}`)]();
       }
-      // console.log(field);
     }
   });
 }
 
+// object to hold funcs to create/edit items from form submission
 const createItem = {
   // create new Task instance from form submission
   task: formValues => {
@@ -234,7 +227,12 @@ const createItem = {
   }
 };
 
+
+/* MAIN PAGE FUNCTIONALITY */
+
+// object to hold funcs to delete items
 const deleteItem = {
+  // delete all tasks with 'checked: true' property when user selects new filter
   checkedTasks: function() {
     const tasks = appState.getTasks('checked'); // get all checked tasks
     // for each checked task
@@ -285,5 +283,17 @@ const deleteItem = {
   }
 }
 
+// toggle completion status of task, gray out HTML el
+function toggleCompleted(e) {
+  console.log(e.target.id);
 
-export { loadFilter, showModal, deleteItem };
+  const targetTask = appState.getTaskById(e.target.id);
+  if (targetTask) targetTask.toggleCompleted();
+
+  e.target.parentNode.classList.toggle('completed');
+  
+  if (storageAvailable("localStorage")) serializeItems(); // update storage
+}
+
+
+export { loadFilter, showModal, deleteItem, toggleCompleted };
