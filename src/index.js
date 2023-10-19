@@ -248,36 +248,40 @@ const deleteItem = {
     if (storageAvailable("localStorage")) serializeItems(); // update storage
   },
   project: function() {
-    // get project by id
-    const projectId = this.parentNode.dataset.id;
-    const project = appState.getProjectById(projectId);
-    
-    // remove all renderings of project and children in DOM
-    project.getTasks().forEach(task => renderController.removeItem(task.getId()));
-    renderController.removeItem(projectId);
-    
-    // get parent folder from appState
-    const folderId = project.getFolder();
-    const folder = appState.getFolderById(folderId);
-    folder.deleteProject(project); // delete project from folder
+    if (confirm('Are you sure you want to delete this project?')) {
+      // get project by id
+      const projectId = this.parentNode.dataset.id;
+      const project = appState.getProjectById(projectId);
+      
+      // remove all renderings of project and children in DOM
+      project.getTasks().forEach(task => renderController.removeItem(task.getId()));
+      renderController.removeItem(projectId);
+      
+      // get parent folder from appState
+      const folderId = project.getFolder();
+      const folder = appState.getFolderById(folderId);
+      folder.deleteProject(project); // delete project from folder
 
-    if (storageAvailable("localStorage")) serializeItems(); // update storage
+      if (storageAvailable("localStorage")) serializeItems(); // update storage
+    }
   },
   folder: function() {
-    // get folder by id
-    const folderId = this.parentNode.dataset.id;
-    const folder = appState.getFolderById(folderId);
+    if (confirm('Are you sure you want to delete this folder?')) {
+      // get folder by id
+      const folderId = this.parentNode.dataset.id;
+      const folder = appState.getFolderById(folderId);
 
-    // remove all renderings of folder and children from DOM
-    folder.getProjects().forEach(project => {
-      project.getTasks().forEach(task => renderController.removeItem(task.getId()));
-      renderController.removeItem(project.getId());
-    });
-    renderController.removeItem(folderId);
+      // remove all renderings of folder and children from DOM
+      folder.getProjects().forEach(project => {
+        project.getTasks().forEach(task => renderController.removeItem(task.getId()));
+        renderController.removeItem(project.getId());
+      });
+      renderController.removeItem(folderId);
 
-    appState.deleteFolder(folder); // delete folder from appState
+      appState.deleteFolder(folder); // delete folder from appState
 
-    if (storageAvailable("localStorage")) serializeItems(); // update storage
+      if (storageAvailable("localStorage")) serializeItems(); // update storage
+    }
   }
 }
 
