@@ -3,6 +3,7 @@ import appState from './app-state';
 import { loadFilter, showModal, deleteItem, toggleCompleted } from '../index'
 import { createSvg, setAttributes } from './helpers';
 
+// controls any rendering to DOM
 export default (function() {
   
   // cache DOM
@@ -14,10 +15,8 @@ export default (function() {
     folder: document.querySelectorAll('.project-folder'),
   }
   
-  // initial page render
+  // render tasks, modal dropdowns, nav upon app initialization
   function renderPage() {
-    console.log("DOM fully loaded and parsed");
-
     renderTasks();
     renderModalDropdown();
     renderNav();
@@ -76,7 +75,7 @@ export default (function() {
 
   /* TASK RENDERING FUNCTIONALITY */
 
-  // render all tasks
+  // render all tasks; optional input: dataset (acts as a filter)
   function renderTasks(dataset) {
     const allTasks = [];
 
@@ -103,18 +102,18 @@ export default (function() {
       allTasks.push(...appState.getTasks());
     }
     
+    // create ul and set data attributes
     const ul = document.createElement('ul');
     ul.dataset.name = appState.getCurrentFilter();
     if (dataset && dataset.hasOwnProperty('id')) ul.dataset.id = dataset.id;
     
-    // console.log(allTasks[0].getName());
     allTasks.forEach(task => ul.appendChild(renderTask(task)));
     main.appendChild(ul);
   }
 
-  // return a div containing a checkbox and label relating to the input task
+  // create and return an li containing a checkbox, label, date div,
+  // priority flag, and edit icon relating to the input task
   function renderTask(task) {
-    console.log(`current task: ${task.getId()}`);
     // create checkbox
     const checkbox = document.createElement('input');
     setAttributes(checkbox, {
@@ -128,17 +127,7 @@ export default (function() {
     label.setAttribute('for', task.getId());
     label.innerText = task.getName();
 
-    // create svgs
-    const svg = {
-      edit: createSvg('0 0 24 24', 'M5,3C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V12H19V19H5V5H12V3H5M17.78,4C17.61,4 17.43,4.07 17.3,4.2L16.08,5.41L18.58,7.91L19.8,6.7C20.06,6.44 20.06,6 19.8,5.75L18.25,4.2C18.12,4.07 17.95,4 17.78,4M15.37,6.12L8,13.5V16H10.5L17.87,8.62L15.37,6.12Z'),
-      flag: createSvg('0 0 24 24', 'M6,3A1,1 0 0,1 7,4V4.88C8.06,4.44 9.5,4 11,4C14,4 14,6 16,6C19,6 20,4 20,4V12C20,12 19,14 16,14C13,14 13,12 11,12C8,12 7,14 7,14V21H5V4A1,1 0 0,1 6,3Z')
-    };
-
-    svg.flag.classList.add(`priority${task.getPriority()}`);
-    svg.edit.dataset.for = 'edit-task-form';
-    svg.edit.addEventListener('click', showModal);
-
-    // create date
+    // create date div
     const date = document.createElement('p');
     date.classList.add('date');
     date.innerText = format(
@@ -146,13 +135,22 @@ export default (function() {
       'PP'
     );
 
-    // append checkbox and label to wrapper li
+    // create svg icons
+    const svg = {
+      edit: createSvg('0 0 24 24', 'M5,3C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V12H19V19H5V5H12V3H5M17.78,4C17.61,4 17.43,4.07 17.3,4.2L16.08,5.41L18.58,7.91L19.8,6.7C20.06,6.44 20.06,6 19.8,5.75L18.25,4.2C18.12,4.07 17.95,4 17.78,4M15.37,6.12L8,13.5V16H10.5L17.87,8.62L15.37,6.12Z'),
+      flag: createSvg('0 0 24 24', 'M6,3A1,1 0 0,1 7,4V4.88C8.06,4.44 9.5,4 11,4C14,4 14,6 16,6C19,6 20,4 20,4V12C20,12 19,14 16,14C13,14 13,12 11,12C8,12 7,14 7,14V21H5V4A1,1 0 0,1 6,3Z')
+    };
+    svg.flag.classList.add(`priority${task.getPriority()}`);
+    svg.edit.dataset.for = 'edit-task-form';
+    svg.edit.addEventListener('click', showModal);
+
+    // create wrapper li, add data, append child elements
     const li = document.createElement('li');
     li.classList.add('task-main');
     li.dataset.id = task.getId();
     li.append(checkbox, label, date, svg.flag, svg.edit);
 
-    // if task is checked
+    // if task is completed, mark appropriately
     if (task.getCompletionStatus()) {
       li.classList.add('completed');
       checkbox.checked = true;
@@ -171,21 +169,26 @@ export default (function() {
 
   /* MODAL RENDERING FUNCTIONALITY */
 
-  // initial rendering of folders and projects to modal dropdown menu
+  // render all folders and projects to relevant modal <select> fields
   function renderModalDropdown() {
-    // render folders to modalDropdowns
-    appState.getFolders().forEach(folder => renderDropdownOptions(folder));
-    // render dropdown option for each project and append to taskProjectDropdowns
-    appState.getProjects().forEach(project => renderDropdownOptions(project));
+    // render dropdown option for each folder
+    appState.getFolders().forEach(folder => {
+      renderDropdownOptions(folder);
+      // render dropdown option for each project
+      folder.getProjects().forEach(project => {
+        renderDropdownOptions(project);
+      });
+    });
   }
 
+  // render item to relevant modal <select> fields
   function renderDropdownOptions(item) {
     dropdowns[item.getItemType()].forEach(dropdown => {
       dropdown.appendChild(renderDropdownOption(item))
     });
   }
 
-  // creates an option element in the modal menu for a project or folder 
+  // create and return an <option> element for item
   function renderDropdownOption(item) {
     const option = document.createElement('option');
 
@@ -204,7 +207,7 @@ export default (function() {
 
   /* NAV RENDERING FUNCTIONALITY */
 
-  // initial nav render
+  // render all folders and projects to nav
   function renderNav() {
     // for each folder, create ul and li
     appState.getFolders().forEach(folder => {
@@ -215,7 +218,7 @@ export default (function() {
     });
   }
 
-  // render nav ul with 1 li for folder
+  // create and return nav ul with 1 li for folder
   function renderNavFolder(folder) {
     const ul = document.createElement('ul');
     ul.classList.add('folder-nav');
@@ -226,7 +229,7 @@ export default (function() {
     return ul;
   }
 
-  // render nav li for folder or project
+  // create and return nav li for folder or project
   function renderNavItem(item, type) {
     // create folder svg
     const svg = {
@@ -248,7 +251,7 @@ export default (function() {
     svg.trash.dataset.for = 'edit-trash';
     svg.trash.addEventListener('click', deleteItem[type]);
 
-    // create wrapper li, add data, add event listener, append elements
+    // create wrapper li, add data, add event listener, append child elements
     const li = document.createElement('li');
     li.classList.add(`${type}-nav`);
     li.dataset.id = item.getId();
@@ -259,6 +262,7 @@ export default (function() {
     return li;
   }
 
+  // render header based on selected nav filter
   function renderHeader(selectedFilter) {
     if (appState.getCurrentFilter() === 'all') {
       h1.innerText = 'All ';

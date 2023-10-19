@@ -3,6 +3,9 @@ import Folder from './classes/folder';
 import Project from './classes/project';
 import Task from './classes/task';
 
+// creates AppState instance, which controls state of application;
+// caches and contains functions to access all Folder, Project, Task instances;
+// caches filters for accessing only Task instances that pass filter
 class AppState {
   constructor() {
     this._folders = [];
@@ -12,7 +15,6 @@ class AppState {
       checked: task => task.getCompletionStatus() === true,
       today: task => format(new Date(), 'yyyy-MM-dd') === task.getDueDate(),
       week: task => {
-        // console.log(task.getDueDate());
         return differenceInCalendarWeeks(
           new Date(),
           parse(task.getDueDate(), 'yyyy-MM-dd', new Date())
@@ -27,7 +29,7 @@ class AppState {
     }
   }
 
-  // add to appState initial default first folder, project, task
+  // add to AppState instance initial default first Folder, Project, Task instances
   initItems() {
     const firstFolder = new Folder('First Folder');
     this.addFolder(firstFolder);
@@ -49,17 +51,17 @@ class AppState {
     firstProject.addTask(firstTask);
   }
 
-  // get all folders from AppState instance; accepts optional filter
+  // return all Folder instances from AppState instance _folders array
   getFolders() {
     return this._folders;
   }
-  // get folder from AppState instance that matches id
+  // return Folder instance from AppState instance that matches input id
   getFolderById(targetId) {
     return this._folders
       .find(folder => folder.getId() === targetId);
   }
 
-  // get all projects from AppState instance
+  // return all Project instances from AppState instance
   getProjects() {
     const selectedProjects = [];
     this.getFolders().forEach(folder => {
@@ -68,7 +70,7 @@ class AppState {
 
     return selectedProjects;
   }
-  // get project from AppState instance that matches id
+  // return Project instance from AppState instance that matches input id
   getProjectById(targetId) {
     let selectedProject;
     this.getFolders().forEach(folder => {
@@ -80,7 +82,7 @@ class AppState {
     return selectedProject;
   }
 
-  // get tasks from AppState instance; accepts optional filter name
+  // return all Task instances from AppState instance; accepts optional filter name
   getTasks(filterName) {
     const selectedTasks = [];
     if (filterName) {
@@ -100,7 +102,7 @@ class AppState {
 
     return selectedTasks;
   }
-  // get task from AppState instance that matches id
+  // return Task instance from AppState instance that matches id
   getTaskById(targetId) {
     let selectedTask;
     this.getFolders().forEach(folder => {
@@ -113,7 +115,7 @@ class AppState {
 
     return selectedTask;
   }
-  // redirect to appropriate get__ById func
+  // redirect to appropriate get___ById func based on input id
   getItemById(targetId) {
     // look for item by id starting letter
     const idLetter = targetId.charAt(0);
@@ -127,14 +129,17 @@ class AppState {
     }
   }
 
+  // add input Folder instance to AppState instance _folders array
   addFolder(newFolder) {
     this._folders.push(newFolder);
   }
+  // delete input Folder instance from AppState instance _folders array
   deleteFolder(folder) {
     this._folders.splice(this._folders.indexOf(folder), 1); // remove folder from _folders array
     console.log('folder deleted');
   }
 
+  // return string of item type based on input item id
   getItemTypeById(targetId) {
     const idLetter = targetId.charAt(0);
     switch (idLetter) {
@@ -147,20 +152,23 @@ class AppState {
     }
   }
 
+  // return AppState instance _currentFilter
   getCurrentFilter() {
     return this._currentFilter;
   }
+  // set AppState instance _currentFilter to new filter
   setCurrentFilter(newFilter) {
     this._currentFilter = newFilter;
   }
 
+  // return AppState instance _filters object
   getFilters() {
     return this._filters;
   }
 
 }
 
-// export AppState instance
+// export single AppState instance
 export default (function() {
   return new AppState();
 })();
