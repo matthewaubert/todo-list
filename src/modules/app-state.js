@@ -89,7 +89,7 @@ class AppState {
       this.getFolders().forEach(folder => {
         folder.getProjects().forEach(project => {
           selectedTasks.push(...project.getTasks()
-            .filter(task => this.filters[filterName](task)));
+            .filter(task => this.getFilters()[filterName](task)));
         });
       });
     } else {

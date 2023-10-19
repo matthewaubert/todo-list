@@ -39,6 +39,5 @@ export default class Project extends Item {
   // delete input Task instance from _tasks array
   deleteTask(task) {
     this._tasks.splice(this._tasks.indexOf(task), 1);
-    console.log(`${task.getName()} deleted`);
   }
 }

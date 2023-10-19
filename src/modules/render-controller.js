@@ -3,7 +3,7 @@ import appState from './app-state';
 import { loadFilter, showModal, deleteItem, toggleCompleted } from '../index'
 import { createSvg, setAttributes } from './helpers';
 
-// controls any rendering to DOM
+// exports object which controls any rendering to DOM
 export default (function() {
   
   // cache DOM

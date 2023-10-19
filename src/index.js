@@ -27,22 +27,18 @@ modalBackdrop.addEventListener('click', hideModal);
 modalForms.forEach(form => form.addEventListener('submit', handleFormSubmission));
 
 
-/* INIT APP */
+/* INITIALIZE APP */
 
 // once DOM content loaded, init app
 function initApp() {
-  console.log('hello, initApp');
   if (storageAvailable("localStorage")) {
-    console.log('Yippee! We can use localStorage awesomeness');
     if (!localStorage.getItem('appStateFolders')) {
-      console.log('hello, localStorage');
       appState.initItems(); // create default first items
       serializeItems(); // store items in localStorage
     } else {
       deserializeItems(); // get items from localStorage
     }
   } else {
-    console.log('Too bad, no localStorage for us');
     appState.initItems(); // create default first items
   }
 
@@ -123,7 +119,6 @@ function hideModal(e) {
       form.classList.add('hidden');
       form.reset();
     });
-    // console.log(e.target);
   }
 }
 
@@ -178,7 +173,6 @@ const createItem = {
     // push Task to parentProject tasks array
     const parentProject = appState.getProjectById(formValues.project);
     if (parentProject) parentProject.addTask(newTask);
-    // console.log(appState.getTasks());
   
     renderController.renderItem.task(newTask);
     if (storageAvailable("localStorage")) serializeItems(); // update storage
@@ -189,7 +183,6 @@ const createItem = {
     // push Project to parentFolder projects array
     let parentFolder = appState.getFolderById(formValues.folder);
     if (parentFolder) parentFolder.addProject(newProject);
-    // console.log(appState.getProjects());
 
     renderController.renderItem.project(newProject);
     if (storageAvailable("localStorage")) serializeItems(); // update storage
@@ -198,16 +191,13 @@ const createItem = {
   folder: formValues => {
     const newFolder = new Folder(formValues.name);
     appState.addFolder(newFolder); // push Folder to appState folders array
-    // console.log(appState.getFolders());
   
     renderController.renderItem.folder(newFolder);
     if (storageAvailable("localStorage")) serializeItems(); // update storage
   },
   // edit Item instance from form submission
   edit: (formValues, itemId) => {
-    console.log(formValues);
-    // get item by id
-    const item = appState.getItemById(itemId);
+    const item = appState.getItemById(itemId); // get item by id
   
     // iterate over formValues
     for (const value in formValues) {
@@ -285,10 +275,8 @@ const deleteItem = {
   }
 }
 
-// toggle completion status of task, gray out HTML el
+// toggle completion status of task, gray out HTML element
 function toggleCompleted(e) {
-  console.log(e.target.id);
-
   const targetTask = appState.getTaskById(e.target.id);
   if (targetTask) targetTask.toggleCompleted();
 

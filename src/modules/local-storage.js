@@ -37,8 +37,6 @@ function serializeItems() {
   // store appState folders as key-value pairs in folders obj
   appState.getFolders().forEach(folder => folders[folder.getId()] = folder);
   localStorage.setItem("appStateFolders", serialize(folders)); // store serialized folders obj in localStorage
-
-  console.log('serialized!');
 }
 
 // translate object to JSON
@@ -54,8 +52,6 @@ function deserializeItems() {
   for (const key in folders) {
     appState.addFolder(folders[key]);
   }
-
-  console.log('deserialized!');
 }
 
 // translate JSON back to JavaScript object
