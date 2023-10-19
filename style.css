@@ -168,20 +168,20 @@ header > img {
 
 #nav li {
   font-weight: 500;
+  background-color: var(--gray-100);
 }
 
 #nav li.project-nav {
   font-weight: 300;
 }
 
-#nav li.selected,
-#nav li:hover,
-#main li:hover {
+#nav li.selected {
   background-color: var(--gray-200);
 }
 
 #nav li.selected,
-#nav li:hover {
+#nav li:hover,
+#main li:hover {
   cursor: pointer;
   filter: brightness(95%);
 }
@@ -257,6 +257,7 @@ nav > .nav-arrow.rotated {
 
 #main li {
   font-weight: 400;
+  background-color: white;
 }
 
 .task-main input[type="checkbox"]:hover,
@@ -303,12 +304,13 @@ nav > .nav-arrow.rotated {
   background-color: var(--gray-100);
   border-radius: 6px;
   color: var(--gray-500);
+  cursor: default;
   font-size: var(--font-sm);
   padding: var(--gap-050) var(--gap-100);
 }
 
 .task-main:hover .date {
-  background-color: var(--gray-300);
+  filter: brightness(95%);
 }
 
 .task-main svg,
@@ -334,6 +336,10 @@ nav > .nav-arrow.rotated {
 
 .task-main.completed > * {
   filter: opacity(50%);
+}
+
+.task-main.completed:hover .date {
+  filter: brightness(95%) opacity(50%);
 }
 
 .add-item {
@@ -482,7 +488,7 @@ nav > .nav-arrow.rotated {
 }
 
 .modal-form select {
-  background: no-repeat right/1.75rem url(./chevron-down.svg) var(--gray-100);
+  background: no-repeat right/1.75rem url(./img/chevron-down.svg) var(--gray-100);
 }
 
 .modal-form .priority {
