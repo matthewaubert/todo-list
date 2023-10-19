@@ -10,6 +10,11 @@ function camelize(string) {
   return string.replace(/-./g, x=>x[1].toUpperCase());
 }
 
+// convert first char of string to uppercase
+function capitalize(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
 // create svg from viewBox and dPath
 function createSvg(viewBox, dPath) {
   const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
@@ -21,4 +26,4 @@ function createSvg(viewBox, dPath) {
   return svg;
 }
 
-export { setAttributes, camelize, createSvg };
+export { setAttributes, camelize, capitalize, createSvg };

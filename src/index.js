@@ -1,9 +1,10 @@
 import appState from './modules/app-state';
-import { camelize } from './modules/helpers';
+import { camelize, capitalize } from './modules/helpers';
 import Task from './modules/classes/task';
 import Project from './modules/classes/project';
 import Folder from './modules/classes/folder';
 import renderController from './modules/render-controller';
+import { serializeItems, deserializeItems } from './modules/local-storage';
 
 // console.log(appState.getTasks()[0].getName());
 
@@ -26,6 +27,9 @@ document.addEventListener('click', hideModalMenu);
 modalOptions.forEach(option => option.addEventListener('click', showModal));
 modalBackdrop.addEventListener('click', hideModal);
 modalForms.forEach(form => form.addEventListener('submit', handleFormSubmission));
+
+
+/* INIT STORAGE */
 
 
 /* NAV FUNCTIONALITY */
@@ -192,9 +196,7 @@ const createItem = {
   
     // iterate over formValues
     for (const value in formValues) {
-      // run appropriate 'set' funcs on item
-      const funcName = value.charAt(0).toUpperCase() + value.slice(1);
-      item[`set${funcName}`](formValues[value]);
+      item[`set${capitalize(value)}`](formValues[value]); // run appropriate 'set' funcs on item
     }
   
     renderController.removeItem(itemId); // delete related els from DOM

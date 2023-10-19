@@ -27,11 +27,11 @@ class AppState {
     }
   }
 
-  // get all folders from AppState; accepts optional filter
+  // get all folders from AppState instance; accepts optional filter
   getFolders() {
     return this._folders;
   }
-  // get folder from AppState that matches id
+  // get folder from AppState instance that matches id
   getFolderById(targetId) {
     return this._folders
       .find(folder => folder.getId() === targetId);
@@ -46,7 +46,7 @@ class AppState {
 
     return selectedProjects;
   }
-  // get project from AppState that matches id
+  // get project from AppState instance that matches id
   getProjectById(targetId) {
     let selectedProject;
     this.getFolders().forEach(folder => {
@@ -58,7 +58,7 @@ class AppState {
     return selectedProject;
   }
 
-  // get tasks from AppState; accepts optional filter name
+  // get tasks from AppState instance; accepts optional filter name
   getTasks(filterName) {
     const selectedTasks = [];
     if (filterName) {
@@ -78,7 +78,7 @@ class AppState {
 
     return selectedTasks;
   }
-  // get task from AppState that matches id
+  // get task from AppState instance that matches id
   getTaskById(targetId) {
     let selectedTask;
     this.getFolders().forEach(folder => {
@@ -131,7 +131,7 @@ class AppState {
 export default (function() {
   const appState = new AppState();
   
-  const firstFolder = new Folder('First Folder', 'Default first folder');
+  const firstFolder = new Folder('First Folder');
   appState.addFolder(firstFolder);
   
   const firstProject = new Project(
