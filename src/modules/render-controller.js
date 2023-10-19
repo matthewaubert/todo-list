@@ -26,13 +26,14 @@ export default (function() {
 
   /* ITEM RENDERING LOGIC */
 
+  // object to hold logic for rendering elements to the DOM upon Item instance creation
   const renderItem = {
-    // logic to render elements to the DOM after Task instance creation
+    // logic to render elements to the DOM upon Task instance creation
     task: task => {
-      const ul = document.querySelector(`ul[data-name=${appState.currentFilter}]`);
+      const ul = document.querySelector(`ul[data-name=${appState.getCurrentFilter()}]`);
       const parentProject = appState.getProjectById(task.getProject());
       // render task if on correct page (i.e. passes filters)
-      switch(appState.currentFilter) {
+      switch(appState.getCurrentFilter()) {
         case 'project': // if project filter, check for matching id
           if (ul.dataset.id === parentProject.getId()) {
             ul.appendChild(renderTask(task));
@@ -45,12 +46,12 @@ export default (function() {
           }
           break;
         default: // all other filters, check if task passes filter
-          if (appState.filters[appState.currentFilter](task)) {
+          if (appState.getFilters()[appState.getCurrentFilter()](task)) {
             ul.appendChild(renderTask(task));
           }
       }
     },
-    // logic to render elements to the DOM after Project instance creation
+    // logic to render elements to the DOM upon Project instance creation
     project: project => {
       // render project in sidebar
       const ul = document.querySelector(`[class="folder-nav"][data-id="${project.getFolder()}"]`);
@@ -58,7 +59,7 @@ export default (function() {
     
       renderDropdownOptions(project); // render dropdown option
     },
-    // logic to render elements to the DOM after Folder instance creation
+    // logic to render elements to the DOM upon Folder instance creation
     folder: folder => {
       nav.appendChild(renderNavFolder(folder)); // render folder in sidebar
 
@@ -66,7 +67,7 @@ export default (function() {
     }
   }
 
-  // remove all renderings of item in DOM
+  // remove all renderings of Item instance in DOM
   function removeItem(itemId) {
     const elements = document.querySelectorAll(`[data-id=${itemId}]`);
     elements.forEach(el => el.remove());
@@ -75,32 +76,35 @@ export default (function() {
 
   /* TASK RENDERING FUNCTIONALITY */
 
-  // initial rendering of tasks
+  // render all tasks
   function renderTasks(dataset) {
     const allTasks = [];
 
-    // if want to filter which projects to render
+    // if there's a dataset, get tasks that pass filter
     if (dataset) {
+      // filter by project
       switch(dataset.name) {
         case 'project':
           const project = appState.getProjectById(dataset.id);
           allTasks.push(...project.getTasks());
           break;
+        // filter by folder
         case 'folder':
           const folder = appState.getFolderById(dataset.id);
           folder.getProjects().forEach(project => allTasks.push(...project.getTasks()));
           break;
+        // all other filters
         default:
-          allTasks.push(...appState.getTasks(appState.currentFilter));
+          allTasks.push(...appState.getTasks(appState.getCurrentFilter()));
           break;
       }
+    // if no filter, get all tasks
     } else {
       allTasks.push(...appState.getTasks());
     }
-    // console.log(allTasks);
     
     const ul = document.createElement('ul');
-    ul.dataset.name = appState.currentFilter;
+    ul.dataset.name = appState.getCurrentFilter();
     if (dataset && dataset.hasOwnProperty('id')) ul.dataset.id = dataset.id;
     
     // console.log(allTasks[0].getName());
@@ -256,7 +260,7 @@ export default (function() {
   }
 
   function renderHeader(selectedFilter) {
-    if (appState.currentFilter === 'all') {
+    if (appState.getCurrentFilter() === 'all') {
       h1.innerText = 'All ';
       const span = document.createElement('span');
       span.innerText = 'Tasks';

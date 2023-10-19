@@ -62,7 +62,7 @@ function loadFilter(e) {
     renderController.clearTasks(); // clear tasks
     deleteItem.checkedTasks(); // delete checked tasks
 
-    appState.currentFilter = this.dataset.name; // change appState.currentFilter
+    appState.setCurrentFilter(this.dataset.name); // change appState.currentFilter
     renderController.renderTasks(this.dataset); // render tasks according to filter
     renderController.renderHeader(this); // render header according to filter
 
@@ -203,7 +203,7 @@ const createItem = {
     renderController.renderItem.folder(newFolder);
     if (storageAvailable("localStorage")) serializeItems(); // update storage
   },
-  // edit item instance from form submission
+  // edit Item instance from form submission
   edit: (formValues, itemId) => {
     console.log(formValues);
     // get item by id
@@ -230,7 +230,7 @@ const createItem = {
 
 /* MAIN PAGE FUNCTIONALITY */
 
-// object to hold funcs to delete items
+// object to hold funcs to delete items from appState and remove DOM renderings
 const deleteItem = {
   // delete all tasks with 'checked: true' property when user selects new filter
   checkedTasks: function() {
@@ -245,6 +245,7 @@ const deleteItem = {
 
     if (storageAvailable("localStorage")) serializeItems(); // update storage
   },
+  // delete project when user clicks trash icon and confirms
   project: function() {
     if (confirm('Are you sure you want to delete this project?')) {
       // get project by id
@@ -263,6 +264,7 @@ const deleteItem = {
       if (storageAvailable("localStorage")) serializeItems(); // update storage
     }
   },
+  // delete folder when user clicks trash icon and confirms
   folder: function() {
     if (confirm('Are you sure you want to delete this folder?')) {
       // get folder by id
@@ -291,7 +293,7 @@ function toggleCompleted(e) {
   if (targetTask) targetTask.toggleCompleted();
 
   e.target.parentNode.classList.toggle('completed');
-  
+
   if (storageAvailable("localStorage")) serializeItems(); // update storage
 }
 

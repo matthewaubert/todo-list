@@ -6,8 +6,8 @@ import Task from './classes/task';
 class AppState {
   constructor() {
     this._folders = [];
-    this.currentFilter = 'all';
-    this.filters = {
+    this._currentFilter = 'all';
+    this._filters = {
       all: task => task.getCompletionStatus() === false,
       checked: task => task.getCompletionStatus() === true,
       today: task => format(new Date(), 'yyyy-MM-dd') === task.getDueDate(),
@@ -116,7 +116,7 @@ class AppState {
   // redirect to appropriate get__ById func
   getItemById(targetId) {
     // look for item by id starting letter
-    const idLetter = targetId.slice(0, 1);
+    const idLetter = targetId.charAt(0);
     switch (idLetter) {
       case 'f':
         return this.getFolderById(targetId);
@@ -136,7 +136,7 @@ class AppState {
   }
 
   getItemTypeById(targetId) {
-    const idLetter = targetId.slice(0, 1);
+    const idLetter = targetId.charAt(0);
     switch (idLetter) {
       case 'f':
         return 'folder';
@@ -147,21 +147,20 @@ class AppState {
     }
   }
 
+  getCurrentFilter() {
+    return this._currentFilter;
+  }
+  setCurrentFilter(newFilter) {
+    this._currentFilter = newFilter;
+  }
+
+  getFilters() {
+    return this._filters;
+  }
+
 }
 
-// export AppState instance with one default folder, project, and task
+// export AppState instance
 export default (function() {
-  const appState = new AppState();
-
-  // const secondTask = new Task(
-  //   'Second Task',
-  //   format(new Date(), 'yyyy-MM-dd'),
-  //   2,
-  //   'Default second task',
-  //   firstProject.getId(),
-  // );
-  // console.log('Task due on: ' + firstTask.getDueDate());
-  // firstProject.addTask(secondTask);
-
-  return appState;
+  return new AppState();
 })();
