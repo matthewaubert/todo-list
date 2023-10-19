@@ -11,27 +11,32 @@ export default class Project extends Item {
     this._tasks = []; // array of Task object instances
   }
 
-  // getters
+  // GETTERS
   getNotes() {
     return this._notes;
   }
-  getFolder() { 
+  // return id of parent Folder instance
+  getFolder() {
     return this._folder;
   }
+  // return all Task instances from _tasks array
   getTasks() {
     return this._tasks;
   }
 
-  // setters
+  // SETTERS
   setNotes(newNotes) {
     this._notes = newNotes;
   }
+  // change id to direct to a different Folder instance
   setFolder(newFolder) {
     this._folder = newFolder;
   }
+  // add input Task instance to _tasks array
   addTask(task) {
     this._tasks.push(task);
   }
+  // delete input Task instance from _tasks array
   deleteTask(task) {
     this._tasks.splice(this._tasks.indexOf(task), 1);
     console.log(`${task.getName()} deleted`);

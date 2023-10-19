@@ -51,11 +51,11 @@ class AppState {
     firstProject.addTask(firstTask);
   }
 
-  // return all Folder instances from AppState instance _folders array
+  // return all Folder instances from _folders array
   getFolders() {
     return this._folders;
   }
-  // return Folder instance from AppState instance that matches input id
+  // return Folder instance from _folders array that matches input id
   getFolderById(targetId) {
     return this._folders
       .find(folder => folder.getId() === targetId);
@@ -129,11 +129,11 @@ class AppState {
     }
   }
 
-  // add input Folder instance to AppState instance _folders array
+  // add input Folder instance to _folders array
   addFolder(newFolder) {
     this._folders.push(newFolder);
   }
-  // delete input Folder instance from AppState instance _folders array
+  // delete input Folder instance from _folders array
   deleteFolder(folder) {
     this._folders.splice(this._folders.indexOf(folder), 1); // remove folder from _folders array
     console.log('folder deleted');
@@ -152,11 +152,11 @@ class AppState {
     }
   }
 
-  // return AppState instance _currentFilter
+  // return current filter
   getCurrentFilter() {
     return this._currentFilter;
   }
-  // set AppState instance _currentFilter to new filter
+  // change current filter to new filter
   setCurrentFilter(newFilter) {
     this._currentFilter = newFilter;
   }

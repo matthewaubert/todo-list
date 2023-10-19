@@ -9,31 +9,19 @@ export default class Folder extends Item {
     this._projects = []; // array of Project instances
   }
 
-  // getters
+  // GETTERS
+  // return all Project instances from _projects array
   getProjects() {
     return this._projects;
   }
 
-  // setters
+  // SETTERS
+  // add input Project instance to _projects array
   addProject(project) {
     this._projects.push(project);
   }
+  // delete input Project instance from _projects array
   deleteProject(project) {
     this._projects.splice(this._projects.indexOf(project), 1);
-    console.log(`${project.getName()} deleted`);
   }
 }
-
-
-// const newFolder = new Folder('New Folder');
-// console.log(newFolder.getId());
-// console.log(newFolder.getItemType());
-// console.log(newFolder);
-// console.log(newFolder.getName());
-// newFolder.setName('Better Folder Name');
-// console.log(newFolder.getName());
-// newFolder.addProject('project1');
-// newFolder.addProject('project2');
-// console.log(newFolder.getProjects());
-// newFolder.deleteProject('project1');
-// console.log(newFolder.getProjects());
