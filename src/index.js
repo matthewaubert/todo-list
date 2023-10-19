@@ -1,35 +1,53 @@
 import appState from './modules/app-state';
+import { storageAvailable, serializeItems, deserializeItems } from './modules/local-storage';
+import renderController from './modules/render-controller';
 import { camelize, capitalize } from './modules/helpers';
 import Task from './modules/classes/task';
 import Project from './modules/classes/project';
 import Folder from './modules/classes/folder';
-import renderController from './modules/render-controller';
-import { serializeItems, deserializeItems } from './modules/local-storage';
-
-// console.log(appState.getTasks()[0].getName());
 
 // cache DOM
 const nav = document.querySelector('#nav');
 const navArrows = document.querySelectorAll('.nav-arrow');
 const navFilters = nav.querySelectorAll('li');
-const addItem = document.querySelector('.add-item');
+const addItemBtn = document.querySelector('.add-item');
 const modalMenu = document.querySelector('#modal-menu');
 const modalOptions = document.querySelectorAll('#modal-menu > p');
 const modalBackdrop = document.querySelector('#modal-backdrop');
 const modalForms = document.querySelectorAll('.modal-form');
 
 // add event listeners
-document.addEventListener('DOMContentLoaded', renderController.renderPage);
+document.addEventListener('DOMContentLoaded', initApp);
 navArrows.forEach(navArrow => navArrow.addEventListener('click', toggleNav));
 navFilters.forEach(navFilter => navFilter.addEventListener('click', loadFilter));
-addItem.addEventListener('click', toggleModalMenu);
+addItemBtn.addEventListener('click', toggleModalMenu);
 document.addEventListener('click', hideModalMenu);
 modalOptions.forEach(option => option.addEventListener('click', showModal));
 modalBackdrop.addEventListener('click', hideModal);
 modalForms.forEach(form => form.addEventListener('submit', handleFormSubmission));
 
 
-/* INIT STORAGE */
+/* INIT APP */
+
+// once DOM content loaded, init app
+function initApp() {
+  console.log('hello, initApp');
+  if (storageAvailable("localStorage")) {
+    console.log('Yippee! We can use localStorage awesomeness');
+    if (!localStorage.getItem('appStateFolders')) {
+      console.log('hello, localStorage');
+      appState.initItems(); // create default first items
+      serializeItems(); // store items in localStorage
+    } else {
+      deserializeItems(); // get items from localStorage
+    }
+  } else {
+    console.log('Too bad, no localStorage for us');
+    appState.initItems(); // create default first items
+  }
+
+  renderController.renderPage();
+}
 
 
 /* NAV FUNCTIONALITY */
@@ -63,13 +81,13 @@ function loadFilter(e) {
 
 // toggles menu with 3 options: create task, create project, create folder
 function toggleModalMenu() {
-  addItem.classList.toggle('rotated'); // rotate addItem button 45deg
+  addItemBtn.classList.toggle('rotated'); // rotate addItemBtn button 45deg
   modalMenu.classList.toggle('hidden'); // toggle modal menu
 }
 
 function hideModalMenu(e) {
-  if (e.target !== addItem) {
-    addItem.classList.remove('rotated');
+  if (e.target !== addItemBtn) {
+    addItemBtn.classList.remove('rotated');
     modalMenu.classList.add('hidden');
   }
 }
@@ -170,6 +188,7 @@ const createItem = {
     // console.log(appState.getTasks());
   
     renderController.renderItem.task(newTask);
+    if (storageAvailable("localStorage")) serializeItems(); // update storage
   },
   // create new Project instance from form submission
   project: formValues => {
@@ -180,6 +199,7 @@ const createItem = {
     // console.log(appState.getProjects());
 
     renderController.renderItem.project(newProject);
+    if (storageAvailable("localStorage")) serializeItems(); // update storage
   },
   // create new Folder instance from form submission
   folder: formValues => {
@@ -188,7 +208,9 @@ const createItem = {
     // console.log(appState.getFolders());
   
     renderController.renderItem.folder(newFolder);
+    if (storageAvailable("localStorage")) serializeItems(); // update storage
   },
+  // edit item instance from form submission
   edit: (formValues, itemId) => {
     console.log(formValues);
     // get item by id
@@ -201,13 +223,14 @@ const createItem = {
   
     renderController.removeItem(itemId); // delete related els from DOM
     renderController.renderItem[item.getItemType()](item); // render item
-
     // if item is a folder, render child projects
-    if (item.getItemType() === 'folder') {
+    if (item instanceof Folder) {
       item.getProjects().forEach(project => {
         renderController.renderItem.project(project)
       });
     }
+
+    if (storageAvailable("localStorage")) serializeItems(); // update storage
   }
 };
 
@@ -221,6 +244,8 @@ const deleteItem = {
       const parentProject = appState.getProjectById(task.getProject()); // find parent project
       parentProject.deleteTask(task); // delete task from parent project
     });
+
+    if (storageAvailable("localStorage")) serializeItems(); // update storage
   },
   project: function() {
     // get project by id
@@ -235,6 +260,8 @@ const deleteItem = {
     const folderId = project.getFolder();
     const folder = appState.getFolderById(folderId);
     folder.deleteProject(project); // delete project from folder
+
+    if (storageAvailable("localStorage")) serializeItems(); // update storage
   },
   folder: function() {
     // get folder by id
@@ -249,6 +276,8 @@ const deleteItem = {
     renderController.removeItem(folderId);
 
     appState.deleteFolder(folder); // delete folder from appState
+
+    if (storageAvailable("localStorage")) serializeItems(); // update storage
   }
 }
 

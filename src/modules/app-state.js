@@ -27,6 +27,28 @@ class AppState {
     }
   }
 
+  // add to appState initial default first folder, project, task
+  initItems() {
+    const firstFolder = new Folder('First Folder');
+    this.addFolder(firstFolder);
+    
+    const firstProject = new Project(
+      'First Project',
+      'Default first project',
+      firstFolder.getId()
+    );
+    firstFolder.addProject(firstProject);
+  
+    const firstTask = new Task(
+      'First task',
+      format(new Date(), 'yyyy-MM-dd'),
+      1,
+      'Default first task',
+      firstProject.getId()
+    );
+    firstProject.addTask(firstTask);
+  }
+
   // get all folders from AppState instance; accepts optional filter
   getFolders() {
     return this._folders;
@@ -130,26 +152,6 @@ class AppState {
 // export AppState instance with one default folder, project, and task
 export default (function() {
   const appState = new AppState();
-  
-  const firstFolder = new Folder('First Folder');
-  appState.addFolder(firstFolder);
-  
-  const firstProject = new Project(
-    'First Project',
-    'Default first project',
-    firstFolder.getId()
-  );
-  firstFolder.addProject(firstProject);
-
-  const firstTask = new Task(
-    'First task',
-    format(new Date(), 'yyyy-MM-dd'),
-    1,
-    'Default first task',
-    firstProject.getId(),
-  );
-  // console.log('Task due on: ' + firstTask.getDueDate());
-  firstProject.addTask(firstTask);
 
   // const secondTask = new Task(
   //   'Second Task',
