@@ -1,7 +1,7 @@
 import { format, parse, differenceInCalendarWeeks, differenceInCalendarMonths } from 'date-fns';
-import Folder from './classes/folder';
-import Project from './classes/project';
-import Task from './classes/task';
+import Folder from './classes/folder.js';
+import Project from './classes/project.js';
+import Task from './classes/task.js';
 
 // creates AppState instance, which controls state of application;
 // caches and contains functions to access all Folder, Project, Task instances;

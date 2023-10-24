@@ -1,10 +1,10 @@
-import appState from './modules/app-state';
-import { storageAvailable, serializeItems, deserializeItems } from './modules/local-storage';
-import renderController from './modules/render-controller';
-import { camelize, capitalize } from './modules/helpers';
-import Task from './modules/classes/task';
-import Project from './modules/classes/project';
-import Folder from './modules/classes/folder';
+import appState from './modules/app-state.js';
+import { storageAvailable, serializeItems, deserializeItems } from './modules/local-storage.js';
+import renderController from './modules/render-controller.js';
+import { camelize, capitalize } from './modules/helpers.js';
+import Task from './modules/classes/task.js';
+import Project from './modules/classes/project.js';
+import Folder from './modules/classes/folder.js';
 
 // cache DOM
 const nav = document.querySelector('#nav');
@@ -126,6 +126,7 @@ function hideModal(e) {
 function handleFormSubmission(e) {
   e.preventDefault();
   const formValues = getFormValues(e.target); // extract values from form
+  // console.log(formValues);
 
   const itemName = e.target.id.split('-')[0];
   createItem[itemName](formValues, e.target.dataset.for);
@@ -139,7 +140,7 @@ function getFormValues(formValues) {
     // if not a button
     if (field.tagName !== 'BUTTON') {
       if (field.type === 'radio') {
-        if (field.checked) obj[field.name] = field.value;
+        if (field.checked) obj[field.name] = Number(field.value);
       } else {
         obj[camelize(field.name)] = field.value;
       }
@@ -155,7 +156,7 @@ function setFormValues(form, item) {
     if (field.tagName !== 'BUTTON') {
       // handle radio inputs differently
       if (field.type === 'radio') {
-        if (field.value == item.getPriority()) {
+        if (Number(field.value) === item.getPriority()) {
           field.checked = true;
         }
       } else {
@@ -197,25 +198,51 @@ const createItem = {
   },
   // edit Item instance from form submission
   edit: (formValues, itemId) => {
+    console.log(formValues);
     const item = appState.getItemById(itemId); // get item by id
-  
-    // iterate over formValues
-    for (const value in formValues) {
-      item[`set${capitalize(value)}`](formValues[value]); // run appropriate 'set' funcs on item
+    
+    // if parent project/folder has changed, move item to correct parent project/folder
+    if (item instanceof Task || item instanceof Project) {
+      changeItemParent(item, formValues);
     }
+  
+    // iterate over formValues and run appropriate setter funcs on item
+    for (const value in formValues) {
+      console.log(`${value}: ${formValues[value]}`);
+      item[`set${capitalize(value)}`](formValues[value]);
+    }
+    console.log(item);
   
     renderController.removeItem(itemId); // delete related els from DOM
     renderController.renderItem[item.getItemType()](item); // render item
     // if item is a folder, render child projects
     if (item instanceof Folder) {
       item.getProjects().forEach(project => {
-        renderController.renderItem.project(project)
+        renderController.renderItem.project(project);
       });
     }
 
     if (storageAvailable("localStorage")) serializeItems(); // update storage
   }
 };
+
+// if parent project/folder has changed, move item to correct parent project/folder
+function changeItemParent(item, formValues) {
+  const parentType = item instanceof Task ? 'Project' : 'Folder'; // find parent type
+  const parentId = item[`get${parentType}`](); // get parent id
+
+  if (parentId !== formValues[parentType.toLowerCase()]) {
+    const itemType = capitalize(appState.getItemTypeById(item.getId()));
+
+    // get old parent by id and remove item from parent
+    const oldParent = appState[`get${parentType}ById`](parentId);
+    oldParent[`delete${itemType}`](item);
+
+    // get new parent by id and add item to parent
+    const newParent = appState[`get${parentType}ById`](formValues[parentType.toLowerCase()]);
+    newParent[`add${itemType}`](item);
+  }
+}
 
 
 /* MAIN PAGE FUNCTIONALITY */

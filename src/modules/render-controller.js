@@ -1,7 +1,7 @@
 import { format, parse } from 'date-fns';
-import appState from './app-state';
-import { loadFilter, showModal, deleteItem, toggleCompleted } from '../index'
-import { createSvg, setAttributes } from './helpers';
+import appState from './app-state.js';
+import { loadFilter, showModal, deleteItem, toggleCompleted } from '../index.js'
+import { createSvg, setAttributes } from './helpers.js';
 
 // exports object which controls any rendering to DOM
 export default (function() {

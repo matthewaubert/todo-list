@@ -1,7 +1,7 @@
-import appState from './app-state';
-import Folder from './classes/folder';
-import Project from './classes/project';
-import Task from './classes/task';
+import appState from './app-state.js';
+import Folder from './classes/folder.js';
+import Project from './classes/project.js';
+import Task from './classes/task.js';
 
 // check if storage is available; return boolean value
 function storageAvailable(type) {
