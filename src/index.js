@@ -201,7 +201,7 @@ const createItem = {
     console.log(formValues);
     const item = appState.getItemById(itemId); // get item by id
     
-    // if parent project/folder has changed, move item to correct parent project/folder
+    // if item is a Task or Project, move item to correct parent project/folder
     if (item instanceof Task || item instanceof Project) {
       changeItemParent(item, formValues);
     }
@@ -228,18 +228,20 @@ const createItem = {
 
 // if parent project/folder has changed, move item to correct parent project/folder
 function changeItemParent(item, formValues) {
-  const parentType = item instanceof Task ? 'Project' : 'Folder'; // find parent type
+  const parentType = item instanceof Task ? 'Project' : 'Folder'; // get parent type
   const parentId = item[`get${parentType}`](); // get parent id
 
   if (parentId !== formValues[parentType.toLowerCase()]) {
-    const itemType = capitalize(appState.getItemTypeById(item.getId()));
+    const itemType = capitalize(appState.getItemTypeById(item.getId())); // get item type
 
     // get old parent by id and remove item from parent
     const oldParent = appState[`get${parentType}ById`](parentId);
     oldParent[`delete${itemType}`](item);
 
     // get new parent by id and add item to parent
-    const newParent = appState[`get${parentType}ById`](formValues[parentType.toLowerCase()]);
+    const newParent = appState[`get${parentType}ById`](
+      formValues[parentType.toLowerCase()]
+    );
     newParent[`add${itemType}`](item);
   }
 }

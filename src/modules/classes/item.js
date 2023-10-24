@@ -17,7 +17,7 @@ export default class Item {
   }
 
   // setters
-  setName() {
-    return this._name;
+  setName(newName) {
+    this._name = newName;
   }
 }
